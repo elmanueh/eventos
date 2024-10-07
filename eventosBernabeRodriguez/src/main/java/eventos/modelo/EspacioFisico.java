@@ -25,6 +25,10 @@ public class EspacioFisico {
 		this.descripcion = descripcion;
 		this.estado = estado;
 	}
+	
+	public EspacioFisico(){
+		
+	}
 
 	public int getId() {
 		return id;

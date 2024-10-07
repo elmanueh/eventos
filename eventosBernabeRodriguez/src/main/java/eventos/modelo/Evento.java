@@ -22,6 +22,10 @@ public class Evento {
 		this.categoria = categoria;
 		this.ocupacion = ocupacion;
 	}
+	
+	public Evento(){
+		
+	}
 
 	public String getId() {
 		return id;

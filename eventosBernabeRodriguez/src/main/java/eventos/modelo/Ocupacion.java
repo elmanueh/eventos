@@ -6,14 +6,16 @@ public class Ocupacion {
 
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
+	private int idEspacioFisico;
 	private EspacioFisico espacioFisico;
 	// private boolean activa; // propiedad calculada
 
-	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, EspacioFisico espacioFisico) {
+	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, int idEspacioFisico) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		this.espacioFisico = espacioFisico;
+		this.idEspacioFisico = idEspacioFisico;
+		this.espacioFisico = new EspacioFisico();
 	}
 
 	public LocalDateTime getFechaInicio() {
