@@ -11,24 +11,28 @@ public class Evento {
 	private EventoCategoria categoria;
 	private Ocupacion ocupacion;
 
-	public Evento(String id, String nombre, String descripcion, String organizador, int plazas, boolean cancelado,
-			EventoCategoria categoria, Ocupacion ocupacion) {
-		this.id = id;
+	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria,
+			Ocupacion ocupacion) {
+		this.id = "1";
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;
 		this.plazas = plazas;
-		this.cancelado = cancelado;
+		this.cancelado = false;
 		this.categoria = categoria;
 		this.ocupacion = ocupacion;
 	}
-	
-	public Evento(){
-		
+
+	public Evento() {
+
 	}
 
 	public String getId() {
 		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNombre() {

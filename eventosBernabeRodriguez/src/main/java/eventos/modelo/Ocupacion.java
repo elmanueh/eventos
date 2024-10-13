@@ -6,16 +6,16 @@ public class Ocupacion {
 
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
-	private int idEspacioFisico;
-	private EspacioFisico espacioFisico;
+	private String id;
+	private String idEspacioFisico;
 	// private boolean activa; // propiedad calculada
 
-	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, int idEspacioFisico) {
+	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, String idEspacioFisico) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.id = "1";
 		this.idEspacioFisico = idEspacioFisico;
-		this.espacioFisico = new EspacioFisico();
 	}
 
 	public LocalDateTime getFechaInicio() {
@@ -26,12 +26,20 @@ public class Ocupacion {
 		return fechaFin;
 	}
 
-	public EspacioFisico getEspacioFisico() {
-		return espacioFisico;
+	public String getIdEspacioFisico() {
+		return idEspacioFisico;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	// Propieda Calculada
-	public boolean getActiva() {
+	public boolean isActiva() {
 		LocalDateTime fechaActual = LocalDateTime.now();
 		return fechaActual.isAfter(fechaInicio) && fechaActual.isBefore(fechaFin);
 	}

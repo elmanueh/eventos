@@ -1,37 +1,40 @@
 package eventos.modelo;
 
 public class EspacioFisico {
+import java.util.LinkedList;
 
-	private int id;
+
+	private String id;
 	private String nombre;
+	private String propietario;
 	private int capacidad;
 	private String direccion;
-	private float longitud;
-	private float latitud;
-	private PuntoInteres[] puntosInteres;
+	private double longitud;
+	private double latitud;
+	private LinkedList<PuntoInteres> puntosInteres;
 	private String descripcion;
 	private EspacioFisicoEstado estado;
 
-	public EspacioFisico(int id, String nombre, int capacidad, String direccion, float longitud, float latitud,
-			PuntoInteres[] puntosInteres, String descripcion, EspacioFisicoEstado estado) {
-		super();
-		this.id = id;
+	public EspacioFisico(String nombre, String propietario, int capacidad, String direccion, double latitud,
+			double longitud, String descripcion) {
 		this.nombre = nombre;
+		this.propietario = propietario;
 		this.capacidad = capacidad;
 		this.direccion = direccion;
 		this.longitud = longitud;
 		this.latitud = latitud;
-		this.puntosInteres = puntosInteres;
 		this.descripcion = descripcion;
-		this.estado = estado;
-	}
-	
-	public EspacioFisico(){
-		
+
+		this.estado = EspacioFisicoEstado.ACTIVO;
+		this.puntosInteres = new LinkedList<PuntoInteres>();
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -46,20 +49,24 @@ public class EspacioFisico {
 		return direccion;
 	}
 
-	public float getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
 
-	public float getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
 
-	public PuntoInteres[] getPuntosInteres() {
+	public LinkedList<PuntoInteres> getPuntosInteres() {
 		return puntosInteres;
 	}
 
 	public String getDescripcion() {
 		return descripcion;
+	}
+
+	public String getPropietario() {
+		return propietario;
 	}
 
 	public EspacioFisicoEstado getEstado() {
