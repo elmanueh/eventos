@@ -1,8 +1,10 @@
 package eventos.modelo;
 
-public class EspacioFisico {
 import java.util.LinkedList;
 
+import eventos.repositorio.Identificable;
+
+public class EspacioFisico implements Identificable {
 
 	private String id;
 	private String nombre;

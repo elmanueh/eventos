@@ -8,23 +8,40 @@ import eventos.modelo.EspacioFisico;
 import eventos.modelo.Evento;
 import eventos.modelo.EventoCategoria;
 import eventos.modelo.Ocupacion;
+import eventos.repositorio.EntidadNoEncontrada;
+import eventos.repositorio.RepositorioMemoria;
 
-public class ServicioEventos {
+public class ServicioEventos implements IServicioEventos {
+
+	private RepositorioMemoria<EspacioFisico> repositorioEspacio;
+	private RepositorioMemoria<Ocupacion> repositorioOcupacion;
+	private RepositorioMemoria<Evento> repositorioEvento;
 
 	public ServicioEventos() {
-		// TODO Auto-generated constructor stub
+		repositorioEspacio = new RepositorioMemoria<EspacioFisico>();
+		repositorioOcupacion = new RepositorioMemoria<Ocupacion>();
+		repositorioEvento = new RepositorioMemoria<Evento>();
 	}
 
-			int idEspacioFisico /* FALTA CATEGORIA */) {
-		String id = "13234213212";
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
+
+		try {
+			if (numPlazas > repositorioEspacio.getById(idEspacioFisico).getCapacidad()) // Corregir
+				throw new IllegalArgumentException("numPlazas: debe ser menos a la ocupación del espacio físico.");
+		} catch (EntidadNoEncontrada e) {
+			e.printStackTrace();
+		}
+
 		Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, idEspacioFisico);
+		repositorioOcupacion.add(ocupacion);
 
-		if (numPlazas > ocupacion.getEspacioFisico().getCapacidad())
-			throw new IllegalArgumentException("numPlazas: debe ser menos a la ocupación del espacio físico.");
+		Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
 
-		Evento evento = new Evento(id, nombre, descripcion, organizador, numPlazas, false, categoria, ocupacion);
+		String id = repositorioEvento.add(evento);
+
+		return id;
+
 	}
 
 	public void modificarEvento(String idEvento, Map<String, Object> atributos) { // INCOMPLETO
@@ -49,10 +66,26 @@ public class ServicioEventos {
 		 * un evento y lo pone a cancelado. La cancelación de un evento implica el
 		 * borrado de la ocupación para el espacio físico del mismo.
 		 */
-
+		Evento evento;
+		try {
+			evento = repositorioEvento.getById(idEvento);
+			evento.setCancelado();
+			repositorioOcupacion.delete(evento.getOcupacion());
+			repositorioEvento.update(evento);
+		} catch (EntidadNoEncontrada e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// ELIMINAR DE LA BASE DE DATOS evento.getOcupacion();
 	}
 
-		return new LinkedList<Evento>();
 	public String eventosDelMes(int mes, int año) {
+		LinkedList<Evento> eventos = new LinkedList<Evento>(repositorioEvento.getAll());
+		String cadena = "";
+
+		eventos.stream().filter(e -> e.entreFechas(mes, año)).forEach(e -> cadena.concat(e.toString()));
+
+		return cadena;
 	}
+
 }

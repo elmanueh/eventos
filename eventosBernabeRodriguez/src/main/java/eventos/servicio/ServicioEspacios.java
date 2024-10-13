@@ -7,11 +7,17 @@ import java.util.Map;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoInteres;
+import eventos.repositorio.EntidadNoEncontrada;
+import eventos.repositorio.RepositorioMemoria;
 
-public class ServicioEspacios {
+public class ServicioEspacios implements IServicioEspacios {
+
+	private RepositorioMemoria<EspacioFisico> repositorioEspacio;
+	private RepositorioMemoria<Ocupacion> repositorioOcupacion;
 
 	public ServicioEspacios() {
-		// TODO Auto-generated constructor stub
+		repositorioEspacio = new RepositorioMemoria<EspacioFisico>();
+		repositorioOcupacion = new RepositorioMemoria<Ocupacion>();
 	}
 
 	public String altaEspacioFisico(String nombre, String propietario, int capacidad, String direccionPostal,
@@ -20,22 +26,56 @@ public class ServicioEspacios {
 		EspacioFisico espacio = new EspacioFisico(nombre, propietario, capacidad, direccionPostal, latitud, longidud,
 				descripcion);
 
+		String id = repositorioEspacio.add(espacio);
 
 		return id;
 	}
 
-	public void modificarEspacioFisico(int idEspacioFisico) {
+	public void asignarPuntosDeInteres(String idEspacioFisico, LinkedList<PuntoInteres> puntosInteres) {
+		EspacioFisico espacio;
+		try {
+			espacio = repositorioEspacio.getById(idEspacioFisico);
+			espacio.setPuntosInteres(puntosInteres);
+			repositorioEspacio.update(espacio);
+		} catch (EntidadNoEncontrada e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void modificarEspacioFisico(String idEspacioFisico, Map<String, Object> atributos) {
 		throw new UnsupportedOperationException("Unimplemented method 'modificarEspacioFisico'");
 	}
 
-		// coge el espacio y pone el estado a cerrado temporalmente
 	public void bajaEspacioFisico(String idEspacioFisico) { // coge el espacio y pone el estado a cerrado temporalmente
+		boolean cerrar = true;
+
+		LinkedList<Ocupacion> ocupaciones = new LinkedList<>(repositorioOcupacion.getAll());
+		for (Ocupacion ocu : ocupaciones) {
+			if (ocu.getIdEspacioFisico().equals(idEspacioFisico) && ocu.isActiva()) {
+				cerrar = false;
+			}
+		}
+		if (cerrar) {
+			EspacioFisico espacio;
+			try {
+				espacio = repositorioEspacio.getById(idEspacioFisico);
+				espacio.cerrar();
+				repositorioEspacio.update(espacio);
+			} catch (EntidadNoEncontrada e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
-		// coge el espacio y pone el estado a activo
 	public void activarEspacioFisico(String idEspacioFisico) {
+		EspacioFisico espacio;
+		try {
+			espacio = repositorioEspacio.getById(idEspacioFisico);
+			espacio.activar();
+			repositorioEspacio.update(espacio);
+		} catch (EntidadNoEncontrada e) {
+			e.printStackTrace();
+		}
 	}
 
 	public LinkedList<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,

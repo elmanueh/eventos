@@ -2,7 +2,9 @@ package eventos.modelo;
 
 import java.time.LocalDateTime;
 
-public class Ocupacion {
+import eventos.repositorio.Identificable;
+
+public class Ocupacion implements Identificable {
 
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;

@@ -1,5 +1,8 @@
 package eventos.modelo;
 
+import eventos.repositorio.Identificable;
+
+public class Evento implements Identificable {
 
 	private String id;
 	private String nombre;
