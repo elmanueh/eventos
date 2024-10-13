@@ -1,0 +1,52 @@
+package eventos.servicio.test;
+
+import eventos.servicio.IServicioEspacios;
+import eventos.servicio.ServicioEspacios;
+import eventos.servicio.IServicioEventos;
+import eventos.servicio.ServicioEventos;
+import eventos.servicio.PuntosDeInteres;
+import java.time.LocalDateTime;
+import eventos.modelo.EventoCategoria;
+import eventos.modelo.PuntoInteres;
+
+import java.util.LinkedList;
+
+public class Programa {
+
+	public static void main(String[] args) {
+
+		IServicioEspacios servicioEspacios = new ServicioEspacios();
+		IServicioEventos servicioEventos = new ServicioEventos();
+		PuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
+
+		// 1. Dar de alta un espacio físico con todos sus datos. Obtener el id asignado.
+		String idEspacio = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",
+				37.984123153048316, -1.1291804565199284, "descripcion");
+		System.out.println("Espacio creado con id: " + idEspacio);
+
+		// 2. Buscar puntos de interés dadas unas coordenadas.
+		double latitud = 37.984123153048316;
+		double longitud = -1.1291804565199284;
+		LinkedList<PuntoInteres> puntos = servicioPuntosDeInteres.obtenerPuntosInteres(latitud, longitud);
+
+		// 3. Seleccionar parte de esos puntos de interés y asignarlos al espacio físico
+		// anteriormente creado.
+		servicioEspacios.asignarPuntosDeInteres(idEspacio, puntos);
+
+		// 4. Dar de baja espacio físico.
+		servicioEspacios.bajaEspacioFisico(idEspacio);
+
+		// 6. Dar de alta un evento en dicho espacio físico. Obtener el id asignado.
+		String idEvento = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
+				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio);
+		System.out.println("Evento creado con id: " + idEvento);
+
+		// 7. Buscar eventos durante Febrero 2025.
+		System.out.println("Los siguientes eventos se celebran en Febrero de 2025:");
+		System.out.println(servicioEventos.eventosDelMes(2, 2025));
+
+		// 8. Cancelar evento.
+		servicioEventos.cancelarEvento(idEvento);
+	}
+
+}
