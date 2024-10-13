@@ -14,41 +14,40 @@ import java.io.StringReader;
 
 public class XMLProcessor {
 
-    // Método para procesar el XML y extraer los puntos de interés
-    public LinkedList<PuntoInteres> procesarXML(String xml) {
-        LinkedList<PuntoInteres> listaPuntos = new LinkedList<>();
+	// Método para procesar el XML y extraer los puntos de interés
+	public LinkedList<PuntoInteres> procesarXML(String xml) {
+		LinkedList<PuntoInteres> listaPuntos = new LinkedList<>();
 
-        try {
-            // Procesar la respuesta XML usando DOM
-            DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
-            DocumentBuilder analizador = factoria.newDocumentBuilder();
-            InputSource enlace = new InputSource(new StringReader(xml));
-            Document documento = analizador.parse(enlace);
+		try {
+			// Procesar la respuesta XML usando DOM
+			DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
+			DocumentBuilder analizador = factoria.newDocumentBuilder();
+			InputSource enlace = new InputSource(new StringReader(xml));
+			Document documento = analizador.parse(enlace);
 
-            // Obtener todos los elementos 'entry' del XML
-            NodeList entries = documento.getElementsByTagName("entry");
+			// Obtener todos los elementos 'entry' del XMLs
+			NodeList entries = documento.getElementsByTagName("entry");
 
-            // Iterar sobre los resultados y agregar a la lista
-            for (int i = 0; i < entries.getLength(); i++) {
-                Element entry = (Element) entries.item(i);
+			// Iterar sobre los resultados y agregar a la lista
+			for (int i = 0; i < entries.getLength(); i++) {
+				Element entry = (Element) entries.item(i);
 
-                // Extraer la información que desees (title, summary, lat, lng)
-                String title = entry.getElementsByTagName("title").item(0).getTextContent();
-                String summary = entry.getElementsByTagName("summary").item(0).getTextContent();
-                String discance = entry.getElementsByTagName("distance").item(0).getTextContent();
-                String wikipediaUrl = entry.getElementsByTagName("wikipediaUrl").item(0).getTextContent();
+				// Extraer la información que desees (title, summary, lat, lng)
+				String title = entry.getElementsByTagName("title").item(0).getTextContent();
+				String summary = entry.getElementsByTagName("summary").item(0).getTextContent();
+				String discance = entry.getElementsByTagName("distance").item(0).getTextContent();
+				String wikipediaUrl = entry.getElementsByTagName("wikipediaUrl").item(0).getTextContent();
 
-                // Crear un objeto PuntoInteres y añadirlo a la lista
-                PuntoInteres punto = new PuntoInteres(title, summary, discance, wikipediaUrl);
-                listaPuntos.add(punto);
-            }
+				// Crear un objeto PuntoInteres y añadirlo a la lista
+				PuntoInteres punto = new PuntoInteres(title, summary, discance, wikipediaUrl);
+				listaPuntos.add(punto);
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        // Devolver la lista de puntos de interés
-        return listaPuntos;
-    }
+		// Devolver la lista de puntos de interés
+		return listaPuntos;
+	}
 }
-
