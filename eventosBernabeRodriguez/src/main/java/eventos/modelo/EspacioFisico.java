@@ -73,4 +73,16 @@ import java.util.LinkedList;
 		return estado;
 	}
 
+	public void setPuntosInteres(LinkedList<PuntoInteres> puntosInteres) {
+		this.puntosInteres.addAll(puntosInteres);
+	}
+
+	public void activar() {
+		this.estado = EspacioFisicoEstado.ACTIVO;
+	}
+
+	public void cerrar() {
+		this.estado = EspacioFisicoEstado.CERRADO_TEMPORALMENTE;
+	}
+
 }

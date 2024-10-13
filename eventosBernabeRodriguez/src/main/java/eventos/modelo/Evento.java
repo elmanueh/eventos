@@ -1,6 +1,5 @@
 package eventos.modelo;
 
-public class Evento {
 
 	private String id;
 	private String nombre;
@@ -63,4 +62,11 @@ public class Evento {
 		return ocupacion;
 	}
 
+	public boolean entreFechas(int mes, int año) {
+		return ocupacion.entreFechas(mes, año);
+	}
+
+	public void setCancelado() {
+		cancelado = true;
+	}
 }

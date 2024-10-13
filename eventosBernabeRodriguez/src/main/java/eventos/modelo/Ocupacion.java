@@ -44,4 +44,9 @@ public class Ocupacion {
 		return fechaActual.isAfter(fechaInicio) && fechaActual.isBefore(fechaFin);
 	}
 
+	public boolean entreFechas(int mes, int año) {
+		LocalDateTime a = LocalDateTime.of(año, mes, 1, 0, 0);
+		return fechaInicio.isBefore(a) && fechaFin.isAfter(a);
+	}
+
 }
