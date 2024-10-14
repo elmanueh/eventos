@@ -1,5 +1,6 @@
 package eventos.servicio.test;
 
+import eventos.servicio.IPuntosDeInteres;
 import eventos.servicio.IServicioEspacios;
 import eventos.servicio.ServicioEspacios;
 import eventos.servicio.IServicioEventos;
@@ -17,7 +18,7 @@ public class Programa {
 
 		IServicioEspacios servicioEspacios = new ServicioEspacios();
 		IServicioEventos servicioEventos = new ServicioEventos();
-		PuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
+		IPuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
 
 		// 1. Dar de alta un espacio físico con todos sus datos. Obtener el id asignado.
 		String idEspacio = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",

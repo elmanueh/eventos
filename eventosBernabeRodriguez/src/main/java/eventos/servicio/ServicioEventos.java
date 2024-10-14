@@ -23,6 +23,7 @@ public class ServicioEventos implements IServicioEventos {
 		repositorioEvento = new RepositorioMemoria<Evento>();
 	}
 
+	@Override
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
 
@@ -47,6 +48,7 @@ public class ServicioEventos implements IServicioEventos {
 		return null;
 	}
 
+	@Override
 	public void modificarEvento(String idEvento, Map<String, Object> atributos) { // INCOMPLETO
 		/**
 		 * Modificar un evento. Esta operación recibe como parámetro el identificador de
@@ -63,6 +65,7 @@ public class ServicioEventos implements IServicioEventos {
 
 	}
 
+	@Override
 	public void cancelarEvento(String idEvento) {
 		/**
 		 * Cancelar un evento. Esta operación recibe como parámetro el identificador de
@@ -82,6 +85,7 @@ public class ServicioEventos implements IServicioEventos {
 		// ELIMINAR DE LA BASE DE DATOS evento.getOcupacion();
 	}
 
+	@Override
 	public String eventosDelMes(int mes, int año) {
 		LinkedList<Evento> eventos = new LinkedList<Evento>(repositorioEvento.getAll());
 		String cadena = "";

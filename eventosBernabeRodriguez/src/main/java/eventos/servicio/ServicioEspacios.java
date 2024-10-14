@@ -20,6 +20,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		repositorioOcupacion = new RepositorioMemoria<Ocupacion>();
 	}
 
+	@Override
 	public String altaEspacioFisico(String nombre, String propietario, int capacidad, String direccionPostal,
 			double latitud, double longidud, String descripcion) {
 
@@ -31,6 +32,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		return id;
 	}
 
+	@Override
 	public void asignarPuntosDeInteres(String idEspacioFisico, LinkedList<PuntoInteres> puntosInteres) {
 		EspacioFisico espacio;
 		try {
@@ -42,10 +44,12 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
+	@Override
 	public void modificarEspacioFisico(String idEspacioFisico, Map<String, Object> atributos) {
 		throw new UnsupportedOperationException("Unimplemented method 'modificarEspacioFisico'");
 	}
 
+	@Override
 	public void bajaEspacioFisico(String idEspacioFisico) { // coge el espacio y pone el estado a cerrado temporalmente
 		boolean cerrar = true;
 
@@ -67,6 +71,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
+	@Override
 	public void activarEspacioFisico(String idEspacioFisico) {
 		EspacioFisico espacio;
 		try {
@@ -78,6 +83,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
+	@Override
 	public LinkedList<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
 			int capacidad) {
 		/*
