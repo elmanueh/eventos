@@ -17,26 +17,29 @@ public class Programa {
 	public static void main(String[] args) {
 
 		IServicioEspacios servicioEspacios = new ServicioEspacios();
-		IServicioEventos servicioEventos = new ServicioEventos();
-		IPuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
+		//IServicioEventos servicioEventos = new ServicioEventos();
+		//IPuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
 
 		// 1. Dar de alta un espacio físico con todos sus datos. Obtener el id asignado.
 		String idEspacio = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",
 				37.984123153048316, -1.1291804565199284, "descripcion");
 		System.out.println("Espacio creado con id: " + idEspacio);
 
-		// 2. Buscar puntos de interés dadas unas coordenadas.
+		/*// 2. Buscar puntos de interés dadas unas coordenadas.
 		double latitud = 37.984123153048316;
 		double longitud = -1.1291804565199284;
 		LinkedList<PuntoInteres> puntos = servicioPuntosDeInteres.obtenerPuntosInteres(latitud, longitud);
 
 		// 3. Seleccionar parte de esos puntos de interés y asignarlos al espacio físico
 		// anteriormente creado.
-		servicioEspacios.asignarPuntosDeInteres(idEspacio, puntos);
+		servicioEspacios.asignarPuntosDeInteres(idEspacio, puntos);*/
 
 		// 4. Dar de baja espacio físico.
-		servicioEspacios.bajaEspacioFisico(idEspacio);
+		//servicioEspacios.bajaEspacioFisico(idEspacio);
+		
+		//servicioEspacios.activarEspacioFisico(idEspacio);
 
+		/*
 		// 6. Dar de alta un evento en dicho espacio físico. Obtener el id asignado.
 		// Aquí falla pq en servicioEventos no está el Espacio en el repositorioEspacio, 
 		// por tanto no encuentra nada y lanza excepción
@@ -53,6 +56,7 @@ public class Programa {
 
 		// 8. Cancelar evento.
 		//servicioEventos.cancelarEvento(idEvento);
+		 * */
 	}
 
 }

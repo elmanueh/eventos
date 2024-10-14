@@ -12,7 +12,7 @@ public class EntityManagerHelper {
 
     static {    
 
-        entityManagerFactory = Persistence.createEntityManagerFactory("encuestas");
+        entityManagerFactory = Persistence.createEntityManagerFactory("eventos");
 
         entityManagerHolder = new ThreadLocal<EntityManager>();
 
@@ -22,11 +22,11 @@ public class EntityManagerHelper {
     public static EntityManager getEntityManager() {
 
         EntityManager entityManager = entityManagerHolder.get();
+        
 
         if (entityManager == null || !entityManager.isOpen()) {
 
             entityManager = entityManagerFactory.createEntityManager();
-
             entityManagerHolder.set(entityManager);
 
         }
