@@ -27,7 +27,7 @@ public class PuntoInteres {
 		
 	}
 
-	public PuntoInteres(String nombre, String descripcion, String distancia, String url) {
+	public PuntoInteres(String nombre, String descripcion, float distancia, String url) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -43,7 +43,7 @@ public class PuntoInteres {
 		return descripcion;
 	}
 
-	public String getDistancia() {
+	public float getDistancia() {
 		return distancia;
 	}
 

@@ -35,11 +35,11 @@ public class XMLProcessor {
 				// Extraer la información que desees (title, summary, lat, lng)
 				String title = entry.getElementsByTagName("title").item(0).getTextContent();
 				String summary = entry.getElementsByTagName("summary").item(0).getTextContent();
-				String discance = entry.getElementsByTagName("distance").item(0).getTextContent();
+				String distance = entry.getElementsByTagName("distance").item(0).getTextContent();
 				String wikipediaUrl = entry.getElementsByTagName("wikipediaUrl").item(0).getTextContent();
 
 				// Crear un objeto PuntoInteres y añadirlo a la lista
-				PuntoInteres punto = new PuntoInteres(title, summary, discance, wikipediaUrl);
+				PuntoInteres punto = new PuntoInteres(title, summary, Float.parseFloat(distance), wikipediaUrl);
 				listaPuntos.add(punto);
 			}
 
