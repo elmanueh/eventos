@@ -9,15 +9,15 @@ public class Ocupacion implements Identificable {
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
 	private String id;
-	private String idEspacioFisico;
+	private EspacioFisico espacioFisico;
 	// private boolean activa; // propiedad calculada
 
-	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, String idEspacioFisico) {
+	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, EspacioFisico espacioFisico) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.id = "1";
-		this.idEspacioFisico = idEspacioFisico;
+		this.espacioFisico = espacioFisico;
 	}
 
 	public LocalDateTime getFechaInicio() {
@@ -28,8 +28,8 @@ public class Ocupacion implements Identificable {
 		return fechaFin;
 	}
 
-	public String getIdEspacioFisico() {
-		return idEspacioFisico;
+	public EspacioFisico getEspacioFisico() {
+		return espacioFisico;
 	}
 
 	public String getId() {

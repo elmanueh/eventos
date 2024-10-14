@@ -51,7 +51,7 @@ public class ServicioEspacios implements IServicioEspacios {
 
 		LinkedList<Ocupacion> ocupaciones = new LinkedList<>(repositorioOcupacion.getAll());
 		for (Ocupacion ocu : ocupaciones) {
-			if (ocu.getIdEspacioFisico().equals(idEspacioFisico) && ocu.isActiva()) {
+			if (ocu.getEspacioFisico().getId().equals(idEspacioFisico) && ocu.isActiva()) {
 				cerrar = false;
 			}
 		}

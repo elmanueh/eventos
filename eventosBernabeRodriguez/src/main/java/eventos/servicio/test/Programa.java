@@ -37,16 +37,21 @@ public class Programa {
 		servicioEspacios.bajaEspacioFisico(idEspacio);
 
 		// 6. Dar de alta un evento en dicho espacio físico. Obtener el id asignado.
-		String idEvento = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
+		// Aquí falla pq en servicioEventos no está el Espacio en el repositorioEspacio, 
+		// por tanto no encuentra nada y lanza excepción
+		String idEvento;
+		idEvento = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
 				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio);
 		System.out.println("Evento creado con id: " + idEvento);
+		
+		// Obviamente
 
 		// 7. Buscar eventos durante Febrero 2025.
 		System.out.println("Los siguientes eventos se celebran en Febrero de 2025:");
 		System.out.println(servicioEventos.eventosDelMes(2, 2025));
 
 		// 8. Cancelar evento.
-		servicioEventos.cancelarEvento(idEvento);
+		//servicioEventos.cancelarEvento(idEvento);
 	}
 
 }

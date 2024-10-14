@@ -26,22 +26,25 @@ public class ServicioEventos implements IServicioEventos {
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
 
+		EspacioFisico espacio;
 		try {
-			if (numPlazas > repositorioEspacio.getById(idEspacioFisico).getCapacidad()) // Corregir
+			espacio = repositorioEspacio.getById(idEspacioFisico);
+			if (numPlazas > espacio.getCapacidad()) // Corregir
 				throw new IllegalArgumentException("numPlazas: debe ser menos a la ocupación del espacio físico.");
+
+			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacio);
+			repositorioOcupacion.add(ocupacion);
+
+			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
+
+			String id = repositorioEvento.add(evento);
+
+			return id;
 		} catch (EntidadNoEncontrada e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, idEspacioFisico);
-		repositorioOcupacion.add(ocupacion);
-
-		Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
-
-		String id = repositorioEvento.add(evento);
-
-		return id;
-
+		return null;
 	}
 
 	public void modificarEvento(String idEvento, Map<String, Object> atributos) { // INCOMPLETO
