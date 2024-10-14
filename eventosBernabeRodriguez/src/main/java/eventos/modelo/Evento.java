@@ -1,21 +1,43 @@
 package eventos.modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import eventos.repositorio.Identificable;
 
+@Entity
+@Table(name = "Evento")
 public class Evento implements Identificable {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String nombre;
+	
+	@Lob //Texto más largo de JPA
 	private String descripcion;
 	private String organizador;
 	private int plazas;
 	private boolean cancelado;
+	
+	@Enumerated
 	private EventoCategoria categoria;
+	
+	@OneToOne
 	private Ocupacion ocupacion;
+	
+	public Evento() {
+		
+	}
 
 	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria,
 			Ocupacion ocupacion) {
-		this.id = "1";
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;
@@ -23,10 +45,6 @@ public class Evento implements Identificable {
 		this.cancelado = false;
 		this.categoria = categoria;
 		this.ocupacion = ocupacion;
-	}
-
-	public Evento() {
-
 	}
 
 	public String getId() {

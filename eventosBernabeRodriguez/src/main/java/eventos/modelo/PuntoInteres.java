@@ -1,11 +1,31 @@
 package eventos.modelo;
 
-public class PuntoInteres {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="PuntoInteres")
+public class PuntoInteres {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private String id;
 	private String nombre;
+	
+	@Lob //Texto más largo de JPA
 	private String descripcion;
-	private String distancia;
+	private float distancia;
+	
+	@Lob //Texto más largo de JPA
 	private String url;
+	
+	public PuntoInteres() {
+		
+	}
 
 	public PuntoInteres(String nombre, String descripcion, String distancia, String url) {
 		super();

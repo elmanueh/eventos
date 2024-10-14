@@ -1,11 +1,26 @@
 package eventos.modelo;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import eventos.repositorio.Identificable;
 
+@Entity
+@Table(name="EspacioFisico")
 public class EspacioFisico implements Identificable {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String nombre;
 	private String propietario;
@@ -13,9 +28,20 @@ public class EspacioFisico implements Identificable {
 	private String direccion;
 	private double longitud;
 	private double latitud;
-	private LinkedList<PuntoInteres> puntosInteres;
+	
+	@Lob //Texto más largo de JPA
 	private String descripcion;
+	
+	@Enumerated
 	private EspacioFisicoEstado estado;
+	
+	@OneToMany
+	@JoinTable(name="EspacioFisico_PuntoInteres")
+	private List<PuntoInteres> puntosInteres;
+	
+	public EspacioFisico() {
+		
+	}
 
 	public EspacioFisico(String nombre, String propietario, int capacidad, String direccion, double latitud,
 			double longitud, String descripcion) {
@@ -59,8 +85,8 @@ public class EspacioFisico implements Identificable {
 		return latitud;
 	}
 
-	public LinkedList<PuntoInteres> getPuntosInteres() {
-		return puntosInteres;
+	public List<PuntoInteres> getPuntosInteres() {
+		return new LinkedList<PuntoInteres>(puntosInteres);
 	}
 
 	public String getDescripcion() {
