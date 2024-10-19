@@ -3,7 +3,6 @@ package eventos.servicio;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import eventos.modelo.PuntoInteres;
 import eventos.modelo.EspacioFisico;
@@ -15,7 +14,7 @@ public interface IServicioEspacios {
 
 	void asignarPuntosDeInteres(String idEspacioFisico, LinkedList<PuntoInteres> puntosInteres);
 
-	void modificarEspacioFisico(String idEspacioFisico, Map<String, Object> atributos);
+	void modificarEspacioFisico(String idEspacioFisico, String nombre, int capacidad, String descripcion);
 
 	void bajaEspacioFisico(String idEspacioFisico);
 

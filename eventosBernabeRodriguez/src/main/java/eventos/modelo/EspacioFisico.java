@@ -16,9 +16,9 @@ import javax.persistence.Table;
 import eventos.repositorio.Identificable;
 
 @Entity
-@Table(name="EspacioFisico")
+@Table(name = "EspacioFisico")
 public class EspacioFisico implements Identificable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
@@ -28,19 +28,19 @@ public class EspacioFisico implements Identificable {
 	private String direccion;
 	private double longitud;
 	private double latitud;
-	
-	@Lob //Texto más largo de JPA
+
+	@Lob // Texto más largo de JPA
 	private String descripcion;
-	
+
 	@Enumerated
 	private EspacioFisicoEstado estado;
-	
+
 	@OneToMany
-	@JoinTable(name="EspacioFisico_PuntoInteres")
+	@JoinTable(name = "EspacioFisico_PuntoInteres")
 	private List<PuntoInteres> puntosInteres;
-	
+
 	public EspacioFisico() {
-		
+
 	}
 
 	public EspacioFisico(String nombre, String propietario, int capacidad, String direccion, double latitud,
@@ -99,6 +99,21 @@ public class EspacioFisico implements Identificable {
 
 	public EspacioFisicoEstado getEstado() {
 		return estado;
+	}
+
+	public void setNombre(String nombre) {
+		if (nombre != null)
+			this.nombre = nombre;
+	}
+
+	public void setCapacidad(int capacidad) {
+		if (capacidad != -1)
+			this.capacidad = capacidad;
+	}
+
+	public void setDescripcion(String descripcion) {
+		if (descripcion != null)
+			this.descripcion = descripcion;
 	}
 
 	public void setPuntosInteres(LinkedList<PuntoInteres> puntosInteres) {
