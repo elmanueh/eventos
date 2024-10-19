@@ -2,39 +2,37 @@ package eventos.servicio;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.Map;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
+import eventos.repositorio.FactoriaRepositorios;
 import eventos.repositorio.IRepositorio;
-import eventos.repositorio.RepositorioEspacioFisicoJPA;
 import eventos.repositorio.RepositorioException;
-import eventos.repositorio.RepositorioOcupacionJPA;
 
 public class ServicioEspacios implements IServicioEspacios {
-	
+
 	private IRepositorio<EspacioFisico, String> repositorioEspacioFisico;
 	private IRepositorio<Ocupacion, String> repositorioOcupacion;
-	
+
 	public ServicioEspacios() {
 		try {
-			repositorioEspacioFisico = RepositorioEspacioFisicoJPA.class.getConstructor().newInstance();
-			repositorioOcupacion = RepositorioOcupacionJPA.class.getConstructor().newInstance();
+			repositorioEspacioFisico = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
+			repositorioOcupacion = FactoriaRepositorios.getRepositorio(Ocupacion.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error al instanciar los repositorios");
 		}
 	}
 
-	@Override //CORRECTO
+	@Override // CORRECTO
 	public String altaEspacioFisico(String nombre, String propietario, int capacidad, String direccionPostal,
 			double latitud, double longidud, String descripcion) {
 
 		EspacioFisico espacio = new EspacioFisico(nombre, propietario, capacidad, direccionPostal, latitud, longidud,
 				descripcion);
-				
+
 		String id = null;
 		try {
 			id = repositorioEspacioFisico.add(espacio);
@@ -45,21 +43,21 @@ public class ServicioEspacios implements IServicioEspacios {
 		return id;
 	}
 
-	@Override //CORRECTO
+	@Override // CORRECTO
 	public void asignarPuntosDeInteres(String idEspacioFisico, LinkedList<PuntoInteres> puntosInteres) {
 		EspacioFisico espacio;
-			try {
-				espacio = repositorioEspacioFisico.getById(idEspacioFisico);
-				espacio.setPuntosInteres(puntosInteres);
-				repositorioEspacioFisico.update(espacio);
-			} catch (RepositorioException | EntidadNoEncontrada e) {
-				e.printStackTrace();
-			}	
+		try {
+			espacio = repositorioEspacioFisico.getById(idEspacioFisico);
+			espacio.setPuntosInteres(puntosInteres);
+			repositorioEspacioFisico.update(espacio);
+		} catch (RepositorioException | EntidadNoEncontrada e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override //CORRECTO
+	@Override // CORRECTO
 	public void modificarEspacioFisico(String idEspacioFisico, String nombre, int capacidad, String descripcion) {
-		
+
 		try {
 			EspacioFisico espacio = repositorioEspacioFisico.getById(idEspacioFisico);
 			espacio.setNombre(nombre);
@@ -69,10 +67,10 @@ public class ServicioEspacios implements IServicioEspacios {
 		} catch (RepositorioException | EntidadNoEncontrada e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	@Override //CORRECTO
+	@Override // CORRECTO || CONSIDERAR UTILIZAR LO OTRO
 	public void bajaEspacioFisico(String idEspacioFisico) { // coge el espacio y pone el estado a cerrado temporalmente
 		try {
 			boolean cerrar = true;
@@ -91,7 +89,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
-	@Override //CORRECTO
+	@Override // CORRECTO
 	public void activarEspacioFisico(String idEspacioFisico) {
 		try {
 			EspacioFisico espacio = repositorioEspacioFisico.getById(idEspacioFisico);
@@ -102,7 +100,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
-	@Override //UTILIZAR OTRO REPOSITORIO
+	@Override // UTILIZAR OTRO REPOSITORIO
 	public LinkedList<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
 			int capacidad) {
 		/*

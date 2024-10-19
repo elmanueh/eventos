@@ -9,18 +9,20 @@ import eventos.modelo.Evento;
 import eventos.modelo.EventoCategoria;
 import eventos.modelo.Ocupacion;
 import eventos.repositorio.EntidadNoEncontrada;
-import eventos.repositorio.RepositorioMemoria;
+import eventos.repositorio.FactoriaRepositorios;
+import eventos.repositorio.IRepositorio;
+import eventos.repositorio.RepositorioException;
 
 public class ServicioEventos implements IServicioEventos {
 
-	private RepositorioMemoria<EspacioFisico> repositorioEspacio;
-	private RepositorioMemoria<Ocupacion> repositorioOcupacion;
-	private RepositorioMemoria<Evento> repositorioEvento;
+	private IRepositorio<EspacioFisico, String> repositorioEspacio;
+	private IRepositorio<Ocupacion, String> repositorioOcupacion;
+	private IRepositorio<Evento, String> repositorioEvento;
 
 	public ServicioEventos() {
-		repositorioEspacio = new RepositorioMemoria<EspacioFisico>();
-		repositorioOcupacion = new RepositorioMemoria<Ocupacion>();
-		repositorioEvento = new RepositorioMemoria<Evento>();
+		repositorioEspacio = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
+		repositorioEvento = FactoriaRepositorios.getRepositorio(Evento.class);
+		repositorioOcupacion = FactoriaRepositorios.getRepositorio(Ocupacion.class);
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class ServicioEventos implements IServicioEventos {
 			String id = repositorioEvento.add(evento);
 
 			return id;
-		} catch (EntidadNoEncontrada e) {
+		} catch (RepositorioException | EntidadNoEncontrada e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,16 +80,22 @@ public class ServicioEventos implements IServicioEventos {
 			evento.setCancelado();
 			repositorioOcupacion.delete(evento.getOcupacion());
 			repositorioEvento.update(evento);
-		} catch (EntidadNoEncontrada e) {
+			// ELIMINAR DE LA BASE DE DATOS evento.getOcupacion();
+		} catch (RepositorioException | EntidadNoEncontrada e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// ELIMINAR DE LA BASE DE DATOS evento.getOcupacion();
 	}
 
 	@Override
 	public String eventosDelMes(int mes, int año) {
-		LinkedList<Evento> eventos = new LinkedList<Evento>(repositorioEvento.getAll());
+		LinkedList<Evento> eventos = null;
+		try {
+			eventos = new LinkedList<Evento>(repositorioEvento.getAll());
+		} catch (RepositorioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String cadena = "";
 
 		eventos.stream().filter(e -> e.entreFechas(mes, año)).forEach(e -> cadena.concat(e.toString()));
