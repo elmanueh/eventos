@@ -8,9 +8,6 @@ import eventos.servicio.ServicioEventos;
 import eventos.servicio.PuntosDeInteres;
 import java.time.LocalDateTime;
 import eventos.modelo.EventoCategoria;
-import eventos.modelo.PuntoInteres;
-
-import java.util.LinkedList;
 
 public class Programa {
 
@@ -81,16 +78,19 @@ public class Programa {
 		System.out.println("Espacio creado con id: " + idEspacio3);
 
 		String idEvento1 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
-				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
+				LocalDateTime.of(2024, 9, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
 		System.out.println("Evento creado con id: " + idEvento1);
 		String idEvento2 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
 				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
 		System.out.println("Evento creado con id: " + idEvento2);
 		String idEvento3 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
-				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
+				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio2);
 		System.out.println("Evento creado con id: " + idEvento3);
 
-		servicioEventos.cancelarEvento(idEvento1);
+		// servicioEventos.cancelarEvento(idEvento1);
+
+		servicioEspacios.bajaEspacioFisico(idEspacio1);
+		servicioEspacios.bajaEspacioFisico(idEspacio2);
 
 		System.out.println("Fin del programa de pruebas.");
 	}

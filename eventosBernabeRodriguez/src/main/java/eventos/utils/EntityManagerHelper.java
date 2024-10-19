@@ -5,48 +5,44 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class EntityManagerHelper {
-    private static EntityManagerFactory entityManagerFactory;
+	private static EntityManagerFactory entityManagerFactory;
 
-    private static final ThreadLocal<EntityManager> entityManagerHolder;
+	private static final ThreadLocal<EntityManager> entityManagerHolder;
 
+	static {
 
-    static {    
+		entityManagerFactory = Persistence.createEntityManagerFactory("eventos");
 
-        entityManagerFactory = Persistence.createEntityManagerFactory("eventos");
+		entityManagerHolder = new ThreadLocal<EntityManager>();
 
-        entityManagerHolder = new ThreadLocal<EntityManager>();
+	}
 
-    }
+	public static EntityManager getEntityManager() {
 
+		EntityManager entityManager = entityManagerHolder.get();
 
-    public static EntityManager getEntityManager() {
+		if (entityManager == null || !entityManager.isOpen()) {
 
-        EntityManager entityManager = entityManagerHolder.get();
-        
+			entityManager = entityManagerFactory.createEntityManager();
+			entityManagerHolder.set(entityManager);
 
-        if (entityManager == null || !entityManager.isOpen()) {
+		}
 
-            entityManager = entityManagerFactory.createEntityManager();
-            entityManagerHolder.set(entityManager);
+		return entityManager;
 
-        }
+	}
 
-        return entityManager;
+	public static void closeEntityManager() {
 
-    }
+		EntityManager entityManager = entityManagerHolder.get();
 
+		if (entityManager != null) {
 
-    public static void closeEntityManager() {
+			entityManagerHolder.set(null);
 
-        EntityManager entityManager = entityManagerHolder.get();
+			entityManager.close();
 
-        if (entityManager != null) {
+		}
 
-            entityManagerHolder.set(null);
-
-            entityManager.close();
-
-        }
-
-    }
+	}
 }

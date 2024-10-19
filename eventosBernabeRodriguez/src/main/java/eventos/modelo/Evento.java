@@ -17,26 +17,26 @@ import eventos.repositorio.Identificable;
 @Entity
 @Table(name = "Evento")
 public class Evento implements Identificable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String nombre;
-	
-	@Lob //Texto más largo de JPA
+
+	@Lob // Texto más largo de JPA
 	private String descripcion;
 	private String organizador;
 	private int plazas;
 	private boolean cancelado;
-	
+
 	@Enumerated
 	private EventoCategoria categoria;
-	
-	@OneToOne (cascade = CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Ocupacion ocupacion;
-	
+
 	public Evento() {
-		
+
 	}
 
 	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria,
@@ -96,24 +96,25 @@ public class Evento implements Identificable {
 	}
 
 	public void setDescripcion(String descripcion) {
-		if (descripcion != null) this.descripcion = descripcion;
-    }
-	
+		if (descripcion != null)
+			this.descripcion = descripcion;
+	}
+
 	public void setFechaInicio(LocalDateTime fechaInicio) {
 		ocupacion.setFechaInicio(fechaInicio);
 	}
-	
+
 	public void setFechaFin(LocalDateTime fechaFin) {
 		ocupacion.setFechaFin(fechaFin);
 	}
-	
+
 	public void setPlazas(int plazas) {
-		if (plazas != -1) this.plazas = plazas;
+		if (plazas != -1)
+			this.plazas = plazas;
 	}
-	
+
 	public void setEspacioFisico(EspacioFisico espacioFisico) {
 		ocupacion.setEspacioFisico(espacioFisico);
 	}
-		
-	
+
 }

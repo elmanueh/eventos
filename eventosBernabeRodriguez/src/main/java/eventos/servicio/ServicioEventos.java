@@ -1,7 +1,6 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Evento;
@@ -15,16 +14,14 @@ import eventos.repositorio.RepositorioException;
 public class ServicioEventos implements IServicioEventos {
 
 	private IRepositorio<EspacioFisico, String> repositorioEspacio;
-	private IRepositorio<Ocupacion, String> repositorioOcupacion;
 	private IRepositorio<Evento, String> repositorioEvento;
 
 	public ServicioEventos() {
 		repositorioEspacio = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
 		repositorioEvento = FactoriaRepositorios.getRepositorio(Evento.class);
-		repositorioOcupacion = FactoriaRepositorios.getRepositorio(Ocupacion.class);
 	}
 
-	@Override //CORRECTO || MIRAR REPOSITORIO OCUPACION
+	@Override // CORRECTO || MIRAR REPOSITORIO OCUPACION
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
 
@@ -35,8 +32,8 @@ public class ServicioEventos implements IServicioEventos {
 				throw new IllegalArgumentException("numPlazas: debe ser menor a la ocupación del espacio físico.");
 
 			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacio);
-			
-			//repositorioOcupacion.add(ocupacion);
+
+			// repositorioOcupacion.add(ocupacion);
 			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
 
 			String id = repositorioEvento.add(evento);
@@ -48,7 +45,7 @@ public class ServicioEventos implements IServicioEventos {
 		return null;
 	}
 
-	@Override //CORRECTO || MIRAR REPOSITORIO OCUPACION
+	@Override // CORRECTO || MIRAR REPOSITORIO OCUPACION
 	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
 			int numPlazas, EspacioFisico espacioFisico) {
 		try {
@@ -59,13 +56,12 @@ public class ServicioEventos implements IServicioEventos {
 			evento.setPlazas(numPlazas);
 			evento.setEspacioFisico(espacioFisico);
 			repositorioEvento.update(evento);
-			repositorioOcupacion.update(evento.getOcupacion());
 		} catch (RepositorioException | EntidadNoEncontrada e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override //CORRECTO || UTILIZAR OTRO REPOSITORIO (OCUPACION)
+	@Override // CORRECTO || UTILIZAR OTRO REPOSITORIO (OCUPACION)
 	public void cancelarEvento(String idEvento) {
 		/**
 		 * Cancelar un evento. Esta operación recibe como parámetro el identificador de
@@ -75,11 +71,11 @@ public class ServicioEventos implements IServicioEventos {
 		Evento evento;
 		try {
 			evento = repositorioEvento.getById(idEvento);
-			Ocupacion ocu = evento.getOcupacion();
+			// Ocupacion ocu = evento.getOcupacion();
 			evento.setCancelado();
-			
+
 			repositorioEvento.update(evento);
-			repositorioOcupacion.delete(ocu);
+			// repositorioOcupacion.delete(ocu);
 		} catch (RepositorioException | EntidadNoEncontrada e) {
 			e.printStackTrace();
 		}
@@ -87,10 +83,10 @@ public class ServicioEventos implements IServicioEventos {
 
 	@Override // UTILIZAR OTRO REPOSITORIO
 	public String eventosDelMes(int mes, int año) {
-        /**
-         * Devuelve un listado de eventos que se celebran en el mes y año indicados.
-         */
-        return null;
+		/**
+		 * Devuelve un listado de eventos que se celebran en el mes y año indicados.
+		 */
+		return null;
 	}
 
 }

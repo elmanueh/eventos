@@ -1,7 +1,6 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.EventoCategoria;
@@ -12,7 +11,7 @@ public interface IServicioEventos {
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico);
 
 	void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-            int numPlazas, EspacioFisico espacioFisico);
+			int numPlazas, EspacioFisico espacioFisico);
 
 	void cancelarEvento(String idEvento);
 

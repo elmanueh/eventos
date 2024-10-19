@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 import eventos.modelo.EspacioFisico;
-import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
 import eventos.repositorio.FactoriaRepositorios;
@@ -14,12 +13,10 @@ import eventos.repositorio.RepositorioException;
 public class ServicioEspacios implements IServicioEspacios {
 
 	private IRepositorio<EspacioFisico, String> repositorioEspacioFisico;
-	private IRepositorio<Ocupacion, String> repositorioOcupacion;
 
 	public ServicioEspacios() {
 		try {
 			repositorioEspacioFisico = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
-			repositorioOcupacion = FactoriaRepositorios.getRepositorio(Ocupacion.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error al instanciar los repositorios");
@@ -70,16 +67,10 @@ public class ServicioEspacios implements IServicioEspacios {
 
 	}
 
-	@Override // CORRECTO --> CONSIDERAR UTILIZAR LO OTRO
+	@Override // CORRECTO
 	public void bajaEspacioFisico(String idEspacioFisico) { // coge el espacio y pone el estado a cerrado temporalmente
 		try {
-			boolean cerrar = true;
-			for (Ocupacion ocu : repositorioOcupacion.getAll()) {
-				if (ocu.getEspacioFisico().getId().equals(idEspacioFisico) && ocu.isActiva()) {
-					cerrar = false;
-				}
-			}
-			if (cerrar) {
+			if (repositorioEspacioFisico.isAlgunaOcupacion(idEspacioFisico)) {
 				EspacioFisico espacio = repositorioEspacioFisico.getById(idEspacioFisico);
 				espacio.cerrar();
 				repositorioEspacioFisico.update(espacio);

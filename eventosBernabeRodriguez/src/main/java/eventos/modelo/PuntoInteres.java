@@ -8,23 +8,23 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PuntoInteres")
+@Table(name = "PuntoInteres")
 public class PuntoInteres {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private String nombre;
-	
-	@Lob //Texto más largo de JPA
+
+	@Lob // Texto más largo de JPA
 	private String descripcion;
 	private float distancia;
-	
-	@Lob //Texto más largo de JPA
+
+	@Lob // Texto más largo de JPA
 	private String url;
-	
+
 	public PuntoInteres() {
-		
+
 	}
 
 	public PuntoInteres(String nombre, String descripcion, float distancia, String url) {
