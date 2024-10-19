@@ -2,6 +2,7 @@ package eventos.modelo;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,12 @@ public class Ocupacion implements Identificable {
 	private String id;
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	private EspacioFisico espacioFisico;
-	
+
 	public Ocupacion() {
-		
+
 	}
 
 	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, EspacioFisico espacioFisico) {
@@ -64,6 +65,21 @@ public class Ocupacion implements Identificable {
 	public boolean entreFechas(int mes, int año) {
 		LocalDateTime a = LocalDateTime.of(año, mes, 1, 0, 0);
 		return fechaInicio.isBefore(a) && fechaFin.isAfter(a);
+	}
+
+	public void setFechaInicio(LocalDateTime fechaInicio) {
+		if (fechaInicio != null)
+			this.fechaInicio = fechaInicio;
+	}
+
+	public void setFechaFin(LocalDateTime fechaFin) {
+		if (fechaFin != null)
+			this.fechaFin = fechaFin;
+	}
+
+	public void setEspacioFisico(EspacioFisico espacioFisico) {
+		if (espacioFisico != null)
+			this.espacioFisico = espacioFisico;
 	}
 
 }

@@ -70,7 +70,7 @@ public class ServicioEspacios implements IServicioEspacios {
 
 	}
 
-	@Override // CORRECTO || CONSIDERAR UTILIZAR LO OTRO
+	@Override // CORRECTO --> CONSIDERAR UTILIZAR LO OTRO
 	public void bajaEspacioFisico(String idEspacioFisico) { // coge el espacio y pone el estado a cerrado temporalmente
 		try {
 			boolean cerrar = true;

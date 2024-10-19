@@ -3,6 +3,7 @@ package eventos.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class EspacioFisico implements Identificable {
 	@Enumerated
 	private EspacioFisicoEstado estado;
 
-	@OneToMany
+	@OneToMany (cascade = CascadeType.ALL)
 	@JoinTable(name = "EspacioFisico_PuntoInteres")
 	private List<PuntoInteres> puntosInteres;
 

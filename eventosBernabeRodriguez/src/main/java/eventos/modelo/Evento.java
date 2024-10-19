@@ -1,5 +1,8 @@
 package eventos.modelo;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -29,7 +32,7 @@ public class Evento implements Identificable {
 	@Enumerated
 	private EventoCategoria categoria;
 	
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private Ocupacion ocupacion;
 	
 	public Evento() {
@@ -89,5 +92,28 @@ public class Evento implements Identificable {
 
 	public void setCancelado() {
 		cancelado = true;
+		ocupacion = null;
 	}
+
+	public void setDescripcion(String descripcion) {
+		if (descripcion != null) this.descripcion = descripcion;
+    }
+	
+	public void setFechaInicio(LocalDateTime fechaInicio) {
+		ocupacion.setFechaInicio(fechaInicio);
+	}
+	
+	public void setFechaFin(LocalDateTime fechaFin) {
+		ocupacion.setFechaFin(fechaFin);
+	}
+	
+	public void setPlazas(int plazas) {
+		if (plazas != -1) this.plazas = plazas;
+	}
+	
+	public void setEspacioFisico(EspacioFisico espacioFisico) {
+		ocupacion.setEspacioFisico(espacioFisico);
+	}
+		
+	
 }

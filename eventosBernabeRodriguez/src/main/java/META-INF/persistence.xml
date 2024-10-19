@@ -20,8 +20,8 @@
             <property name="javax.persistence.jdbc.url"
                 value="jdbc:mysql://elmanueh.es:3306/aadd_eventos?serverTimezone=CET" />
             <property name="eclipselink.ddl-generation"
-                value = "none" />
-                <!-- value="create-or-extend-tables" /> -->
+                value="create-or-extend-tables" />
+                <!-- value = "none" /> -->
             <property name="eclipselink.query-results-cache"
                 value="false" />
             <property name="eclipselink.cache.shared.default"

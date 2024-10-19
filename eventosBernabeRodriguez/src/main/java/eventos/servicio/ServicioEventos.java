@@ -2,7 +2,6 @@ package eventos.servicio;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.Map;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Evento;
@@ -25,7 +24,7 @@ public class ServicioEventos implements IServicioEventos {
 		repositorioOcupacion = FactoriaRepositorios.getRepositorio(Ocupacion.class);
 	}
 
-	@Override
+	@Override //CORRECTO || MIRAR REPOSITORIO OCUPACION
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
 			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
 
@@ -33,41 +32,40 @@ public class ServicioEventos implements IServicioEventos {
 		try {
 			espacio = repositorioEspacio.getById(idEspacioFisico);
 			if (numPlazas > espacio.getCapacidad()) // Corregir
-				throw new IllegalArgumentException("numPlazas: debe ser menos a la ocupación del espacio físico.");
+				throw new IllegalArgumentException("numPlazas: debe ser menor a la ocupación del espacio físico.");
 
 			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacio);
-			repositorioOcupacion.add(ocupacion);
-
+			
+			//repositorioOcupacion.add(ocupacion);
 			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
 
 			String id = repositorioEvento.add(evento);
 
 			return id;
 		} catch (RepositorioException | EntidadNoEncontrada e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	@Override
-	public void modificarEvento(String idEvento, Map<String, Object> atributos) { // INCOMPLETO
-		/**
-		 * Modificar un evento. Esta operación recibe como parámetro el identificador de
-		 * un evento y los datos a modificar. Se podrá modificar alguno de los
-		 * siguientes datos: descripción, fecha de inicio, fecha de fin, número de
-		 * plazas y espacio físico. }
-		 */
-
-		/*
-		 * for (Map.Entry<String, Object> entry : atributos.entrySet()) {
-		 * 
-		 * }
-		 */
-
+	@Override //CORRECTO || MIRAR REPOSITORIO OCUPACION
+	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
+			int numPlazas, EspacioFisico espacioFisico) {
+		try {
+			Evento evento = repositorioEvento.getById(idEvento);
+			evento.setDescripcion(descripcion);
+			evento.setFechaInicio(fechaInicio);
+			evento.setFechaFin(fechaFin);
+			evento.setPlazas(numPlazas);
+			evento.setEspacioFisico(espacioFisico);
+			repositorioEvento.update(evento);
+			repositorioOcupacion.update(evento.getOcupacion());
+		} catch (RepositorioException | EntidadNoEncontrada e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override
+	@Override //CORRECTO || UTILIZAR OTRO REPOSITORIO (OCUPACION)
 	public void cancelarEvento(String idEvento) {
 		/**
 		 * Cancelar un evento. Esta operación recibe como parámetro el identificador de
@@ -77,30 +75,22 @@ public class ServicioEventos implements IServicioEventos {
 		Evento evento;
 		try {
 			evento = repositorioEvento.getById(idEvento);
+			Ocupacion ocu = evento.getOcupacion();
 			evento.setCancelado();
-			repositorioOcupacion.delete(evento.getOcupacion());
+			
 			repositorioEvento.update(evento);
-			// ELIMINAR DE LA BASE DE DATOS evento.getOcupacion();
+			repositorioOcupacion.delete(ocu);
 		} catch (RepositorioException | EntidadNoEncontrada e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	@Override
+	@Override // UTILIZAR OTRO REPOSITORIO
 	public String eventosDelMes(int mes, int año) {
-		LinkedList<Evento> eventos = null;
-		try {
-			eventos = new LinkedList<Evento>(repositorioEvento.getAll());
-		} catch (RepositorioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String cadena = "";
-
-		eventos.stream().filter(e -> e.entreFechas(mes, año)).forEach(e -> cadena.concat(e.toString()));
-
-		return cadena;
+        /**
+         * Devuelve un listado de eventos que se celebran en el mes y año indicados.
+         */
+        return null;
 	}
 
 }
