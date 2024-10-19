@@ -71,7 +71,7 @@ public abstract class RepositorioJPA<T extends Identificable> implements IReposi
 			if(instance == null) {
 				throw new EntidadNoEncontrada(entity.getId() + "no existe en el repositorio");
 			}
-			em.remove(entity);
+			em.remove(instance);
 			em.getTransaction().commit();	
 		}
 		catch(Exception e) {
