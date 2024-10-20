@@ -2,6 +2,7 @@ package eventos.servicio;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.List;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoInteres;
@@ -91,19 +92,10 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
-	@Override // UTILIZAR OTRO REPOSITORIO
-	public LinkedList<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
+	@Override // CORRECTO
+	public List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
 			int capacidad) {
-		/*
-		 * @Query("SELECT e FROM Espacio e WHERE e.capacidad >= :capacidadMinima AND " +
-		 * "e.id NOT IN (SELECT o.espacio.id FROM Ocupacion o WHERE " +
-		 * "(o.fechaInicio < :fechaFin AND o.fechaFin > :fechaInicio))")
-		 */
-		// devuelve un
-		// listado de espacios físicos que no estén ocupados en el rango de fechas
-		// indicado y que
-		// tengan al menos la capacidad indicada.
-		return null;
+		return repositorioEspacioFisico.getEspaciosFisicoLibres(fechaInicio, fechaFin, capacidad);
 	}
 
 }

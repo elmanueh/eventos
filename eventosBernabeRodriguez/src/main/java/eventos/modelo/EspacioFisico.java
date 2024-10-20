@@ -2,6 +2,7 @@ package eventos.modelo;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class EspacioFisico implements Identificable {
 	@Enumerated
 	private EspacioFisicoEstado estado;
 
-	@OneToMany (cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "EspacioFisico_PuntoInteres")
 	private List<PuntoInteres> puntosInteres;
 
@@ -127,6 +128,21 @@ public class EspacioFisico implements Identificable {
 
 	public void cerrar() {
 		this.estado = EspacioFisicoEstado.CERRADO_TEMPORALMENTE;
+	}
+
+	public String getNombrePuntosInteresByDistancia() {
+
+		LinkedList<PuntoInteres> puntosInteresAux = new LinkedList<PuntoInteres>(puntosInteres);
+		puntosInteresAux.sort((p1, p2) -> Double.compare(p1.getDistancia(), p2.getDistancia()));
+
+		return puntosInteresAux.stream().map(PuntoInteres::getNombre).collect(Collectors.joining(" "));
+
+	}
+
+	@Override
+	public String toString() {
+		return "EspacioFisico [nombre=" + nombre + ", direccion postal=" + direccion + ", puntosInteres="
+				+ this.getNombrePuntosInteresByDistancia() + "]";
 	}
 
 }

@@ -2,7 +2,6 @@ package eventos.modelo;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -80,6 +79,11 @@ public class Ocupacion implements Identificable {
 	public void setEspacioFisico(EspacioFisico espacioFisico) {
 		if (espacioFisico != null)
 			this.espacioFisico = espacioFisico;
+	}
+
+	@Override
+	public String toString() {
+		return "Ocupacion [fechaInicio=" + fechaInicio + espacioFisico.toString() + "]";
 	}
 
 }

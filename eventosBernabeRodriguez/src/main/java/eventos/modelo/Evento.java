@@ -32,7 +32,7 @@ public class Evento implements Identificable {
 	@Enumerated
 	private EventoCategoria categoria;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Ocupacion ocupacion;
 
 	public Evento() {
@@ -115,6 +115,12 @@ public class Evento implements Identificable {
 
 	public void setEspacioFisico(EspacioFisico espacioFisico) {
 		ocupacion.setEspacioFisico(espacioFisico);
+	}
+
+	@Override
+	public String toString() {
+		return "Evento [Nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria
+				+ ocupacion.toString() + "]";
 	}
 
 }
