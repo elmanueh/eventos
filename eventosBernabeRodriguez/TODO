@@ -1,0 +1,11 @@
+- Preparar un BUEN Programa de prueba
+- Los metodos JPQL van en la interfaz repositorio ???
+- Habria que poner etiquetas de XML a la clase PuntoInteres ???
+
+- Al descativar un espacio, no deberia dejar dar de alta un evento
+- No deberia poder crearse 2 eventos para el mismo momento en un espacio fisico
+
+PENDIENTES ACTIVAR, DESACTIVAR, Y buscarEspaciosFisicosLibres -> ESPACIO FISICOS
+HECHOS EN PRUEBA:
+- crear espacios, asignar puntos y modificarlos
+- crear eventos, modificarlos, cancelar (junto eliminar ocupacion) y eventos en el mes
