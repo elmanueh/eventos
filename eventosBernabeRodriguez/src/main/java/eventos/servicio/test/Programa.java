@@ -6,8 +6,12 @@ import eventos.servicio.ServicioEspacios;
 import eventos.servicio.IServicioEventos;
 import eventos.servicio.ServicioEventos;
 import eventos.servicio.PuntosDeInteres;
+
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+
 import eventos.modelo.EventoCategoria;
+import eventos.modelo.PuntoInteres;
 
 public class Programa {
 
@@ -17,80 +21,131 @@ public class Programa {
 		IServicioEventos servicioEventos = new ServicioEventos();
 		IPuntosDeInteres servicioPuntosDeInteres = new PuntosDeInteres();
 
-		// PRUEBAS ESPACIO FISICO
-		/*
-		 * // 1. Dar de alta un espacio físico con todos sus datos. Obtener el id
-		 * asignado. String idEspacio = servicioEspacios.altaEspacioFisico("nombre",
-		 * "propietario", 10, "direccion", 37.984123153048316, -1.1291804565199284,
-		 * "descripcion"); System.out.println("Espacio creado con id: " + idEspacio);
-		 * 
-		 * // 2. Buscar puntos de interés dadas unas coordenadas. double latitud =
-		 * 37.984123153048316; double longitud = -1.1291804565199284;
-		 * LinkedList<PuntoInteres> puntos =
-		 * servicioPuntosDeInteres.obtenerPuntosInteres(latitud, longitud);
-		 * 
-		 * // 3. Seleccionar parte de esos puntos de interés y asignarlos al espacio
-		 * físico // anteriormente creado.
-		 * servicioEspacios.asignarPuntosDeInteres(idEspacio, puntos);
-		 * 
-		 * // 4. Dar de baja espacio físico.
-		 * servicioEspacios.bajaEspacioFisico(idEspacio);
-		 * 
-		 * // 5. Reactivar espacio físico.
-		 * servicioEspacios.activarEspacioFisico(idEspacio);
-		 * 
-		 * // 6. Modificar espacio físico.
-		 * servicioEspacios.modificarEspacioFisico(idEspacio, null, -1, null);
-		 * 
-		 * // 7. BuscarEspaciosFisicosLibres
-		 * 
-		 */
-
-		/*
-		 * // 8. Dar de alta un evento en dicho espacio físico. Obtener el id asignado.
-		 * // Aquí falla pq en servicioEventos no está el Espacio en el
-		 * repositorioEspacio, // por tanto no encuentra nada y lanza excepción String
-		 * idEvento; idEvento = servicioEventos.altaEvento("nombre", "descripcion",
-		 * "organizador", EventoCategoria.OTROS, LocalDateTime.of(2025, 1, 1, 0, 0),
-		 * LocalDateTime.of(2025, 3, 31, 0, 0), 10, "1");
-		 * System.out.println("Evento creado con id: " + idEvento);
-		 * 
-		 */
-		/*
-		 * // 9. Modificar evento. servicioEventos.modificarEvento("752",
-		 * "EVENTO CHULO", LocalDateTime.of(2026, 1, 1, 0, 0), LocalDateTime.of(2029, 3,
-		 * 31, 0, 0), -1, null);
-		 */
-		/*
-		 * // 10. Cancelar evento. servicioEventos.cancelarEvento("752");
-		 */
-
 		// PRUEBA GENERAL
 
-		String idEspacio1 = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",
-				37.984123153048316, -1.1291804565199284, "descripcion");
-		System.out.println("Espacio creado con id: " + idEspacio1);
-		String idEspacio2 = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",
-				37.984123153048316, -1.1291804565199284, "descripcion");
-		System.out.println("Espacio creado con id: " + idEspacio2);
-		String idEspacio3 = servicioEspacios.altaEspacioFisico("nombre", "propietario", 10, "direccion",
-				37.984123153048316, -1.1291804565199284, "descripcion");
-		System.out.println("Espacio creado con id: " + idEspacio3);
+		try {
+			// Creación de Espacios Físicos
+			String idEspacio1 = servicioEspacios.altaEspacioFisico("Plaza de Toros de la Condomina",
+					"Plaza de Toros de Murcia, S.A.", 15000, "Ronda de Garay, Murcia, España", 37.984123153048316,
+					-1.1291804565199284, "Plaza de toros de Murcia, ianugurado en 1886");
+			System.out.println("Espacio fisico 1 creado con id: " + idEspacio1);
 
-		String idEvento1 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
-				LocalDateTime.of(2024, 9, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
-		System.out.println("Evento creado con id: " + idEvento1);
-		String idEvento2 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
-				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio1);
-		System.out.println("Evento creado con id: " + idEvento2);
-		String idEvento3 = servicioEventos.altaEvento("nombre", "descripcion", "organizador", EventoCategoria.OTROS,
-				LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 3, 31, 0, 0), 10, idEspacio2);
-		System.out.println("Evento creado con id: " + idEvento3);
+			String idEspacio2 = servicioEspacios.altaEspacioFisico("Estadio Riyadh Air Metropolitano", "ATM", 70460,
+					"Avenida de Luis Aragonés, Nº 4, Madrid, España", 40.436111, -3.599444,
+					"Estadio del Atletico de Madrid, inaugurado en 2016");
+			System.out.println("Espacio fisico 2 creado con id: " + idEspacio2);
 
-		// servicioEventos.cancelarEvento(idEvento1);
+			String idEspacio3 = servicioEspacios.altaEspacioFisico("Palacio Euskalduna", "Público", 10000,
+					"Avenida Abandoibarra, 4, Bilbao, España", 43.266944, -2.944722,
+					"Centro de convenciones y de espectáculos situado en la villa de Bilbao");
+			System.out.println("Espacio fisico 3 creado con id: " + idEspacio3);
 
-		servicioEspacios.bajaEspacioFisico(idEspacio1);
-		servicioEspacios.bajaEspacioFisico(idEspacio2);
+			// Asignar Puntos de Interes a los Espacios Físicos
+
+			LinkedList<PuntoInteres> puntosInteres1 = new LinkedList<PuntoInteres>(
+					servicioPuntosDeInteres.obtenerPuntosInteres(37.984123153048316, -1.1291804565199284));
+			servicioEspacios.asignarPuntosDeInteres(idEspacio1, puntosInteres1);
+
+			LinkedList<PuntoInteres> puntosInteres2 = new LinkedList<PuntoInteres>(
+					servicioPuntosDeInteres.obtenerPuntosInteres(40.436111, -3.599444));
+			servicioEspacios.asignarPuntosDeInteres(idEspacio2, puntosInteres2);
+
+			LinkedList<PuntoInteres> puntosInteres3 = new LinkedList<PuntoInteres>(
+					servicioPuntosDeInteres.obtenerPuntosInteres(43.266944, -2.944722));
+			servicioEspacios.asignarPuntosDeInteres(idEspacio3, puntosInteres3);
+
+			// Modificar espacios fisicos
+			servicioEspacios.modificarEspacioFisico(idEspacio1, null, -1, null);
+			servicioEspacios.modificarEspacioFisico(idEspacio3,
+					"Palacio de Congresos y de la Música Euskalduna Jauregia", 8000, null);
+
+			// Creación de Espacios Físicos
+			// Eventos en Espacio Fisico 1 -> Plaza de Toros de la Condomina
+			String idEvento1 = servicioEventos.altaEvento("Concierto Taylor Siwft",
+					"Concierto número 27 de su gira por Europa", "Taylor Siwft", EventoCategoria.CULTURALES,
+					LocalDateTime.of(2025, 1, 1, 0, 0), LocalDateTime.of(2025, 1, 3, 0, 0), 15000, idEspacio1);
+			System.out.println("Evento 1 creado con id: " + idEvento1 + ", en el espacio físico " + idEspacio1);
+
+			String idEvento2 = servicioEventos.altaEvento("Corrida de Toros - Feria de Murcia",
+					"Corrida de toros con los mejores toreros de España", "Federación Española de Toros",
+					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 9, 15, 18, 0),
+					LocalDateTime.of(2025, 9, 15, 21, 0), 12000, idEspacio1);
+			System.out.println("Evento 2 creado con id: " + idEvento2 + ", en el espacio físico " + idEspacio1);
+
+			String idEvento3 = servicioEventos.altaEvento("Festival de Flamenco - Feria de Murcia",
+					"Festival de flamenco con grandes artistas como José Mercé y Niña Pastori",
+					"Asociación Flamenca de Murcia", EventoCategoria.CULTURALES, LocalDateTime.of(2025, 9, 20, 21, 0),
+					LocalDateTime.of(2025, 9, 20, 23, 0), 14000, idEspacio1);
+			System.out.println("Evento 3 creado con id: " + idEvento3 + ", en el espacio físico " + idEspacio1);
+
+			String idEvento4 = servicioEventos.altaEvento("Concierto de Rock - Fito & Fitipaldis",
+					"Concierto de la banda Fito & Fitipaldis como parte de su gira nacional", "Fito & Fitipaldis",
+					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 1, 10, 20, 0),
+					LocalDateTime.of(2025, 1, 10, 23, 0), 15000, idEspacio1);
+			System.out.println("Evento 4 creado con id: " + idEvento4 + ", en el espacio físico " + idEspacio1);
+
+			// Eventos en Espacio Fisico 2 -> Estadio Riyadh Air Metropolitano
+			String idEvento5 = servicioEventos.altaEvento("Partido Atlético de Madrid vs FC Barcelona",
+					"Partido de la Liga Española entre Atlético de Madrid y FC Barcelona", "La Liga",
+					EventoCategoria.DEPORTES, LocalDateTime.of(2025, 1, 10, 20, 0),
+					LocalDateTime.of(2025, 10, 10, 22, 0), 70460, idEspacio2);
+			System.out.println("Evento 5 creado con id: " + idEvento5 + ", en el espacio físico " + idEspacio2);
+
+			String idEvento6 = servicioEventos.altaEvento("Concierto Coldplay - Music of the Spheres Tour",
+					"Concierto de la banda Coldplay como parte de su gira mundial", "Coldplay",
+					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 1, 15, 0, 0),
+					LocalDateTime.of(2025, 1, 21, 0, 0), 70000, idEspacio2);
+			System.out.println("Evento 6 creado con id: " + idEvento6 + ", en el espacio físico " + idEspacio2);
+
+			// Eventos en Espacio Fisico 2 -> Palacio de Congresos y de la Música Euskalduna
+			// Jauregia
+			String idEvento7 = servicioEventos.altaEvento("Congreso Internacional de Innovación Tecnológica",
+					"Congreso anual sobre avances en la innovación y tecnología", "Innovatech",
+					EventoCategoria.ACADEMICOS, LocalDateTime.of(2025, 1, 13, 9, 0),
+					LocalDateTime.of(2025, 1, 13, 18, 0), 3000, idEspacio3);
+			System.out.println("Evento 7 creado con id: " + idEvento7 + ", en el espacio físico " + idEspacio3);
+
+			String idEvento8 = servicioEventos.altaEvento("Ópera - La Traviata",
+					"Representación de la famosa ópera de Verdi, La Traviata", "Teatro de la Ópera de Bilbao",
+					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 2, 25, 19, 0),
+					LocalDateTime.of(2025, 2, 25, 22, 0), 2000, idEspacio3);
+			System.out.println("Evento 8 creado con id: " + idEvento8 + ", en el espacio físico " + idEspacio3);
+
+			try {
+				// Fallo al crear evento, aforo no disponible
+				String idEvento9 = servicioEventos.altaEvento("Feria de Empleo y Formación Profesional",
+						"Evento dedicado a la orientación laboral y las oportunidades de formación", "Gobierno Vasco",
+						EventoCategoria.OTROS, LocalDateTime.of(2024, 10, 15, 10, 0),
+						LocalDateTime.of(2024, 10, 15, 18, 0), 50000, idEspacio3);
+			} catch (IllegalArgumentException e) {
+				System.out.println(
+						"Evento 9 no ha podido ser creada por demasiado aforo, en el espacio físico " + idEspacio3);
+			}
+
+			// Modificar evento
+			servicioEventos.modificarEvento(idEvento7, null, null, null, -1, null);
+			System.out.println("Evento con id:" + idEvento7 + "ha modificado.(NO SE HA CAMBIADO NADA)");
+
+			servicioEventos.modificarEvento(idEvento8,
+					"Representación de la famosa ópera de Verdi, La Traviata. Aumento de aforo debido al cambio de fecha",
+					LocalDateTime.of(2025, 2, 26, 19, 0), LocalDateTime.of(2025, 2, 26, 22, 0), 5000, null);
+			System.out.println(
+					"Evento con id:" + idEvento8 + "ha modificado.(SE HA CAMBIADO FECHA, AFORO Y DESCRIPCIÓN)");
+
+			// Cancelar evento
+			servicioEventos.cancelarEvento(idEvento7);
+			System.out.println("Evento con id:" + idEvento7 + "ha sido cancelado y eliminado su respectiva ocupación.");
+
+			// Mostrar eventos de un mes
+			System.out.println("Los eventos del mes de Enero de 2025 son los siguientes:");
+			System.out.println(servicioEventos.eventosDelMes(1, 2025));
+
+			System.out.println("Los eventos del mes de Marzo de 2025 son los siguientes:");
+			System.out.println(servicioEventos.eventosDelMes(3, 2025));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		System.out.println("Fin del programa de pruebas.");
 	}
