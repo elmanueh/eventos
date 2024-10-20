@@ -29,22 +29,9 @@ public class Ocupacion implements Identificable {
 	}
 
 	public Ocupacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, EspacioFisico espacioFisico) {
-		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.espacioFisico = espacioFisico;
-	}
-
-	public LocalDateTime getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public LocalDateTime getFechaFin() {
-		return fechaFin;
-	}
-
-	public EspacioFisico getEspacioFisico() {
-		return espacioFisico;
 	}
 
 	public String getId() {
@@ -55,6 +42,30 @@ public class Ocupacion implements Identificable {
 		this.id = id;
 	}
 
+	public LocalDateTime getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(LocalDateTime fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public LocalDateTime getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(LocalDateTime fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public EspacioFisico getEspacioFisico() {
+		return espacioFisico;
+	}
+
+	public void setEspacioFisico(EspacioFisico espacioFisico) {
+		this.espacioFisico = espacioFisico;
+	}
+
 	// Propieda Calculada
 	public boolean isActiva() {
 		LocalDateTime fechaActual = LocalDateTime.now();
@@ -62,23 +73,8 @@ public class Ocupacion implements Identificable {
 	}
 
 	public boolean entreFechas(int mes, int año) {
-		LocalDateTime a = LocalDateTime.of(año, mes, 1, 0, 0);
-		return fechaInicio.isBefore(a) && fechaFin.isAfter(a);
-	}
-
-	public void setFechaInicio(LocalDateTime fechaInicio) {
-		if (fechaInicio != null)
-			this.fechaInicio = fechaInicio;
-	}
-
-	public void setFechaFin(LocalDateTime fechaFin) {
-		if (fechaFin != null)
-			this.fechaFin = fechaFin;
-	}
-
-	public void setEspacioFisico(EspacioFisico espacioFisico) {
-		if (espacioFisico != null)
-			this.espacioFisico = espacioFisico;
+		LocalDateTime fecha = LocalDateTime.of(año, mes, 1, 0, 0);
+		return fechaInicio.isBefore(fecha) && fechaFin.isAfter(fecha);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import java.net.URL;
 public class GeoNamesAPI {
 
 	// Método para hacer la solicitud a la API de GeoNames
-	public String hacerSolicitudGeoNames(double lat, double longi) {
+	public static String getPuntosInteresCercanos(double lat, double longi) {
 		StringBuilder response = new StringBuilder();
 
 		try {
@@ -35,7 +35,6 @@ public class GeoNamesAPI {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("ALGO");
 		}
 
 		return response.toString();

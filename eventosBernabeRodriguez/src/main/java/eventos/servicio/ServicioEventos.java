@@ -22,65 +22,66 @@ public class ServicioEventos implements IServicioEventos {
 		repositorioEvento = FactoriaRepositorios.getRepositorio(Evento.class);
 	}
 
-	@Override // CORRECTO
+	@Override
 	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
-			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) {
-
-		EspacioFisico espacio;
+			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico)
+			throws RepositorioException, EntidadNoEncontrada {
 		try {
-			espacio = repositorioEspacio.getById(idEspacioFisico);
-			if (numPlazas > espacio.getCapacidad()) // Corregir
-				throw new IllegalArgumentException("numPlazas: debe ser menor a la ocupación del espacio físico.");
+			EspacioFisico espacioFisico = repositorioEspacio.getById(idEspacioFisico);
 
-			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacio);
+			if (numPlazas > espacioFisico.getCapacidad())
+				throw new IllegalArgumentException(
+						"El número de plazas supera la capacidad del espacio físico con id " + idEspacioFisico + ".");
 
-			// repositorioOcupacion.add(ocupacion);
+			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacioFisico);
 			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
-
 			String id = repositorioEvento.add(evento);
-
 			return id;
-		} catch (RepositorioException | EntidadNoEncontrada e) {
-			e.printStackTrace();
+		} catch (RepositorioException e) {
+			throw new RepositorioException("Error al dar de alta el evento con nombre " + nombre + ".");
+		} catch (EntidadNoEncontrada e) {
+			throw new EntidadNoEncontrada("Error al encontrar el espacio físico con id " + idEspacioFisico + ".");
 		}
-		return null;
 	}
 
-	@Override // CORRECTO
+	@Override
 	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-			int numPlazas, EspacioFisico espacioFisico) {
+			int numPlazas, EspacioFisico espacioFisico) throws RepositorioException, EntidadNoEncontrada {
 		try {
 			Evento evento = repositorioEvento.getById(idEvento);
-			evento.setDescripcion(descripcion);
-			evento.setFechaInicio(fechaInicio);
-			evento.setFechaFin(fechaFin);
-			evento.setPlazas(numPlazas);
-			evento.setEspacioFisico(espacioFisico);
+
+			if (descripcion != null)
+				evento.setDescripcion(descripcion);
+			if (fechaInicio != null)
+				evento.setFechaInicio(fechaInicio);
+			if (fechaFin != null)
+				evento.setFechaFin(fechaFin);
+			if (numPlazas != 0)
+				evento.setPlazas(numPlazas);
+
 			repositorioEvento.update(evento);
-		} catch (RepositorioException | EntidadNoEncontrada e) {
-			e.printStackTrace();
+		} catch (RepositorioException e) {
+			throw new RepositorioException("Error al modificar el evento con id " + idEvento + ".");
+		} catch (EntidadNoEncontrada e) {
+			throw new EntidadNoEncontrada("Error al encontrar el evento con id " + idEvento + ".");
 		}
 	}
 
-	@Override // CORRECTO
-	public void cancelarEvento(String idEvento) {
-		/**
-		 * Cancelar un evento. Esta operación recibe como parámetro el identificador de
-		 * un evento y lo pone a cancelado. La cancelación de un evento implica el
-		 * borrado de la ocupación para el espacio físico del mismo.
-		 */
-		Evento evento;
+	@Override
+	public void cancelarEvento(String idEvento) throws RepositorioException, EntidadNoEncontrada {
 		try {
-			evento = repositorioEvento.getById(idEvento);
+			Evento evento = repositorioEvento.getById(idEvento);
 			evento.setCancelado();
-
 			repositorioEvento.update(evento);
-		} catch (RepositorioException | EntidadNoEncontrada e) {
-			e.printStackTrace();
+		} catch (RepositorioException e) {
+			throw new RepositorioException("Error al cancelar el evento con id " + idEvento + ".");
+		} catch (EntidadNoEncontrada e) {
+			throw new EntidadNoEncontrada("Error al encontrar el evento con id " + idEvento + ".");
 		}
 	}
 
-	@Override // CORRECTO
+	// TODO: Falta refactorizar el método eventosDelMes
+	@Override
 	public String eventosDelMes(int mes, int año) {
 		List<Evento> eventos = repositorioEvento.getEventosDelMes(mes, año);
 		String resumenEventos = "";

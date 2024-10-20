@@ -15,7 +15,7 @@ import java.io.StringReader;
 public class XMLProcessor {
 
 	// Método para procesar el XML y extraer los puntos de interés
-	public LinkedList<PuntoInteres> procesarXML(String xml) {
+	public static LinkedList<PuntoInteres> procesarXML(String xml) {
 		LinkedList<PuntoInteres> listaPuntos = new LinkedList<>();
 
 		try {

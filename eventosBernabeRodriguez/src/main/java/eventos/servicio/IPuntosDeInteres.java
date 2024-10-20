@@ -1,10 +1,10 @@
 package eventos.servicio;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import eventos.modelo.PuntoInteres;
 
 public interface IPuntosDeInteres {
 
-	LinkedList<PuntoInteres> obtenerPuntosInteres(double latitud, double longitud);
+	List<PuntoInteres> obtenerPuntosInteres(double latitud, double longitud);
 }

@@ -31,7 +31,7 @@ public class EspacioFisico implements Identificable {
 	private double longitud;
 	private double latitud;
 
-	@Lob // Texto más largo de JPA
+	@Lob
 	private String descripcion;
 
 	@Enumerated
@@ -71,8 +71,16 @@ public class EspacioFisico implements Identificable {
 		return nombre;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public int getCapacidad() {
 		return capacidad;
+	}
+
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
 	}
 
 	public String getDireccion() {
@@ -91,8 +99,16 @@ public class EspacioFisico implements Identificable {
 		return new LinkedList<PuntoInteres>(puntosInteres);
 	}
 
+	public void setPuntosInteres(LinkedList<PuntoInteres> puntosInteres) {
+		this.puntosInteres.addAll(puntosInteres);
+	}
+
 	public String getDescripcion() {
 		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getPropietario() {
@@ -101,25 +117,6 @@ public class EspacioFisico implements Identificable {
 
 	public EspacioFisicoEstado getEstado() {
 		return estado;
-	}
-
-	public void setNombre(String nombre) {
-		if (nombre != null)
-			this.nombre = nombre;
-	}
-
-	public void setCapacidad(int capacidad) {
-		if (capacidad != -1)
-			this.capacidad = capacidad;
-	}
-
-	public void setDescripcion(String descripcion) {
-		if (descripcion != null)
-			this.descripcion = descripcion;
-	}
-
-	public void setPuntosInteres(LinkedList<PuntoInteres> puntosInteres) {
-		this.puntosInteres.addAll(puntosInteres);
 	}
 
 	public void activar() {
@@ -131,12 +128,9 @@ public class EspacioFisico implements Identificable {
 	}
 
 	public String getNombrePuntosInteresByDistancia() {
-
 		LinkedList<PuntoInteres> puntosInteresAux = new LinkedList<PuntoInteres>(puntosInteres);
 		puntosInteresAux.sort((p1, p2) -> Double.compare(p1.getDistancia(), p2.getDistancia()));
-
 		return puntosInteresAux.stream().map(PuntoInteres::getNombre).collect(Collectors.joining(" "));
-
 	}
 
 	@Override

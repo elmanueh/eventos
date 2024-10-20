@@ -23,7 +23,7 @@ public class Evento implements Identificable {
 	private String id;
 	private String nombre;
 
-	@Lob // Texto más largo de JPA
+	@Lob
 	private String descripcion;
 	private String organizador;
 	private int plazas;
@@ -66,12 +66,20 @@ public class Evento implements Identificable {
 		return descripcion;
 	}
 
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public String getOrganizador() {
 		return organizador;
 	}
 
 	public int getPlazas() {
 		return plazas;
+	}
+
+	public void setPlazas(int plazas) {
+		this.plazas = plazas;
 	}
 
 	public boolean isCancelado() {
@@ -95,22 +103,12 @@ public class Evento implements Identificable {
 		ocupacion = null;
 	}
 
-	public void setDescripcion(String descripcion) {
-		if (descripcion != null)
-			this.descripcion = descripcion;
-	}
-
 	public void setFechaInicio(LocalDateTime fechaInicio) {
 		ocupacion.setFechaInicio(fechaInicio);
 	}
 
 	public void setFechaFin(LocalDateTime fechaFin) {
 		ocupacion.setFechaFin(fechaFin);
-	}
-
-	public void setPlazas(int plazas) {
-		if (plazas != -1)
-			this.plazas = plazas;
 	}
 
 	public void setEspacioFisico(EspacioFisico espacioFisico) {

@@ -16,11 +16,11 @@ public class PuntoInteres {
 	private String id;
 	private String nombre;
 
-	@Lob // Texto más largo de JPA
+	@Lob
 	private String descripcion;
 	private float distancia;
 
-	@Lob // Texto más largo de JPA
+	@Lob
 	private String url;
 
 	public PuntoInteres() {
@@ -28,7 +28,6 @@ public class PuntoInteres {
 	}
 
 	public PuntoInteres(String nombre, String descripcion, float distancia, String url) {
-		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.distancia = distancia;
