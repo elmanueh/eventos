@@ -56,7 +56,7 @@ public class ServicioEventos implements IServicioEventos {
 				evento.setFechaInicio(fechaInicio);
 			if (fechaFin != null)
 				evento.setFechaFin(fechaFin);
-			if (numPlazas != 0)
+			if (numPlazas != -1)
 				evento.setPlazas(numPlazas);
 
 			repositorioEvento.update(evento);

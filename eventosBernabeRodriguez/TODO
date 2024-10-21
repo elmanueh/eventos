@@ -4,8 +4,12 @@
 
 - Al descativar un espacio, no deberia dejar dar de alta un evento
 - No deberia poder crearse 2 eventos para el mismo momento en un espacio fisico
+- Si se descativa un espacio, no deberia mostrar el espacio cuando llamas a buscarEspaciosFisicosLibres
 
-PENDIENTES ACTIVAR, DESACTIVAR, Y buscarEspaciosFisicosLibres -> ESPACIO FISICOS
+PENDIENTES: ACTIVAR, DESACTIVAR, Y buscarEspaciosFisicosLibres -> ESPACIO FISICOS ----> Hay que jugar con esto para tener todas las causisticas
+
 HECHOS EN PRUEBA:
 - crear espacios, asignar puntos y modificarlos
 - crear eventos, modificarlos, cancelar (junto eliminar ocupacion) y eventos en el mes
+
+- activar espacio, descativar espacio y buscarEspaciosFisicosLibres (está hecho, pero no funciona como creo que deberia)

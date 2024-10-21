@@ -9,7 +9,9 @@ import eventos.servicio.PuntosDeInteres;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.List;
 
+import eventos.modelo.EspacioFisico;
 import eventos.modelo.EventoCategoria;
 import eventos.modelo.PuntoInteres;
 
@@ -39,6 +41,8 @@ public class Programa {
 					"Avenida Abandoibarra, 4, Bilbao, España", 43.266944, -2.944722,
 					"Centro de convenciones y de espectáculos situado en la villa de Bilbao");
 			System.out.println("Espacio fisico 3 creado con id: " + idEspacio3);
+			
+			System.out.println();
 
 			// Asignar Puntos de Interes a los Espacios Físicos
 
@@ -87,14 +91,14 @@ public class Programa {
 			// Eventos en Espacio Fisico 2 -> Estadio Riyadh Air Metropolitano
 			String idEvento5 = servicioEventos.altaEvento("Partido Atlético de Madrid vs FC Barcelona",
 					"Partido de la Liga Española entre Atlético de Madrid y FC Barcelona", "La Liga",
-					EventoCategoria.DEPORTES, LocalDateTime.of(2025, 1, 10, 20, 0),
-					LocalDateTime.of(2025, 10, 10, 22, 0), 70460, idEspacio2);
+					EventoCategoria.DEPORTES, LocalDateTime.of(2025, 2, 10, 20, 0),
+					LocalDateTime.of(2025, 2, 10, 22, 0), 70460, idEspacio2);
 			System.out.println("Evento 5 creado con id: " + idEvento5 + ", en el espacio físico " + idEspacio2);
 
 			String idEvento6 = servicioEventos.altaEvento("Concierto Coldplay - Music of the Spheres Tour",
 					"Concierto de la banda Coldplay como parte de su gira mundial", "Coldplay",
-					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 1, 15, 0, 0),
-					LocalDateTime.of(2025, 1, 21, 0, 0), 70000, idEspacio2);
+					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 1, 1, 0, 0),
+					LocalDateTime.of(2025, 1, 4, 0, 0), 70000, idEspacio2);
 			System.out.println("Evento 6 creado con id: " + idEvento6 + ", en el espacio físico " + idEspacio2);
 
 			// Eventos en Espacio Fisico 2 -> Palacio de Congresos y de la Música Euskalduna
@@ -110,43 +114,122 @@ public class Programa {
 					EventoCategoria.CULTURALES, LocalDateTime.of(2025, 2, 25, 19, 0),
 					LocalDateTime.of(2025, 2, 25, 22, 0), 2000, idEspacio3);
 			System.out.println("Evento 8 creado con id: " + idEvento8 + ", en el espacio físico " + idEspacio3);
-
+			
+			System.out.println();
+			
 			try {
 				// Fallo al crear evento, aforo no disponible
-				String idEvento9 = servicioEventos.altaEvento("Feria de Empleo y Formación Profesional",
+				servicioEventos.altaEvento("Feria de Empleo y Formación Profesional",
 						"Evento dedicado a la orientación laboral y las oportunidades de formación", "Gobierno Vasco",
 						EventoCategoria.OTROS, LocalDateTime.of(2024, 10, 15, 10, 0),
 						LocalDateTime.of(2024, 10, 15, 18, 0), 50000, idEspacio3);
 			} catch (IllegalArgumentException e) {
 				System.out.println(
-						"Evento 9 no ha podido ser creada por demasiado aforo, en el espacio físico " + idEspacio3);
+						"Evento 9 no ha podido ser creada debido a: " + e);
 			}
+			
+			System.out.println();
 
 			// Modificar evento
 			servicioEventos.modificarEvento(idEvento7, null, null, null, -1, null);
-			System.out.println("Evento con id:" + idEvento7 + "ha modificado.(NO SE HA CAMBIADO NADA)");
+			System.out.println("Evento con id: " + idEvento7 + " ha modificado.(NO SE HA CAMBIADO NADA)");
 
 			servicioEventos.modificarEvento(idEvento8,
 					"Representación de la famosa ópera de Verdi, La Traviata. Aumento de aforo debido al cambio de fecha",
 					LocalDateTime.of(2025, 2, 26, 19, 0), LocalDateTime.of(2025, 2, 26, 22, 0), 5000, null);
 			System.out.println(
-					"Evento con id:" + idEvento8 + "ha modificado.(SE HA CAMBIADO FECHA, AFORO Y DESCRIPCIÓN)");
+					"Evento con id: " + idEvento8 + " ha modificado.(SE HA CAMBIADO FECHA, AFORO Y DESCRIPCIÓN)");
 
+			System.out.println();
+			
 			// Cancelar evento
 			servicioEventos.cancelarEvento(idEvento7);
-			System.out.println("Evento con id:" + idEvento7 + "ha sido cancelado y eliminado su respectiva ocupación.");
+			System.out.println("Evento con id: " + idEvento7 + " ha sido cancelado y eliminado su respectiva ocupación.");
 
+			System.out.println();
+			
 			// Mostrar eventos de un mes
 			System.out.println("Los eventos del mes de Enero de 2025 son los siguientes:");
-			System.out.println(servicioEventos.eventosDelMes(1, 2025));
+			String eventosEnero2025 = servicioEventos.eventosDelMes(2, 2025);
+			System.out.println(eventosEnero2025.isEmpty() ? "NO HAY EVENTOS PARA LA FECHA INDICADA (1-2025)" : eventosEnero2025);
 
 			System.out.println("Los eventos del mes de Marzo de 2025 son los siguientes:");
-			System.out.println(servicioEventos.eventosDelMes(3, 2025));
-
+			String eventosMarzo2025 = servicioEventos.eventosDelMes(3, 2025);
+			System.out.println(eventosMarzo2025.isEmpty() ? "NO HAY EVENTOS PARA LA FECHA INDICADA (3-2025)" : eventosMarzo2025);
+			
+			System.out.println();
+			
+			//Buscar espacios fisicos disponibles
+			System.out.println("Los espacios físicos disponibles para el 24 de Feberero de 2025 de 9-21 son:");
+			List<EspacioFisico> espacios24Febrero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 2, 24, 9, 0), LocalDateTime.of(2024, 2, 24, 21, 0), 100);
+			if (espacios24Febrero2025.isEmpty())
+				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (24-2-2025)");
+			else {
+				for (EspacioFisico e: espacios24Febrero2025) {
+					System.out.println(e);
+				}
+			}
+			
+			System.out.println();
+			
+			System.out.println("Los espacios físicos disponibles para el 2 de Enero de 2025 son:");
+			List<EspacioFisico> espacios2Enero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 1, 2, 0, 0), LocalDateTime.of(2025, 1, 2, 0, 0), 1000);
+			if (espacios2Enero2025.isEmpty())
+				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (24-2-2025)");
+			else {
+				for (EspacioFisico e: espacios2Enero2025) {
+					System.out.println(e);
+				}
+			}	
+			
+			System.out.println();
+			
+			//Descativo espacio físico
+			servicioEspacios.bajaEspacioFisico(idEspacio3);
+			System.out.println("El espacio físico con id: " + idEspacio3 + " ha sido puesto de baja.");
+			
+			System.out.println();
+			
+			//Volver a comprobar eventos para 2 de Enero
+			
+			System.out.println("Los espacios físicos disponibles para el 2 de Enero de 2025 son:");
+			espacios2Enero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 1, 2, 0, 0), LocalDateTime.of(2025, 1, 2, 0, 0), 1000);
+			if (espacios2Enero2025.isEmpty())
+				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (24-2-2025)");
+			else {
+				for (EspacioFisico e: espacios2Enero2025) {
+					System.out.println(e);
+				}
+			}
+			
+			System.out.println();
+			
+			//Activar espacio físico
+			servicioEspacios.activarEspacioFisico(idEspacio3);
+			System.out.println("El espacio físico con id: " + idEspacio3 + " ha sido puesto de baja.");
+			
+			System.out.println();
+			
+			//Volver a comprobar eventos para 2 de Enero
+			
+			System.out.println("Los espacios físicos disponibles para el 2 de Enero de 2025 son:");
+			espacios2Enero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 1, 2, 0, 0), LocalDateTime.of(2025, 1, 2, 0, 0), 1000);
+			if (espacios2Enero2025.isEmpty())
+				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (24-2-2025)");
+			else {
+				for (EspacioFisico e: espacios2Enero2025) {
+					System.out.println(e);
+				}
+			}
+			
+			System.out.println();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		System.out.println();
 		System.out.println("Fin del programa de pruebas.");
 	}
 
