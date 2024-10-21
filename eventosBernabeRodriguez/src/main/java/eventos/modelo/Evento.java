@@ -39,8 +39,7 @@ public class Evento implements Identificable {
 
 	}
 
-	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria,
-			Ocupacion ocupacion) {
+	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria, Ocupacion ocupacion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;

@@ -20,10 +20,9 @@ public class ServicioEspacios implements IServicioEspacios {
 	}
 
 	@Override
-	public String altaEspacioFisico(String nombre, String propietario, int capacidad, String direccionPostal,
-			double latitud, double longidud, String descripcion) throws RepositorioException {
-		EspacioFisico espacio = new EspacioFisico(nombre, propietario, capacidad, direccionPostal, latitud, longidud,
-				descripcion);
+	public String altaEspacioFisico(String nombre, String propietario, int capacidad, String direccionPostal, double latitud, double longidud,
+			String descripcion) throws RepositorioException {
+		EspacioFisico espacio = new EspacioFisico(nombre, propietario, capacidad, direccionPostal, latitud, longidud, descripcion);
 
 		try {
 			String id = repositorioEspacioFisico.add(espacio);
@@ -41,8 +40,7 @@ public class ServicioEspacios implements IServicioEspacios {
 			espacioFisico.setPuntosInteres(puntosInteres);
 			repositorioEspacioFisico.update(espacioFisico);
 		} catch (RepositorioException e) {
-			throw new RepositorioException(
-					"Error al asignar los puntos de interés al espacio fisico con id " + idEspacioFisico + ".");
+			throw new RepositorioException("Error al asignar los puntos de interés al espacio fisico con id " + idEspacioFisico + ".");
 		} catch (EntidadNoEncontrada e) {
 			throw new EntidadNoEncontrada("Error al encontrar el espacio físico con id " + idEspacioFisico + ".");
 		}
@@ -77,8 +75,7 @@ public class ServicioEspacios implements IServicioEspacios {
 				espacioFisico.cerrar();
 				repositorioEspacioFisico.update(espacioFisico);
 			} catch (RepositorioException e) {
-				throw new RepositorioException(
-						"Error al dar de baja el espacio físico con id " + idEspacioFisico + ".");
+				throw new RepositorioException("Error al dar de baja el espacio físico con id " + idEspacioFisico + ".");
 			} catch (EntidadNoEncontrada e) {
 				throw new EntidadNoEncontrada("Error al encontrar el espacio físico con id " + idEspacioFisico + ".");
 			}
@@ -98,10 +95,8 @@ public class ServicioEspacios implements IServicioEspacios {
 		}
 	}
 
-	// TODO: Falta refactorizar el método buscarEspaciosFisicosLibres
 	@Override
-	public List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
-			int capacidad) {
+	public List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
 		return repositorioEspacioFisico.getEspaciosFisicoLibres(fechaInicio, fechaFin, capacidad);
 	}
 

@@ -45,8 +45,7 @@ public class EspacioFisico implements Identificable {
 
 	}
 
-	public EspacioFisico(String nombre, String propietario, int capacidad, String direccion, double latitud,
-			double longitud, String descripcion) {
+	public EspacioFisico(String nombre, String propietario, int capacidad, String direccion, double latitud, double longitud, String descripcion) {
 		this.nombre = nombre;
 		this.propietario = propietario;
 		this.capacidad = capacidad;
@@ -119,6 +118,10 @@ public class EspacioFisico implements Identificable {
 		return estado;
 	}
 
+	public boolean isCancelado() {
+		return estado == EspacioFisicoEstado.CERRADO_TEMPORALMENTE;
+	}
+
 	public void activar() {
 		this.estado = EspacioFisicoEstado.ACTIVO;
 	}
@@ -130,7 +133,7 @@ public class EspacioFisico implements Identificable {
 	public String getNombrePuntosInteresByDistancia() {
 		LinkedList<PuntoInteres> puntosInteresAux = new LinkedList<PuntoInteres>(puntosInteres);
 		puntosInteresAux.sort((p1, p2) -> Double.compare(p1.getDistancia(), p2.getDistancia()));
-		return puntosInteresAux.stream().map(PuntoInteres::getNombre).collect(Collectors.joining(" "));
+		return puntosInteresAux.stream().map(p -> p.toString()).collect(Collectors.joining(""));
 	}
 
 	@Override

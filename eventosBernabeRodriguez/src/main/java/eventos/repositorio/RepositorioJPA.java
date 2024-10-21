@@ -112,8 +112,7 @@ public abstract class RepositorioJPA<T extends Identificable> implements IReposi
 
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new RepositorioException(
-					"Error al buscar todas las entidades de las instancias de " + getClase().getSimpleName(), e);
+			throw new RepositorioException("Error al buscar todas las entidades de las instancias de " + getClase().getSimpleName(), e);
 		} finally {
 			EntityManagerHelper.closeEntityManager();
 		}
@@ -132,8 +131,7 @@ public abstract class RepositorioJPA<T extends Identificable> implements IReposi
 
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new RepositorioException(
-					"Error al buscar todos los ids de las instancias de " + getClase().getSimpleName(), e);
+			throw new RepositorioException("Error al buscar todos los ids de las instancias de " + getClase().getSimpleName(), e);
 		} finally {
 			EntityManagerHelper.closeEntityManager();
 		}

@@ -18,8 +18,7 @@ public class GeoNamesAPI {
 			String longitud = String.valueOf(longi);
 
 			// Crear la URL para consultar el API de GeoNames
-			String urlString = "http://api.geonames.org/findNearbyWikipedia?username=elmanueh&lang=ES&lat=" + latitud
-					+ "&lng=" + longitud;
+			String urlString = "http://api.geonames.org/findNearbyWikipedia?username=elmanueh&lang=ES&lat=" + latitud + "&lng=" + longitud;
 			URL url = new URL(urlString);
 			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 			conexion.setRequestMethod("GET");

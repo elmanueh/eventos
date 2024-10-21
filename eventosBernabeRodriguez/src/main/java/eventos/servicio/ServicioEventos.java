@@ -1,7 +1,9 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Evento;
@@ -16,22 +18,29 @@ public class ServicioEventos implements IServicioEventos {
 
 	private IRepositorio<EspacioFisico, String> repositorioEspacio;
 	private IRepositorio<Evento, String> repositorioEvento;
+	private IServicioEspacios servicioEspacios;
 
 	public ServicioEventos() {
 		repositorioEspacio = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
 		repositorioEvento = FactoriaRepositorios.getRepositorio(Evento.class);
+		servicioEspacios = new ServicioEspacios();
 	}
 
 	@Override
-	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria,
-			LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico)
-			throws RepositorioException, EntidadNoEncontrada {
+	public String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria, LocalDateTime fechaInicio,
+			LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada {
 		try {
 			EspacioFisico espacioFisico = repositorioEspacio.getById(idEspacioFisico);
-
+			if (espacioFisico.isCancelado())
+				throw new IllegalArgumentException("El espacio físico con id " + idEspacioFisico + " está cancelado.");
 			if (numPlazas > espacioFisico.getCapacidad())
-				throw new IllegalArgumentException(
-						"El número de plazas supera la capacidad del espacio físico con id " + idEspacioFisico + ".");
+				throw new IllegalArgumentException("El número de plazas supera la capacidad del espacio físico con id " + idEspacioFisico + ".");
+
+			LinkedList<EspacioFisico> espaciosFisicos = new LinkedList<EspacioFisico>(
+					servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas));
+			boolean isEspacioFisicoLibre = espaciosFisicos.stream().anyMatch(espacio -> espacio.getId().equals(idEspacioFisico));
+			if (!isEspacioFisicoLibre)
+				throw new IllegalArgumentException("El espacio fisico con id " + idEspacioFisico + " no está disponible en la fecha.");
 
 			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacioFisico);
 			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
@@ -45,8 +54,8 @@ public class ServicioEventos implements IServicioEventos {
 	}
 
 	@Override
-	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-			int numPlazas, EspacioFisico espacioFisico) throws RepositorioException, EntidadNoEncontrada {
+	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas,
+			EspacioFisico espacioFisico) throws RepositorioException, EntidadNoEncontrada {
 		try {
 			Evento evento = repositorioEvento.getById(idEvento);
 
@@ -80,16 +89,10 @@ public class ServicioEventos implements IServicioEventos {
 		}
 	}
 
-	// TODO: Falta refactorizar el método eventosDelMes
 	@Override
 	public String eventosDelMes(int mes, int año) {
 		List<Evento> eventos = repositorioEvento.getEventosDelMes(mes, año);
-		String resumenEventos = "";
-
-		for (Evento e : eventos) {
-			resumenEventos += e.toString() + "\n";
-		}
-
+		String resumenEventos = eventos.stream().map(Evento::toString).collect(Collectors.joining(""));
 		return resumenEventos;
 	}
 

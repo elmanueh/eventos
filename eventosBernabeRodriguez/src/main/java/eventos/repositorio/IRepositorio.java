@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import eventos.modelo.EspacioFisico;
+import eventos.modelo.EspacioFisicoEstado;
 import eventos.modelo.Evento;
 import eventos.utils.EntityManagerHelper;
 
@@ -39,19 +40,18 @@ public interface IRepositorio<T, K> {
 		return resultado == 0.0;
 	}
 
-	public default List<EspacioFisico> getEspaciosFisicoLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin,
-			int capacidad) {
+	public default List<EspacioFisico> getEspaciosFisicoLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
 
 		EntityManager em = EntityManagerHelper.getEntityManager();
 
-		String queryString = "SELECT e FROM EspacioFisico e WHERE e.capacidad >= :capacidadMinima AND "
-				+ "e.id NOT IN (SELECT o.espacioFisico.id FROM Ocupacion o WHERE "
-				+ "o.fechaInicio <= :fechaFin AND o.fechaFin >= :fechaInicio)";
+		String queryString = "SELECT e FROM EspacioFisico e WHERE e.capacidad >= :capacidadMinima AND " + "e.estado = :activo AND "
+				+ "e.id NOT IN (SELECT o.espacioFisico.id FROM Ocupacion o WHERE " + "o.fechaInicio <= :fechaFin AND o.fechaFin >= :fechaInicio)";
 
 		TypedQuery<EspacioFisico> typedQuery = em.createQuery(queryString, EspacioFisico.class);
 		typedQuery.setParameter("capacidadMinima", capacidad);
 		typedQuery.setParameter("fechaInicio", fechaInicio);
 		typedQuery.setParameter("fechaFin", fechaFin);
+		typedQuery.setParameter("activo", EspacioFisicoEstado.ACTIVO);
 
 		List<EspacioFisico> resultado = typedQuery.getResultList();
 		EntityManagerHelper.closeEntityManager();
