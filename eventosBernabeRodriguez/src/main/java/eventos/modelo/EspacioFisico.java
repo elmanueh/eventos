@@ -135,8 +135,7 @@ public class EspacioFisico implements Identificable {
 
 	@Override
 	public String toString() {
-		return "EspacioFisico [nombre=" + nombre + ", direccion postal=" + direccion + ", puntosInteres="
-				+ this.getNombrePuntosInteresByDistancia() + "]";
+		return "EspacioFisico [nombre=" + nombre + ", direccionPostal=" + direccion + "]\n" + this.getNombrePuntosInteresByDistancia();
 	}
 
 }

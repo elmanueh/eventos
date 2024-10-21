@@ -52,8 +52,7 @@ public class PuntoInteres {
 
 	@Override
 	public String toString() {
-		return "PuntoInteres\n\t[nombre=" + nombre + ",\n\tdescripcion=" + descripcion + ",\n\tdistancia=" + distancia
-				+ ",\n\turl=" + url + "]\n";
+		return "PuntoInteres [nombre=" + nombre + ", distancia = " + distancia + "]\n";
 	}
 
 }

@@ -79,7 +79,7 @@ public class Ocupacion implements Identificable {
 
 	@Override
 	public String toString() {
-		return "Ocupacion [fechaInicio=" + fechaInicio + espacioFisico.toString() + "]";
+		return "Ocupacion [fechaInicio=" + fechaInicio + "]\n" + espacioFisico.toString();
 	}
 
 }

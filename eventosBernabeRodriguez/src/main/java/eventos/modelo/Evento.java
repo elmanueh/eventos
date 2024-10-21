@@ -117,8 +117,7 @@ public class Evento implements Identificable {
 
 	@Override
 	public String toString() {
-		return "Evento [Nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria
-				+ ocupacion.toString() + "]";
+		return "Evento [Nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria + "]\n" + ocupacion.toString() + "\n";
 	}
 
 }
