@@ -1,5 +1,8 @@
 - Los metodos JPQL van en la interfaz repositorio ???
-- Habria que poner etiquetas de XML a la clase PuntoInteres ???
+	Profesora: En la interfaz no, porque si añadimos un repositorio nuevo que no es JPA, entonces está haciendo JPQL por defecto
+	Dice que crear un nuevo repositorio JPAadoc
+	
 - Se puede llamar a un servicio desde otro servicio ???
+	Profesora: mejor llamar al repositorio que devuelve la información tal
 
 - REVISION FINAL PROGRAMA
