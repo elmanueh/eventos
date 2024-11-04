@@ -8,12 +8,12 @@ import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
 import eventos.repositorio.FactoriaRepositorios;
-import eventos.repositorio.IRepositorio;
+import eventos.repositorio.IRepositorioAdHocEspacioFisico;
 import eventos.repositorio.RepositorioException;
 
 public class ServicioEspacios implements IServicioEspacios {
 
-	private IRepositorio<EspacioFisico, String> repositorioEspacioFisico;
+	private IRepositorioAdHocEspacioFisico repositorioEspacioFisico;
 
 	public ServicioEspacios() {
 		repositorioEspacioFisico = FactoriaRepositorios.getRepositorio(EspacioFisico.class);

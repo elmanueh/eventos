@@ -11,19 +11,18 @@ import eventos.modelo.EventoCategoria;
 import eventos.modelo.Ocupacion;
 import eventos.repositorio.EntidadNoEncontrada;
 import eventos.repositorio.FactoriaRepositorios;
-import eventos.repositorio.IRepositorio;
+import eventos.repositorio.IRepositorioAdHocEspacioFisico;
+import eventos.repositorio.IRepositorioAdHocEvento;
 import eventos.repositorio.RepositorioException;
 
 public class ServicioEventos implements IServicioEventos {
 
-	private IRepositorio<EspacioFisico, String> repositorioEspacio;
-	private IRepositorio<Evento, String> repositorioEvento;
-	private IServicioEspacios servicioEspacios;
+	private IRepositorioAdHocEspacioFisico repositorioEspacio;
+	private IRepositorioAdHocEvento repositorioEvento;
 
 	public ServicioEventos() {
 		repositorioEspacio = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
 		repositorioEvento = FactoriaRepositorios.getRepositorio(Evento.class);
-		servicioEspacios = new ServicioEspacios();
 	}
 
 	@Override
@@ -37,7 +36,8 @@ public class ServicioEventos implements IServicioEventos {
 				throw new IllegalArgumentException("El número de plazas supera la capacidad del espacio físico con id " + idEspacioFisico + ".");
 
 			LinkedList<EspacioFisico> espaciosFisicos = new LinkedList<EspacioFisico>(
-					servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas));
+					repositorioEspacio.getEspaciosFisicoLibres(fechaInicio, fechaFin, numPlazas));
+
 			boolean isEspacioFisicoLibre = espaciosFisicos.stream().anyMatch(espacio -> espacio.getId().equals(idEspacioFisico));
 			if (!isEspacioFisicoLibre)
 				throw new IllegalArgumentException("El espacio fisico con id " + idEspacioFisico + " no está disponible en la fecha.");
