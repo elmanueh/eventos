@@ -1,41 +1,34 @@
 package eventos.servicio;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class GeoNamesAPI {
 
 	// Método para hacer la solicitud a la API de GeoNames
 	public static String getPuntosInteresCercanos(double lat, double longi) {
-		StringBuilder response = new StringBuilder();
+		String urlString = "http://api.geonames.org/findNearbyWikipedia?username=elmanueh&lang=ES&lat=" + lat + "&lng=" + longi;
 
 		try {
-			// Extraer latitud y longitud de la cadena recibida
-			String latitud = String.valueOf(lat);
-			String longitud = String.valueOf(longi);
+            // Crear el cliente HttpClient
+            HttpClient client = HttpClient.newHttpClient();
 
-			// Crear la URL para consultar el API de GeoNames
-			String urlString = "http://api.geonames.org/findNearbyWikipedia?username=elmanueh&lang=ES&lat=" + latitud + "&lng=" + longitud;
-			URL url = new URL(urlString);
-			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
-			conexion.setRequestMethod("GET");
+            // Crear la solicitud HttpRequest
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(urlString))
+                .GET()
+                .build();
 
-			// Leer la respuesta de la API
-			InputStream inputStream = conexion.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				response.append(line);
-			}
-			reader.close();
+            // Enviar la solicitud y obtener la respuesta
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+            // Retornar el cuerpo de la respuesta
+            return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		return response.toString();
 	}
 }
