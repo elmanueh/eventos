@@ -77,6 +77,10 @@ public class ServicioEventos implements IServicioEventos {
 
 		if (idEvento == null || idEvento.isEmpty())
 			throw new IllegalArgumentException("El id del evento no puede ser nulo o vacío.");
+		if (descripcion != null && descripcion.isEmpty())
+			throw new IllegalArgumentException("La descripción del evento no puede ser nula o vacía.");
+		if (numPlazas == 0 && numPlazas < -1)
+			throw new IllegalArgumentException("El número de plazas del evento debe ser mayor que 0.");
 
 		try {
 			Evento evento = repositorioEvento.getById(idEvento);

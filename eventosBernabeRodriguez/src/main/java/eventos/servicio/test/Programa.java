@@ -43,7 +43,15 @@ public class Programa {
 					37.772256690148545, -1.5020068809646678,
 					"Cuenta con unas 750 butacas, siendo el aforo de salas de cine más grande de la Región de Murcia.");
 			System.out.println("Espacio fisico 4 creado con id: " + idEspacio4);
-
+			System.out.println();
+			
+			// Fallo al crear espacios físico
+			try {
+				servicioEspacios.altaEspacioFisico(null, "Plaza de Toros de Murcia, S.A.", 15000,
+						"Ronda de Garay, Murcia, España", 37.984123153048316, -1.1291804565199284, "Plaza de toros de Murcia, ianugurado en 1886");
+			} catch (IllegalArgumentException e) {
+				System.out.println("Espacio físico 5 no ha podido ser creado debido a: " + e);
+			}
 			System.out.println();
 			
 
@@ -61,11 +69,27 @@ public class Programa {
 					servicioPuntosDeInteres.obtenerPuntosInteres(43.266944, -2.944722));
 			servicioEspacios.asignarPuntosDeInteres(idEspacio3, puntosInteres3);
 
+			// Fallo al asignar puntos de interes
+			try {
+				servicioEspacios.asignarPuntosDeInteres(null, puntosInteres3);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se han podido asignar los puntos de interes al espacio físico: " + e);
+			}
+			System.out.println();
+			
 			
 			
 			// Modificar espacios fisicos
 			servicioEspacios.modificarEspacioFisico(idEspacio1, null, -1, null);
 			servicioEspacios.modificarEspacioFisico(idEspacio3, "Palacio de Congresos y de la Música Euskalduna Jauregia", 8000, null);
+			
+			// Fallo al modificar un espacio físico
+			try {
+				servicioEspacios.modificarEspacioFisico(null, "Palacio de congresos Murcia", 8000, null);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se ha podido modificar el espacio físico: " + e);
+			}
+			System.out.println();
 
 			
 			
@@ -154,6 +178,17 @@ public class Programa {
 			System.out.println();
 
 			
+			// Fallo al crear evento
+			try {
+				servicioEventos.altaEvento(null,
+						"Evento dedicado a la orientación laboral y las oportunidades de formación", "Gobierno Vasco", EventoCategoria.OTROS,
+						LocalDateTime.of(2024, 10, 15, 10, 0), LocalDateTime.of(2024, 10, 15, 18, 0), 50000, idEspacio3);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Evento 12 no ha podido ser creado debido a: " + e);
+			}
+			System.out.println();
+			
+			
 			
 			// Modificar evento
 			servicioEventos.modificarEvento(idEvento7, null, null, null, -1);
@@ -164,12 +199,28 @@ public class Programa {
 					LocalDateTime.of(2025, 2, 26, 19, 0), LocalDateTime.of(2025, 2, 26, 22, 0), 5000);
 			System.out.println("Evento con id: " + idEvento8 + " ha sido modificado. (SE HA CAMBIADO FECHA, AFORO y DESCRIPCIÓN)");
 			System.out.println();
+			
+			// Fallo al modificar evento
+			try {
+				servicioEventos.modificarEvento(null, null, null, null, -1);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Evento no ha podido ser modificado: " + e);
+			}
+			System.out.println();
 
 			
 			
 			// Cancelar evento
 			servicioEventos.cancelarEvento(idEvento7);
 			System.out.println("Evento con id: " + idEvento7 + " ha sido cancelado y eliminado su respectiva ocupación.");
+			System.out.println();
+			
+			// Fallo al cancelar evento
+			try {
+				servicioEventos.cancelarEvento(null);
+			} catch (IllegalArgumentException e) {
+				System.out.println("Evento no ha podido ser cancelado: " + e);
+			}
 			System.out.println();
 
 			
@@ -182,7 +233,14 @@ public class Programa {
 			System.out.println("Los eventos del mes de Marzo de 2025 son los siguientes:");
 			String eventosMarzo2025 = servicioEventos.eventosDelMes(3, 2025);
 			System.out.println(eventosMarzo2025.isEmpty() ? "NO HAY EVENTOS PARA LA FECHA INDICADA (3-2025)" : eventosMarzo2025);
-
+			System.out.println();
+			
+			// Fallo al obtener eventos del mes
+			try {
+				servicioEventos.eventosDelMes(13, 2025);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se han podido obtener eventos en el mes y años: " + e);
+			}
 			System.out.println();
 
 			
@@ -251,6 +309,32 @@ public class Programa {
 				for (EspacioFisico e : espacios2Enero2025) {
 					System.out.println(e);
 				}
+			}
+			System.out.println();
+			
+			
+			
+			// Fallo al dar de baja un espacio físico
+			try {
+				servicioEspacios.bajaEspacioFisico(null);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se ha podido dar de baja el espacio físico: " + e);
+			}
+			System.out.println();
+			
+			// Fallo al activar un espacio físico
+			try {
+				servicioEspacios.activarEspacioFisico(null);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se ha podido activar el espacio físico: " + e);
+			}
+			System.out.println();
+			
+			// Fallo al buscar espacios físicos libres
+			try {
+				servicioEspacios.buscarEspaciosFisicosLibres(null, LocalDateTime.of(2025, 1, 2, 23, 0), 1000);
+			} catch (IllegalArgumentException e) {
+				System.out.println("No se han podido buscar espacios físico libres: " + e);
 			}
 			System.out.println();
 		} catch (Exception e) {

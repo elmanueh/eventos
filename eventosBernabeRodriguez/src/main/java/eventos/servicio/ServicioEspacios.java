@@ -74,6 +74,12 @@ public class ServicioEspacios implements IServicioEspacios {
 
 		if (idEspacioFisico == null || idEspacioFisico.isEmpty())
 			throw new IllegalArgumentException("El id del espacio físico no puede ser nulo o vacío.");
+		if (nombre != null && nombre.isEmpty())
+			throw new IllegalArgumentException("El nombre del espacio físico no puede ser vacío.");
+		if (capacidad == 0 && capacidad < -1)
+			throw new IllegalArgumentException("La capacidad del espacio físico debe ser mayor que 0.");
+		if (descripcion != null && descripcion.isEmpty())
+			throw new IllegalArgumentException("La descripción del espacio físico no puede ser vacía.");
 
 		try {
 			EspacioFisico espacioFisico = repositorioEspacioFisico.getById(idEspacioFisico);
