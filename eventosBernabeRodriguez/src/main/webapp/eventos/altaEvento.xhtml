@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Alta nuevo evento</title>
+</h:head>
+<h:body>
+    <div>
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Nombre" />
+                <p:inputText value="#{altaEventoWeb.nombre}" />
+                
+                <p:outputLabel value="Descripción" />
+                <p:inputTextarea value="#{altaEventoWeb.descripcion}" rows="5"
+                    cols="50" />
+                    
+                <p:outputLabel value="Organizador" />
+                <p:inputText value="#{altaEventoWeb.organizador}" />
+                
+                <p:outputLabel value="Número de plazas" />
+                <p:spinner value="#{altaEventoWeb.numPlazas}" min="1" converter="javax.faces.Integer"/>
+                
+                <p:outputLabel value="categoria" />
+                <p:selectOneMenu id="categoria" value="#{altaEventoWeb.categoria}">
+    				<f:selectItem itemLabel="Seleccionar Categoría" itemValue="" />
+    				<f:selectItems value="#{altaEventoWeb.categorias}" />
+                </p:selectOneMenu>
+                    
+                <p:outputLabel value="Fecha de inicio" />
+                <p:datePicker value="#{altaEventoWeb.fechaInicio}" locale="es"
+                    monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+                    hideOnDateTimeSelect="true" showTime="true" />
+                    
+                <p:outputLabel value="Fecha de fin" />
+                <p:datePicker value="#{altaEventoWeb.fechaFin}" locale="es"
+                    monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+                    hideOnDateTimeSelect="true" showTime="true" /> 
+                    
+                <p:outputLabel value="Di el ID del espacio fisico" />
+                <p:inputText value="#{altaEventoWeb.espacioFisicoID}" />
+            </h:panelGrid>
+
+            <p:commandButton value="Alta" icon="pi pi-check-circle"
+                actionListener="#{altaEventoWeb.altaEvento()}" />
+        </h:form>
+    </div>
+</h:body>
+</html>
