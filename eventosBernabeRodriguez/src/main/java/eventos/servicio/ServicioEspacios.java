@@ -1,9 +1,13 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import eventos.dto.EspacioFisicoDTO;
+import eventos.dto.PuntoInteresDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
@@ -54,8 +58,8 @@ public class ServicioEspacios implements IServicioEspacios {
 
 		if (idEspacioFisico == null || idEspacioFisico.isEmpty())
 			throw new IllegalArgumentException("El id del espacio físico no puede ser nulo o vacío.");
-		if (puntosInteres == null || puntosInteres.isEmpty())
-			throw new IllegalArgumentException("La lista de puntos de interés no puede ser nula o vacía.");
+		if (puntosInteres == null)
+			throw new IllegalArgumentException("La lista de puntos de interés no puede ser nula.");
 
 		try {
 			EspacioFisico espacioFisico = repositorioEspacioFisico.getById(idEspacioFisico);
@@ -146,6 +150,38 @@ public class ServicioEspacios implements IServicioEspacios {
 			throw new IllegalArgumentException("La capacidad debe ser mayor que 0.");
 
 		return repositorioEspacioFisico.getEspaciosFisicoLibres(fechaInicio, fechaFin, capacidad);
+	}
+
+	@Override
+	public List<EspacioFisicoDTO> buscarEspaciosFisicosLibres2(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
+
+		if (fechaInicio == null)
+			throw new IllegalArgumentException("La fecha de inicio no puede ser nula.");
+		if (fechaFin == null)
+			throw new IllegalArgumentException("La fecha de fin no puede ser nula.");
+		if (capacidad <= 0)
+			throw new IllegalArgumentException("La capacidad debe ser mayor que 0.");
+
+		return transformToDTO(repositorioEspacioFisico.getEspaciosFisicoLibres(fechaInicio, fechaFin, capacidad));
+	}
+
+	private List<EspacioFisicoDTO> transformToDTO(List<EspacioFisico> espaciosFisicoLibres) {
+		if (espaciosFisicoLibres == null || espaciosFisicoLibres.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		return espaciosFisicoLibres
+				.stream().map(
+						espacio -> new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(),
+								espacio.getDireccion(), espacio.getLongitud(), espacio.getLatitud(), espacio.getDescripcion(),
+								espacio.getEstado() != null ? espacio.getEstado().toString() : null,
+								espacio.getPuntosInteres() != null
+										? espacio.getPuntosInteres().stream()
+												.map(punto -> new PuntoInteresDTO(punto.getId(), punto.getNombre(), punto.getDescripcion(),
+														punto.getDistancia(), punto.getUrl()))
+												.collect(Collectors.toList())
+										: Collections.emptyList()))
+				.collect(Collectors.toList());
 	}
 
 }

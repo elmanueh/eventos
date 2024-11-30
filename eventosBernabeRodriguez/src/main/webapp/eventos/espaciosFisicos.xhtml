@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Filtrar Espacios Fisicos</title>
+</h:head>
+<h:body>
+	<f:metadata>
+		<f:viewAction action="#{filtrarEspacioFisicoWeb.load()}" />
+	</f:metadata>
+	<div class="card">
+		<h:form id="form">
+			<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
+				value="#{filtrarEspacioFisicoWeb.espaciosFisicos}"
+				rowKey="#{espacioFisicoDTO.id}">
+				<p:column headerText="Id">
+					<h:outputText value="#{espacioFisicoDTO.id}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{espacioFisicoDTO.nombre}" />
+				</p:column>
+				<p:column headerText="Capacidad">
+					<h:outputText value="#{espacioFisicoDTO.capacidad}" />
+				</p:column>
+				<p:column headerText="Dirección postal">
+					<h:outputText value="#{espacioFisicoDTO.direccion}" />
+				</p:column>
+				<p:column headerText="Descripción">
+					<h:outputText value="#{espacioFisicoDTO.descripcion}" />
+				</p:column>
+				<p:column headerText="Propietario">
+					<h:outputText value="#{espacioFisicoDTO.propietario}" />
+				</p:column>
+			</p:dataTable>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Fecha de inicio" />
+				<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaInicio}"
+					locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+					hideOnDateTimeSelect="true" showTime="true" />
+
+				<p:outputLabel value="Fecha de fin" />
+				<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaFin}"
+					locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+					hideOnDateTimeSelect="true" showTime="true" />
+
+				<p:outputLabel value="Capacidad" />
+				<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
+					converter="javax.faces.Integer" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>
