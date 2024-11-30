@@ -12,6 +12,10 @@
 	<div class="card">
 		<h:form id="form">
 			<p:growl id="messages" showDetail="true" />
+			
+			<f:metadata>
+                <f:viewAction action="#{filtrarEspacioFisicoWeb.load()}" />
+            </f:metadata>
 
 			<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
 				value="#{filtrarEspacioFisicoWeb.espaciosFisicos}"
@@ -54,7 +58,7 @@
 				<!-- Botón de actualización -->
 				<p:commandButton value="Cargar Espacios"
 					action="#{filtrarEspacioFisicoWeb.load()}"
-					update="espaciosFisicos messages" process="@form" />
+					update="espaciosFisicos" process="@form" />
 			</h:panelGrid>
 		</h:form>
 	</div>

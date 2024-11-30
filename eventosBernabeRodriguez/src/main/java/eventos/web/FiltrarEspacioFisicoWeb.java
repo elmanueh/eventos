@@ -19,32 +19,33 @@ import eventos.servicio.ServicioEspacios;
 @ViewScoped
 public class FiltrarEspacioFisicoWeb implements Serializable {
 	private List<EspacioFisicoDTO> espaciosFisicos;
-	
-	private int capacidad; 
+
+	private int capacidad;
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
-	
-	private IServicioEspacios ServicioEspacios; 
+
+	private IServicioEspacios ServicioEspacios;
 
 	@Inject
 	protected FacesContext facesContext;
 
 	public FiltrarEspacioFisicoWeb() {
 		ServicioEspacios = new ServicioEspacios();
+		
+		//Inicialización inicial
+		capacidad = 100;
+        fechaInicio = LocalDateTime.of(2024, 12, 31, 0, 0, 0, 0);
+        fechaFin = LocalDateTime.of(2024, 12, 31, 0, 0, 0);
 	}
-	
+
 	public void load() {
-        try {
-        	espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
-        	//espaciosFisicos.add(new EspacioFisicoDTO("4", "prueba", "prueba", 200000, "prueba"));
-        	
-        	System.out.println(espaciosFisicos.toString());
-        } catch (Exception e) {
-        	e.printStackTrace();
-            facesContext.addMessage(null, 
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
-        }
-    }
+		try {
+			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
+		} catch (Exception e) {
+			e.printStackTrace();
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
+		}
+	}
 
 	public List<EspacioFisicoDTO> getEspaciosFisicos() {
 		return espaciosFisicos;
