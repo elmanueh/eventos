@@ -172,8 +172,16 @@ public class ServicioEspacios implements IServicioEspacios {
 		return espaciosFisicoLibres
 				.stream().map(
 						espacio -> new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(),
-								espacio.getDireccion(), espacio.getDescripcion()))
+								espacio.getDireccion(), espacio.getDescripcion(), espacio.getEstado()))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<EspacioFisicoDTO> obtenerMisEspaciosFisicos(String propietario) {
+		if (propietario == null)
+			throw new IllegalArgumentException("El propietario no puede ser nulo.");
+
+		return transformToDTO(repositorioEspacioFisico.getEspaciosFisico(propietario));
 	}
 
 }

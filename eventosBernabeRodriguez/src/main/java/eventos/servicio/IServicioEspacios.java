@@ -27,4 +27,6 @@ public interface IServicioEspacios {
 	List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
 	
 	List<EspacioFisicoDTO> buscarEspaciosFisicosLibres2(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
+
+	List<EspacioFisicoDTO> obtenerMisEspaciosFisicos(String propietario);
 }

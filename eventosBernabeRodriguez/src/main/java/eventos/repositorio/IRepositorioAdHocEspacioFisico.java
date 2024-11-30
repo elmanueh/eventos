@@ -10,4 +10,6 @@ public interface IRepositorioAdHocEspacioFisico extends IRepositorioString<Espac
 	boolean isAlgunaOcupacion(String idEspacioFisico);
 
 	List<EspacioFisico> getEspaciosFisicoLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
+
+	List<EspacioFisico> getEspaciosFisico(String propietario);
 }
