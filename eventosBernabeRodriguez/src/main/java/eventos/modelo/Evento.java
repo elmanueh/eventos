@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class Evento implements Identificable {
 	private int plazas;
 	private boolean cancelado;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private EventoCategoria categoria;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -39,14 +40,15 @@ public class Evento implements Identificable {
 
 	}
 
-	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria, Ocupacion ocupacion) {
+	public Evento(String nombre, String descripcion, String organizador, int plazas, EventoCategoria categoria, LocalDateTime fechaInicio,
+			LocalDateTime fechaFin, EspacioFisico espacioFisico) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;
 		this.plazas = plazas;
 		this.cancelado = false;
 		this.categoria = categoria;
-		this.ocupacion = ocupacion;
+		this.ocupacion = new Ocupacion(fechaInicio, fechaFin, espacioFisico);
 	}
 
 	public String getId() {

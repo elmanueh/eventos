@@ -191,18 +191,18 @@ public class Programa {
 			
 			
 			// Modificar evento
-			servicioEventos.modificarEvento(idEvento7, null, null, null, -1);
+			servicioEventos.modificarEvento(idEvento7, null, null, null, -1, null);
 			System.out.println("Evento con id: " + idEvento7 + " ha sido modificado. (NO SE HA CAMBIADO NADA)");
 
 			servicioEventos.modificarEvento(idEvento8,
 					"Representación de la famosa ópera de Verdi, La Traviata. Aumento de aforo debido al cambio de fecha",
-					LocalDateTime.of(2025, 2, 26, 19, 0), LocalDateTime.of(2025, 2, 26, 22, 0), 5000);
+					LocalDateTime.of(2025, 2, 26, 19, 0), LocalDateTime.of(2025, 2, 26, 22, 0), 5000, null);
 			System.out.println("Evento con id: " + idEvento8 + " ha sido modificado. (SE HA CAMBIADO FECHA, AFORO y DESCRIPCIÓN)");
 			System.out.println();
 			
 			// Fallo al modificar evento
 			try {
-				servicioEventos.modificarEvento(null, null, null, null, -1);
+				servicioEventos.modificarEvento(null, null, null, null, -1, null);
 			} catch (IllegalArgumentException e) {
 				System.out.println("Evento no ha podido ser modificado: " + e);
 			}

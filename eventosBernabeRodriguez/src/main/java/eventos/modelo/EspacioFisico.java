@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,10 +36,10 @@ public class EspacioFisico implements Identificable {
 	@Lob
 	private String descripcion;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private EspacioFisicoEstado estado;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "EspacioFisico_PuntoInteres")
 	private List<PuntoInteres> puntosInteres;
 

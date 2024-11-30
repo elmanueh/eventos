@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Evento;
 import eventos.modelo.EventoCategoria;
-import eventos.modelo.Ocupacion;
 import eventos.repositorio.EntidadNoEncontrada;
 import eventos.repositorio.FactoriaRepositorios;
 import eventos.repositorio.IRepositorioAdHocEspacioFisico;
@@ -60,8 +59,7 @@ public class ServicioEventos implements IServicioEventos {
 			if (!isEspacioFisicoLibre)
 				throw new IllegalArgumentException("El espacio fisico con id " + idEspacioFisico + " no está disponible en la fecha.");
 
-			Ocupacion ocupacion = new Ocupacion(fechaInicio, fechaFin, espacioFisico);
-			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, ocupacion);
+			Evento evento = new Evento(nombre, descripcion, organizador, numPlazas, categoria, fechaInicio, fechaFin, espacioFisico);
 			String id = repositorioEvento.add(evento);
 			return id;
 		} catch (RepositorioException e) {
@@ -72,15 +70,17 @@ public class ServicioEventos implements IServicioEventos {
 	}
 
 	@Override
-	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas)
+	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico)
 			throws RepositorioException, EntidadNoEncontrada {
 
 		if (idEvento == null || idEvento.isEmpty())
 			throw new IllegalArgumentException("El id del evento no puede ser nulo o vacío.");
 		if (descripcion != null && descripcion.isEmpty())
-			throw new IllegalArgumentException("La descripción del evento no puede ser nula o vacía.");
+			throw new IllegalArgumentException("La descripción del evento no puede ser vacía.");
 		if (numPlazas == 0 && numPlazas < -1)
 			throw new IllegalArgumentException("El número de plazas del evento debe ser mayor que 0.");
+		if (idEspacioFisico!= null && idEspacioFisico.isEmpty())
+			throw new IllegalArgumentException("El id del espacio físico no puede ser vacío.");
 
 		try {
 			Evento evento = repositorioEvento.getById(idEvento);
@@ -93,6 +93,8 @@ public class ServicioEventos implements IServicioEventos {
 				evento.setFechaFin(fechaFin);
 			if (numPlazas != -1)
 				evento.setPlazas(numPlazas);
+			if (idEspacioFisico != null)
+				evento.setEspacioFisico(repositorioEspacio.getById(idEspacioFisico));
 
 			repositorioEvento.update(evento);
 		} catch (RepositorioException e) {
