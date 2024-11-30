@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import eventos.dto.EspacioFisicoDTO;
+import eventos.modelo.EspacioFisicoEstado;
+import eventos.repositorio.EntidadNoEncontrada;
+import eventos.repositorio.RepositorioException;
 import eventos.servicio.IServicioEspacios;
 import eventos.servicio.ServicioEspacios;
 
@@ -19,6 +22,7 @@ import eventos.servicio.ServicioEspacios;
 public class MisEspaciosFisicosWeb implements Serializable {
 	private List<EspacioFisicoDTO> espaciosFisicos;
 
+	private EspacioFisicoDTO espacioSeleccionado;
 	private String propietario;
 
 	private IServicioEspacios ServicioEspacios;
@@ -28,20 +32,41 @@ public class MisEspaciosFisicosWeb implements Serializable {
 
 	public MisEspaciosFisicosWeb() {
 		ServicioEspacios = new ServicioEspacios();
-		
-		//Inicialización inicial
+
+		// Inicialización inicial
 		propietario = "Público";
 	}
 
 	public void load() {
-		try {				
+		try {
 			espaciosFisicos = ServicioEspacios.obtenerMisEspaciosFisicos(propietario);
-			
-			System.out.println(espaciosFisicos.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
 		}
+	}
+
+	public void cambiarEstado() {
+		if (espacioSeleccionado != null) {
+			try {
+				if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.ACTIVO.toString())) {
+					ServicioEspacios.bajaEspacioFisico(espacioSeleccionado.getId());
+				} else if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name()))
+					ServicioEspacios.activarEspacioFisico(espacioSeleccionado.getId());
+			} catch (RepositorioException | EntidadNoEncontrada e) {
+				e.printStackTrace();
+				facesContext.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo cambiar de estado el espacio fisico."));
+			}
+		}
+	}
+
+	public EspacioFisicoDTO getEspacioSeleccionado() {
+		return espacioSeleccionado;
+	}
+
+	public void setEspacioSeleccionado(EspacioFisicoDTO espacioSeleccionado) {
+		this.espacioSeleccionado = espacioSeleccionado;
 	}
 
 	public List<EspacioFisicoDTO> getEspaciosFisicos() {
