@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import eventos.dto.EspacioFisicoDTO;
-import eventos.dto.PuntoInteresDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
@@ -173,14 +172,7 @@ public class ServicioEspacios implements IServicioEspacios {
 		return espaciosFisicoLibres
 				.stream().map(
 						espacio -> new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(),
-								espacio.getDireccion(), espacio.getLongitud(), espacio.getLatitud(), espacio.getDescripcion(),
-								espacio.getEstado() != null ? espacio.getEstado().toString() : null,
-								espacio.getPuntosInteres() != null
-										? espacio.getPuntosInteres().stream()
-												.map(punto -> new PuntoInteresDTO(punto.getId(), punto.getNombre(), punto.getDescripcion(),
-														punto.getDistancia(), punto.getUrl()))
-												.collect(Collectors.toList())
-										: Collections.emptyList()))
+								espacio.getDireccion(), espacio.getDescripcion()))
 				.collect(Collectors.toList());
 	}
 

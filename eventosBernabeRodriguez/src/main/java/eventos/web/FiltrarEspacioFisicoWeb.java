@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import eventos.dto.EspacioFisicoDTO;
-import eventos.modelo.EspacioFisico;
 import eventos.servicio.IServicioEspacios;
 import eventos.servicio.ServicioEspacios;
 
@@ -32,22 +31,20 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 
 	public FiltrarEspacioFisicoWeb() {
 		ServicioEspacios = new ServicioEspacios();
-		this.capacidad = 500;
-        this.fechaInicio = LocalDateTime.now();
-        this.fechaFin = LocalDateTime.now().withYear(2030);
 	}
 	
 	public void load() {
         try {
         	espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
+        	//espaciosFisicos.add(new EspacioFisicoDTO("4", "prueba", "prueba", 200000, "prueba"));
+        	
+        	System.out.println(espaciosFisicos.toString());
         } catch (Exception e) {
         	e.printStackTrace();
             facesContext.addMessage(null, 
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
         }
     }
-
-	
 
 	public List<EspacioFisicoDTO> getEspaciosFisicos() {
 		return espaciosFisicos;
@@ -80,6 +77,4 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 	public void setFechaFin(LocalDateTime fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
-	
 }

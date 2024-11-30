@@ -1,32 +1,21 @@
 package eventos.dto;
 
-import java.util.List;
-
 public class EspacioFisicoDTO {
 	private String id;
     private String nombre;
     private String propietario;
     private int capacidad;
     private String direccion;
-    private double longitud;
-    private double latitud;
     private String descripcion;
-    private String estado;
-    private List<PuntoInteresDTO> puntosInteres;
     
-	public EspacioFisicoDTO(String id, String nombre, String propietario, int capacidad, String direccion, double longitud, double latitud,
-			String descripcion, String estado, List<PuntoInteresDTO> puntosInteres) {
+	public EspacioFisicoDTO(String id, String nombre, String propietario, int capacidad, String direccion, String descripcion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.propietario = propietario;
 		this.capacidad = capacidad;
 		this.direccion = direccion;
-		this.longitud = longitud;
-		this.latitud = latitud;
 		this.descripcion = descripcion;
-		this.estado = estado;
-		this.puntosInteres = puntosInteres;
 	}
 	public String getId() {
 		return id;
@@ -58,36 +47,20 @@ public class EspacioFisicoDTO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public double getLongitud() {
-		return longitud;
-	}
-	public void setLongitud(double longitud) {
-		this.longitud = longitud;
-	}
-	public double getLatitud() {
-		return latitud;
-	}
-	public void setLatitud(double latitud) {
-		this.latitud = latitud;
-	}
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public String getEstado() {
-		return estado;
+	@Override
+	public String toString() {
+		return "EspacioFisicoDTO [id=" + id + ", nombre=" + nombre + ", propietario=" + propietario + ", capacidad=" + capacidad + ", direccion="
+				+ direccion + ", descripcion=" + descripcion + "]";
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public List<PuntoInteresDTO> getPuntosInteres() {
-		return puntosInteres;
-	}
-	public void setPuntosInteres(List<PuntoInteresDTO> puntosInteres) {
-		this.puntosInteres = puntosInteres;
-	}
-    
-    
+	
+	
+	
+	
 }
