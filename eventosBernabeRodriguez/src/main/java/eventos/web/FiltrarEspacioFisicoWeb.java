@@ -33,17 +33,16 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 		ServicioEspacios = new ServicioEspacios();
 		
 		//Inicialización inicial
-		capacidad = 100;
-        fechaInicio = LocalDateTime.of(2024, 12, 31, 0, 0, 0, 0);
-        fechaFin = LocalDateTime.of(2024, 12, 31, 0, 0, 0);
+//		capacidad = 100;
+//        fechaInicio = LocalDateTime.of(2024, 12, 31, 0, 0, 0, 0);
+//        fechaFin = LocalDateTime.of(2024, 12, 31, 0, 0, 0);
 	}
 
 	public void load() {
 		try {
 			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
 		} catch (Exception e) {
-			e.printStackTrace();
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		}
 	}
 

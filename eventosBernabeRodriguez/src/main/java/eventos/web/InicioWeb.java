@@ -31,7 +31,7 @@ public class InicioWeb implements Serializable{
 		    facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
 		} catch (IOException e) {
 		    facesContext.addMessage(null,
-		                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha podido navegar"));
+		                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		    e.printStackTrace();
 		}
 	}
@@ -42,7 +42,7 @@ public class InicioWeb implements Serializable{
 			    facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml?nombre="+ nombre);
 			} catch (IOException e) {
 			    facesContext.addMessage(null,
-			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha podido navegar"));
+			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 			    e.printStackTrace();
 			}
 		}
