@@ -36,7 +36,6 @@ public class MisEspaciosFisicosWeb implements Serializable {
 
 	public void load() {
 		try {
-			System.out.println(propietario);
 			espaciosFisicos = ServicioEspacios.obtenerMisEspaciosFisicos(propietario);
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
