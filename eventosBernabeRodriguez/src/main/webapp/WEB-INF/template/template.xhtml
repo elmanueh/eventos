@@ -1,34 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<h:head>
-		<meta charset="utf-8" />
-		<title><ui:insert name="title" /></title>
-	</h:head>
-	<h:body class="homepage is-preload">
-		<ui:insert name="metadata" />
+<h:head>
+	<meta charset="utf-8" />
+	<title><ui:insert name="title" /></title>
+	<h:outputStylesheet library="webjars"
+		name="primeflex/3.3.1/primeflex.min.css" />
+</h:head>
+<h:body class="m-0">
+	<header>
+		<p:growl id="messages" />
 
-		<div id="page-wrapper">
-			<section id="header"
-				style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 100px; height: 80px; background-color: #555; color: white;">
-			<h1>
-				<ui:insert name="rol" />
-			</h1>
-			<p:button value="Cerrar Sesion" outcome="/index.xhtml" /></section>
+		<p:menubar>
+			<f:facet name="start">
+				<img
+					src="https://cdn-icons-png.freepik.com/256/8026/8026333.png?semt=ais_hybrid"
+					alt="Logo de la aplicación" width="50px" />
+			</f:facet>
 
+			<f:facet name="end">
+				<div class="flex">
+					<p class="mr-5">
+						Bienvenido de nuevo, <span class="font-bold">#{param.nombre}</span>
+					</p>
+					<p:button value="Cerrar Sesión" icon="pi pi-fw pi-sign-out"
+						styleClass="ui-button-outlined ui-button-info"
+						outcome="/index.xhtml" />
+				</div>
+			</f:facet>
+		</p:menubar>
+	</header>
 
-			<section id="main">
-			<div class="container" style="margin-bottom: 50px;">
-				<h1 style="font-size: 30px; text-align: center;">
-					<ui:insert name="title" />
-				</h1>
-				<ui:insert name="content" />
-			</div>
-			</section>
-			<ui:include src="/WEB-INF/template/footer.xhtml" />
-		</div>
-	</h:body>
+	<section>
+		<h1 class="text-5xl text-center">
+			<ui:insert name="title" />
+		</h1>
+		<ui:insert name="content" />
+	</section>
+
+	<ui:include src="/WEB-INF/template/footer.xhtml" />
+
+</h:body>
 </html>

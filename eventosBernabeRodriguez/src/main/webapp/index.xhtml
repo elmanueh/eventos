@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,37 +6,38 @@
 <h:head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Mis Espacios Fisicos</title>
+	<title>EventApp | AADD</title>
+	<h:outputStylesheet library="webjars"
+		name="primeflex/3.3.1/primeflex.min.css" />
 </h:head>
 
-<h:body>
-	<div
-		style="display: flex; justify-content: center; align-items: center; height: 70vh; flex-direction: column;">
+<h:body class="m-0 ">
+	<section class="flex flex-column align-items-center">
 		<p:growl id="messages" showDetail="true" />
 
-		<h1 style="font-size: 100px;">Bienvenido</h1>
-
-		<div class="card" style="width: 100%; max-width: 600px;">
-			<h:form id="form">
-				<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+		<h1 class="text-8xl">Bienvenido</h1>
+		<h2 class="text-6xl mt-6">Selecciona tu rol</h2>
+		<div class="flex w-2 justify-content-center">
+			<h:form id="form" class="w-full">
+				<div class="flex justify-content-evenly">
 					<p:commandButton value="Propietario"
+						styleClass="ui-button-raised py-2 font-bold"
 						action="#{inicioWeb.cambiarAPropietario}" process="@form"
-						update="messages"
-						style="width: 49%; font-size: 1.2em; padding: 10px;" />
+						update="messages" />
 					<p:commandButton value="Organizador"
-						action="#{inicioWeb.cambiarAOrganizador}" process="@form"
-						style="width: 49%; font-size: 1.2em; padding: 10px;" />
+						styleClass="ui-button-raised font-bold"
+						action="#{inicioWeb.cambiarAOrganizador}" process="@form" />
 				</div>
 
-				<div>
-					<p:outputLabel value="Nombre:" for="nombreInput"
-						style="font-size: 1.1em;" />
-					<p:inputText id="nombreInput" value="#{inicioWeb.nombre}"
-						style="width: 100%; font-size: 1.2em; padding: 10px;" />
+				<div class="flex justify-content-center mt-5 ui-fluid">
+					<span class="ui-float-label w-10"> <p:inputText
+							id="nombreInput" value="#{inicioWeb.nombre}" /> <p:outputLabel
+							for="@previous" value="Nombre" />
+					</span>
 				</div>
 			</h:form>
 		</div>
-	</div>
+	</section>
 </h:body>
 
 </html>
