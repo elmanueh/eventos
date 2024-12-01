@@ -21,4 +21,10 @@
 		<session-timeout>60</session-timeout>
 	</session-config>
 
+	<!-- THEME PRIMEFACES -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>arya</param-value>
+	</context-param>
+
 </web-app>
