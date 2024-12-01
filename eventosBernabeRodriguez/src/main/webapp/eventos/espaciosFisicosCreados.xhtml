@@ -25,9 +25,7 @@
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
-					value="#{misEspaciosFisicosWeb.espaciosFisicos}"
-					rowKey="#{espacioFisicoDTO.id}"
-					selection="#{misEspaciosFisicosWeb.espacioSeleccionado}">
+					value="#{misEspaciosFisicosWeb.espaciosFisicos}">
 					
 					<p:column headerText="Nombre">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
@@ -43,7 +41,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton icon="pi pi-pencil"
-							styleClass="ui-button-success" process="@this @parent"
+							styleClass="ui-button-success" process="@this"
 							oncomplete="PF('cambiarEstadoDialog').show()">
 							<f:setPropertyActionListener value="#{espacioFisicoDTO}"
 								target="#{misEspaciosFisicosWeb.espacioSeleccionado}" />
