@@ -8,8 +8,8 @@
 	<ui:define name="title">
         Mis Espacios Fisicos
     </ui:define>
-    
-    <ui:define name="rol">
+
+	<ui:define name="rol">
         Propietario
     </ui:define>
 
@@ -20,17 +20,15 @@
 					value="#{misEspaciosFisicosWeb.propietario}" />
 				<f:viewAction action="#{misEspaciosFisicosWeb.load()}" />
 			</f:metadata>
-			
+
 			<h:form id="form">
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
 					value="#{misEspaciosFisicosWeb.espaciosFisicos}"
 					rowKey="#{espacioFisicoDTO.id}"
-					selection="#{misEspaciosFisicosWeb.espacioSeleccionado}"
-					selectionMode="single">
-
-
+					selection="#{misEspaciosFisicosWeb.espacioSeleccionado}">
+					
 					<p:column headerText="Nombre">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
@@ -45,7 +43,7 @@
 					</p:column>
 					<p:column>
 						<p:commandButton icon="pi pi-pencil"
-							styleClass="ui-button-secondary" process="@this @parent"
+							styleClass="ui-button-success" process="@this @parent"
 							oncomplete="PF('cambiarEstadoDialog').show()">
 							<f:setPropertyActionListener value="#{espacioFisicoDTO}"
 								target="#{misEspaciosFisicosWeb.espacioSeleccionado}" />
@@ -64,6 +62,7 @@
 						styleClass="ui-button-danger" icon="pi pi-times"
 						onclick="PF('cambiarEstadoDialog').hide()" />
 				</p:confirmDialog>
+
 			</h:form>
 		</div>
 	</ui:define>

@@ -54,6 +54,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 				facesContext.addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo cambiar de estado el espacio fisico."));
 			}
+			load();
 		}
 	}
 
