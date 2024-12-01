@@ -11,12 +11,11 @@
 <h:body>
 	<div class="card">
 		<f:metadata>
+			<f:viewParam name="nombre" value="#{misEspaciosFisicosWeb.propietario}" />
 			<f:viewAction action="#{misEspaciosFisicosWeb.load()}" />
 		</f:metadata>
 		<h:form id="form">
 			<p:growl id="messages" showDetail="true" />
-
-
 
 			<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
 				value="#{misEspaciosFisicosWeb.espaciosFisicos}"
@@ -46,16 +45,6 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Propietario:" />
-				<p:inputText value="#{misEspaciosFisicosWeb.propietario}" />
-
-				<!-- Botón de actualización -->
-				<p:commandButton value="Cargar Espacios"
-					action="#{misEspaciosFisicosWeb.load()}"
-					update="tablaEspaciosFisicos" process="@form" />
-			</h:panelGrid>
 
 			<p:confirmDialog widgetVar="cambiarEstadoDialog" showEffect="fade"
 				width="330" message="¿Deseas cambiar el estado?"
