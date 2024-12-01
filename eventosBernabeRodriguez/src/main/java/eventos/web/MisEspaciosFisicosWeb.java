@@ -38,7 +38,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 		try {
 			espaciosFisicos = ServicioEspacios.obtenerMisEspaciosFisicos(propietario);
 		} catch (Exception e) {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar los espacios físicos."));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		}
 	}
 
@@ -52,7 +52,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 			} catch (RepositorioException | EntidadNoEncontrada e) {
 				e.printStackTrace();
 				facesContext.addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo cambiar de estado el espacio fisico."));
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 			}
 			load();
 		}

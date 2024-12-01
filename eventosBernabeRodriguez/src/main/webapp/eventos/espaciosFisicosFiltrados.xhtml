@@ -1,66 +1,87 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Filtrar Espacios Fisicos</title>
-</h:head>
-<h:body>
-	<div class="card">
-		<h:form id="form">
-			<p:growl id="messages" showDetail="true" />
-			
+
+	<ui:define name="title">
+        Filtrar Espacios Fisicos
+    </ui:define>
+
+	<ui:define name="rol">
+        Organizador
+    </ui:define>
+
+	<ui:define name="opciones">
+		<p:button value="Crear Evento" outcome="/eventos/altaEvento.xhtml" />
+	</ui:define>
+
+	<ui:define name="content">
+		<div>
 			<f:metadata>
-                <f:viewAction action="#{filtrarEspacioFisicoWeb.load()}" />
-            </f:metadata>
+				<!-- 				<f:viewAction action="#{filtrarEspacioFisicoWeb.load()}" /> -->
+			</f:metadata>
 
-			<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
-				value="#{filtrarEspacioFisicoWeb.espaciosFisicos}"
-				rowKey="#{espacioFisicoDTO.id}">
-				<p:column headerText="Id">
-					<h:outputText value="#{espacioFisicoDTO.id}" />
-				</p:column>
-				<p:column headerText="Nombre">
-					<h:outputText value="#{espacioFisicoDTO.nombre}" />
-				</p:column>
-				<p:column headerText="Capacidad">
-					<h:outputText value="#{espacioFisicoDTO.capacidad}" />
-				</p:column>
-				<p:column headerText="Dirección postal">
-					<h:outputText value="#{espacioFisicoDTO.direccion}" />
-				</p:column>
-				<p:column headerText="Descripción">
-					<h:outputText value="#{espacioFisicoDTO.descripcion}" />
-				</p:column>
-				<p:column headerText="Propietario">
-					<h:outputText value="#{espacioFisicoDTO.propietario}" />
-				</p:column>
-			</p:dataTable>
+			<h:form id="form">
+				<p:growl id="messages" showDetail="true" />
 
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Fecha de inicio" />
-				<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaInicio}"
-					locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-					hideOnDateTimeSelect="true" showTime="true" />
+				<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
+					value="#{filtrarEspacioFisicoWeb.espaciosFisicos}">
 
-				<p:outputLabel value="Fecha de fin" />
-				<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaFin}"
-					locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-					hideOnDateTimeSelect="true" showTime="true" />
+					<p:column headerText="Id">
+						<h:outputText value="#{espacioFisicoDTO.id}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{espacioFisicoDTO.nombre}" />
+					</p:column>
+					<p:column headerText="Capacidad">
+						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
+					</p:column>
+					<p:column headerText="Dirección postal">
+						<h:outputText value="#{espacioFisicoDTO.direccion}" />
+					</p:column>
+					<p:column headerText="Descripción">
+						<h:outputText value="#{espacioFisicoDTO.descripcion}" />
+					</p:column>
+					<p:column headerText="Propietario">
+						<h:outputText value="#{espacioFisicoDTO.propietario}" />
+					</p:column>
+				</p:dataTable>
 
-				<p:outputLabel value="Capacidad" />
-				<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
-					converter="javax.faces.Integer" />
+				<div
+					style="padding-left: 8rem; display: flex; flex-direction: row; margin-top: 50px; align-items: center; gap: 30px;">
+					<div>
+						<p:outputLabel value="Fecha de inicio:"
+							style="padding-right: 10px; font-weight: bold;" />
+						<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaInicio}"
+							locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+							hideOnDateTimeSelect="true" showTime="true" />
+					</div>
+					<div>
+						<p:outputLabel value="Fecha de fin:"
+							style="padding-right: 10px; font-weight: bold;" />
+						<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaFin}"
+							locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
+							hideOnDateTimeSelect="true" showTime="true" />
+					</div>
+					<div>
+						<p:outputLabel value="Capacidad:"
+							style="padding-right: 10px; font-weight: bold;" />
+						<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
+							converter="javax.faces.Integer" />
+					</div>
+					<div style="margin-left: auto; padding-right: 8rem;">
+						<p:commandButton value="Buscar Espacios"
+							action="#{filtrarEspacioFisicoWeb.load()}"
+							update="espaciosFisicos messages" process="@form"
+							styleClass="submit-button" />
 
-				<!-- Botón de actualización -->
-				<p:commandButton value="Cargar Espacios"
-					action="#{filtrarEspacioFisicoWeb.load()}"
-					update="espaciosFisicos" process="@form" />
-			</h:panelGrid>
-		</h:form>
-	</div>
-</h:body>
-</html>
+					</div>
+				</div>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
