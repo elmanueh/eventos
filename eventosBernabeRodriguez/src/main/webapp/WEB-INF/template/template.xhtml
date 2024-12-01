@@ -4,31 +4,32 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<h:head>
-		<meta charset="utf-8" />
-		<title><ui:insert name="title" /></title>
-	</h:head>
-	<h:body class="homepage is-preload">
-		<ui:insert name="metadata" />
+<h:head>
+	<meta charset="utf-8" />
+	<title><ui:insert name="title" /></title>
+</h:head>
+<h:body class="homepage is-preload">
+	<ui:insert name="metadata" />
 
-		<div id="page-wrapper">
-			<section id="header"
-				style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 100px; height: 80px; background-color: #555; color: white;">
-			<h1>
-				<ui:insert name="rol" />
+	<div id="page-wrapper">
+		<section id="header"
+			style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 100px; height: 80px; background-color: #555; color: white;">
+		<h1>
+			<ui:insert name="rol" />
+		</h1>
+		<p:button value="Cerrar Sesion" outcome="/index.xhtml" /> <ui:insert
+			name="opciones" /></section>
+
+
+		<section id="main">
+		<div class="container" style="margin-bottom: 50px;">
+			<h1 style="font-size: 30px; text-align: center;">
+				<ui:insert name="title" />
 			</h1>
-			<p:button value="Cerrar Sesion" outcome="/index.xhtml" /></section>
-
-
-			<section id="main">
-			<div class="container" style="margin-bottom: 50px;">
-				<h1 style="font-size: 30px; text-align: center;">
-					<ui:insert name="title" />
-				</h1>
-				<ui:insert name="content" />
-			</div>
-			</section>
-			<ui:include src="/WEB-INF/template/footer.xhtml" />
+			<ui:insert name="content" />
 		</div>
-	</h:body>
+		</section>
+		<ui:include src="/WEB-INF/template/footer.xhtml" />
+	</div>
+</h:body>
 </html>
