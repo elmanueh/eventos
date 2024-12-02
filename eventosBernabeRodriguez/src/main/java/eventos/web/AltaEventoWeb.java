@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -36,8 +39,15 @@ public class AltaEventoWeb implements Serializable {
 	@Inject
 	protected FacesContext facesContext;
 
+	private ResourceBundle bundle;
+
 	public AltaEventoWeb() {
 		servicioEventos = new ServicioEventos();
+	}
+
+	@PostConstruct
+	public void initBundle() {
+		bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
 	}
 
 	public void load() {
@@ -50,10 +60,14 @@ public class AltaEventoWeb implements Serializable {
 		try {
 			String resultado = servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin,
 					numPlazas, espacioFisicoID);
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alta", "Evento"));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("alta"), bundle.getString("evento")));
 		} catch (Exception e) {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}
+	}
+
+	public String getEstadoTexto(String estado) {
+		return bundle.getString(estado);
 	}
 
 	public LocalDateTime getFechaInicio() {
@@ -81,7 +95,9 @@ public class AltaEventoWeb implements Serializable {
 	}
 
 	public List<String> getCategorias() {
-		return categorias;
+		return categorias.stream()
+                .map(categoria -> bundle.containsKey(categoria) ? bundle.getString(categoria) : categoria)
+                .collect(Collectors.toList());
 	}
 
 	public void setCategorias(List<String> categorias) {

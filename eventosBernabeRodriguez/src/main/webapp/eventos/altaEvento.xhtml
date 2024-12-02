@@ -7,15 +7,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:define name="title">
-        Alta Evento
-    </ui:define>
-
-	<ui:define name="rol">
-        Organizador
+        #{text.altaEvento}
     </ui:define>
 
 	<ui:define name="opciones">
-		<p:button value="Filtrar Espacios"
+		<p:button value="#{text.filtrarEspacios}"
 			outcome="/eventos/espaciosFisicosFiltrados.xhtml" />
 	</ui:define>
 
@@ -31,49 +27,49 @@
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
 					style="border:0px none; background-color:transparent">
 
-					<p:outputLabel for="@next" value="Nombre" />
+					<p:outputLabel for="@next" value="#{text.nombre}" />
 					<p:inputText value="#{altaEventoWeb.nombre}" />
 
-					<p:outputLabel for="@next" value="Descripción" />
+					<p:outputLabel for="@next" value="#{text.descripcion}" />
 					<p:inputTextarea rows="2" value="#{altaEventoWeb.descripcion}" />
 
-					<p:outputLabel for="@next" value="Organizador" />
+					<p:outputLabel for="@next" value="#{text.organizador}" />
 					<p:inputText value="#{altaEventoWeb.organizador}" />
 
-					<p:outputLabel for="@next" value="Número de plazas" />
+					<p:outputLabel for="@next" value="#{text.numeroPlazas}" />
 					<p:spinner value="#{altaEventoWeb.numPlazas}" min="1"
 						converter="javax.faces.Integer" />
 
-					<p:outputLabel for="@next" value="Categoría" />
+					<p:outputLabel for="@next" value="#{text.categoria}" />
 					<p:selectOneMenu id="categoria" value="#{altaEventoWeb.categoria}"
 						hideNoSelectionOption="#{not empty altaEventoWeb.categoria}"
 						styleClass="flex">
 						<p:ajax update="@this" process="@this" />
-						<f:selectItem itemLabel="Seleccionar Categoría"
+						<f:selectItem itemLabel="#{text.seleccionarCategoria}"
 							itemValue="#{null}" noSelectionOption="true" />
 						<f:selectItems value="#{altaEventoWeb.categorias}"
 							itemLabel="#{categoria}" itemValue="#{categoria}" />
 					</p:selectOneMenu>
 
-					<p:outputLabel for="@next" value="Fecha de inicio" />
+					<p:outputLabel for="@next" value="#{text.fechaInicio}" />
 					<p:datePicker id="fechaInicio" value="#{altaEventoWeb.fechaInicio}"
 						showTime="true" readonlyInput="true"
 						maxdate="#{altaEventoWeb.fechaFin}" hideOnDateTimeSelect="true">
 						<p:ajax event="dateSelect" update="fechaFin" />
 					</p:datePicker>
 
-					<p:outputLabel for="@next" value="Fecha de fin" />
+					<p:outputLabel for="@next" value="#{text.fechaFin}" />
 					<p:datePicker id="fechaFin" value="#{altaEventoWeb.fechaFin}"
 						showTime="true" readonlyInput="true"
 						mindate="#{altaEventoWeb.fechaInicio}" hideOnDateTimeSelect="true">
 						<p:ajax event="dateSelect" update="fechaInicio" />
 					</p:datePicker>
 
-					<p:outputLabel for="@next" value="Espacio fisico" />
+					<p:outputLabel for="@next" value="#{text.espacioFisico}" />
 					<p:inputText value="#{altaEventoWeb.espacioFisicoID}" />
 					<p:row>
 						<p:column styleClass="ui-grid-col-12">
-							<p:commandButton class="font-bold" value="Crear Evento"
+							<p:commandButton class="font-bold" value="#{text.crearEvento}"
 								styleClass="ui-button-raised ui-button-secondary w-4"
 								actionListener="#{altaEventoWeb.altaEvento()}" update="messages"
 								process="@form" />

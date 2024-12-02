@@ -7,15 +7,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:define name="title">
-        Filtrar Espacios Fisicos
-    </ui:define>
-
-	<ui:define name="rol">
-        Organizador
+        #{text.espaciosFiltrados}
     </ui:define>
 
 	<ui:define name="opciones">
-		<p:button value="Crear Evento" outcome="/eventos/altaEvento.xhtml" />
+		<p:button value="#{text.crearEvento}"
+			outcome="/eventos/altaEvento.xhtml" />
 	</ui:define>
 
 	<ui:define name="content">
@@ -24,24 +21,24 @@
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
-					value="#{filtrarEspacioFisicoWeb.espaciosFisicos}">
+					value="#{filtrarEspacioFisicoWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}">
 
 					<p:column headerText="Id">
 						<h:outputText value="#{espacioFisicoDTO.id}" />
 					</p:column>
-					<p:column headerText="Nombre">
+					<p:column headerText="#{text.nombre}">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
-					<p:column headerText="Capacidad">
+					<p:column headerText="#{text.capacidad}">
 						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
 					</p:column>
-					<p:column headerText="Dirección postal">
+					<p:column headerText="#{text.direccion}">
 						<h:outputText value="#{espacioFisicoDTO.direccion}" />
 					</p:column>
-					<p:column headerText="Descripción">
+					<p:column headerText="#{text.descripcion}">
 						<h:outputText value="#{espacioFisicoDTO.descripcion}" />
 					</p:column>
-					<p:column headerText="Propietario">
+					<p:column headerText="#{text.propietario}">
 						<h:outputText value="#{espacioFisicoDTO.propietario}" />
 					</p:column>
 				</p:dataTable>
@@ -49,7 +46,7 @@
 				<div
 					style="padding-left: 8rem; display: flex; flex-direction: row; margin-top: 50px; align-items: center; gap: 30px;">
 					<div>
-						<p:outputLabel value="Fecha de inicio:"
+						<p:outputLabel value="#{text.fechaInicio}"
 							style="padding-right: 10px;" />
 						<p:datePicker id="fechaInicio"
 							value="#{filtrarEspacioFisicoWeb.fechaInicio}" showTime="true"
@@ -59,7 +56,7 @@
 						</p:datePicker>
 					</div>
 					<div>
-						<p:outputLabel value="Fecha de fin:" style="padding-right: 10px;" />
+						<p:outputLabel value="#{text.fechaFin}" style="padding-right: 10px;" />
 						<p:datePicker id="fechaFin"
 							value="#{filtrarEspacioFisicoWeb.fechaFin}" showTime="true"
 							readonlyInput="true" mindate="#{filtrarEspacioFisicoWeb.fechaInicio}"
@@ -68,12 +65,12 @@
 						</p:datePicker>
 					</div>
 					<div>
-						<p:outputLabel value="Capacidad:" style="padding-right: 10px;" />
+						<p:outputLabel value="#{text.capacidad}" style="padding-right: 10px;" />
 						<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
 							converter="javax.faces.Integer" />
 					</div>
 					<div style="margin-left: auto; padding-right: 8rem;">
-						<p:commandButton value="Buscar Espacios"
+						<p:commandButton value="#{text.buscarEspacios}"
 							action="#{filtrarEspacioFisicoWeb.load()}"
 							update="espaciosFisicos messages" process="@form"
 							styleClass="submit-button" />

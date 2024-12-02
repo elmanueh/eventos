@@ -2,7 +2,9 @@ package eventos.web;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -29,16 +31,23 @@ public class MisEspaciosFisicosWeb implements Serializable {
 
 	@Inject
 	protected FacesContext facesContext;
+	
+	private ResourceBundle bundle;
 
 	public MisEspaciosFisicosWeb() {
 		ServicioEspacios = new ServicioEspacios();
+	}
+	
+	@PostConstruct
+	public void initBundle() {
+	    bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
 	}
 
 	public void load() {
 		try {
 			espaciosFisicos = ServicioEspacios.obtenerMisEspaciosFisicos(propietario);
 		} catch (Exception e) {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}
 	}
 
@@ -47,20 +56,24 @@ public class MisEspaciosFisicosWeb implements Serializable {
 			try {
 				if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.ACTIVO.toString())) {
 					ServicioEspacios.bajaEspacioFisico(espacioSeleccionado.getId());
-					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cambio de estado", EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name()));
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("cambioEstado"), bundle.getString(EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name())));
 				} else if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name())) {
 					ServicioEspacios.activarEspacioFisico(espacioSeleccionado.getId());
-					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cambio de estado", EspacioFisicoEstado.ACTIVO.toString()));
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("cambioEstado"), bundle.getString(EspacioFisicoEstado.ACTIVO.name())));
 				}
 				
 			} catch (RepositorioException | EntidadNoEncontrada e) {
 				e.printStackTrace();
 				facesContext.addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 			}
 			load();
 		}
 	}
+	
+	public String getEstadoTexto(String estado) {
+        return bundle.getString(estado);
+    }
 
 	public EspacioFisicoDTO getEspacioSeleccionado() {
 		return espacioSeleccionado;

@@ -6,11 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:define name="title">
-        Mis Espacios Fisicos
-    </ui:define>
-
-	<ui:define name="rol">
-        Propietario
+        #{text.misEspacios}
     </ui:define>
 
 	<ui:define name="content">
@@ -25,19 +21,19 @@
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
-					value="#{misEspaciosFisicosWeb.espaciosFisicos}">
+					value="#{misEspaciosFisicosWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}">
 					
-					<p:column headerText="Nombre">
+					<p:column headerText="#{text.nombre}">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
-					<p:column headerText="Capacidad">
+					<p:column headerText="#{text.capacidad}">
 						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
 					</p:column>
-					<p:column headerText="Dirección postal">
+					<p:column headerText="#{text.direccion}">
 						<h:outputText value="#{espacioFisicoDTO.direccion}" />
 					</p:column>
-					<p:column headerText="Estado">
-						<h:outputText value="#{espacioFisicoDTO.estado}" />
+					<p:column headerText="#{text.estado}">
+						<h:outputText value="#{misEspaciosFisicosWeb.getEstadoTexto(espacioFisicoDTO.estado)}" />
 					</p:column>
 					<p:column>
 						<p:commandButton icon="pi pi-pencil"
@@ -50,13 +46,13 @@
 				</p:dataTable>
 
 				<p:confirmDialog widgetVar="cambiarEstadoDialog" showEffect="fade"
-					width="330" message="¿Deseas cambiar el estado?"
-					header="Confirmar cambio" severity="info">
-					<p:commandButton value="Yes" icon="pi pi-check"
+					width="330" message="#{text.confirmarCambioP}"
+					header="#{text.confirmarCambio}" severity="info">
+					<p:commandButton value="#{text.si}" icon="pi pi-check"
 						actionListener="#{misEspaciosFisicosWeb.cambiarEstado()}"
 						update="tablaEspaciosFisicos messages" process="@form"
 						oncomplete="PF('cambiarEstadoDialog').hide()" />
-					<p:commandButton value="No" type="button"
+					<p:commandButton value="#{text.no}" type="button"
 						styleClass="ui-button-danger" icon="pi pi-times"
 						onclick="PF('cambiarEstadoDialog').hide()" />
 				</p:confirmDialog>

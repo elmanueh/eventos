@@ -3,7 +3,9 @@ package eventos.web;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -28,17 +30,24 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 
 	@Inject
 	protected FacesContext facesContext;
+	
+	private ResourceBundle bundle;
 
 	public FiltrarEspacioFisicoWeb() {
 		ServicioEspacios = new ServicioEspacios();
+	}
+	
+	@PostConstruct
+	public void initBundle() {
+	    bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
 	}
 
 	public void load() {
 		try {
 			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Búsqueda", "Espacios físicos libres"));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("busqueda"), bundle.getString("EspaciosFisicosLibres")));
 		} catch (Exception e) {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}
 	}
 

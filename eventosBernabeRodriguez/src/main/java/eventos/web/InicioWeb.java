@@ -2,7 +2,9 @@ package eventos.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -17,6 +19,13 @@ public class InicioWeb implements Serializable{
 	
 	@Inject
 	protected FacesContext facesContext;
+	
+	private ResourceBundle bundle;
+
+	@PostConstruct
+	public void initBundle() {
+	    bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -31,7 +40,7 @@ public class InicioWeb implements Serializable{
 		    facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
 		} catch (IOException e) {
 		    facesContext.addMessage(null,
-		                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+		                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		    e.printStackTrace();
 		}
 	}
@@ -42,12 +51,12 @@ public class InicioWeb implements Serializable{
 			    facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml?nombre="+ nombre);
 			} catch (IOException e) {
 			    facesContext.addMessage(null,
-			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 			    e.printStackTrace();
 			}
 		}
 		else
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Nombre no puede ser vacío"));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), bundle.getString("nombreVacio")));
 	}
 	
 }
