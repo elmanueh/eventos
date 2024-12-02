@@ -1,10 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition template="/WEB-INF/template/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 	<ui:define name="title">
         Alta Evento
     </ui:define>
@@ -19,85 +20,68 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<div style="display: flex; justify-content: center;">
-			<f:metadata>
-				<f:viewAction action="#{altaEventoWeb.load()}" />
-			</f:metadata>
-			<h:form style="width: 35%; padding: 20px;">
+		<f:metadata>
+			<f:viewAction action="#{altaEventoWeb.load()}" />
+		</f:metadata>
 
+		<section class="flex justify-content-center">
+			<h:form class="w-4 text-right ">
 				<p:growl id="messages" showDetail="true" />
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent">
 
-				<div id="main"
-					style="display: flex; flex-direction: column; gap: 10px;">
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Nombre:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:inputText value="#{altaEventoWeb.nombre}" style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Nombre" />
+					<p:inputText value="#{altaEventoWeb.nombre}" />
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Descripción:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:inputTextarea value="#{altaEventoWeb.descripcion}"
-							style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Descripción" />
+					<p:inputTextarea rows="2" value="#{altaEventoWeb.descripcion}" />
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Organizador:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:inputText value="#{altaEventoWeb.organizador}" style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Organizador" />
+					<p:inputText value="#{altaEventoWeb.organizador}" />
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Número de plazas:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:spinner value="#{altaEventoWeb.numPlazas}" min="1"
-							converter="javax.faces.Integer" style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Número de plazas" />
+					<p:spinner value="#{altaEventoWeb.numPlazas}" min="1"
+						converter="javax.faces.Integer" />
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Categoría:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:selectOneMenu id="categoria" value="#{altaEventoWeb.categoria}"
-							style="flex: 1;">
-							<f:selectItem itemLabel="Seleccionar Categoría" itemValue="" />
-							<f:selectItems value="#{altaEventoWeb.categorias}"
-								itemLabel="#{categoria}" itemValue="#{categoria}" />
-						</p:selectOneMenu>
-					</div>
+					<p:outputLabel for="@next" value="Categoría" />
+					<p:selectOneMenu id="categoria" value="#{altaEventoWeb.categoria}"
+						hideNoSelectionOption="#{not empty altaEventoWeb.categoria}"
+						styleClass="flex">
+						<p:ajax update="@this" process="@this" />
+						<f:selectItem itemLabel="Seleccionar Categoría"
+							itemValue="#{null}" noSelectionOption="true" />
+						<f:selectItems value="#{altaEventoWeb.categorias}"
+							itemLabel="#{categoria}" itemValue="#{categoria}" />
+					</p:selectOneMenu>
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Fecha de inicio:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:datePicker value="#{altaEventoWeb.fechaInicio}" locale="es"
-							monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-							hideOnDateTimeSelect="true" showTime="true" style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Fecha de inicio" />
+					<p:datePicker id="fechaInicio" value="#{altaEventoWeb.fechaInicio}"
+						showTime="true" readonlyInput="true"
+						maxdate="#{altaEventoWeb.fechaFin}">
+						<p:ajax event="dateSelect" update="fechaFin" />
+					</p:datePicker>
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="Fecha de fin:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:datePicker value="#{altaEventoWeb.fechaFin}" locale="es"
-							monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-							hideOnDateTimeSelect="true" showTime="true" style="flex: 1;" />
-					</div>
+					<p:outputLabel for="@next" value="Fecha de fin" />
+					<p:datePicker id="fechaFin" value="#{altaEventoWeb.fechaFin}"
+						showTime="true" readonlyInput="true"
+						mindate="#{altaEventoWeb.fechaInicio}">
+						<p:ajax event="dateSelect" update="fechaInicio" />
+					</p:datePicker>
 
-					<div style="display: flex; align-items: center;">
-						<p:outputLabel value="ID del espacio físico:"
-							style="font-weight: bold; width: 30%; margin-right: 15px; display: flex; justify-content: end;" />
-						<p:inputText value="#{altaEventoWeb.espacioFisicoID}"
-							style="flex: 1;" />
-					</div>
-					<div style="display: flex; justify-content: center;">
-						<p:commandButton value="Alta"
-							actionListener="#{altaEventoWeb.altaEvento()}" update="messages"
-							process="@form"
-							style="font-weight: bold; height: 50px; width: 150px;
-               display: flex; justify-content: center; align-items: center; text-align: center;" />
-					</div>
-				</div>
+					<p:outputLabel for="@next" value="Espacio fisico" />
+					<p:inputText value="#{altaEventoWeb.espacioFisicoID}" />
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:commandButton class="font-bold" value="Crear Evento"
+								styleClass="ui-button-raised ui-button-secondary w-4"
+								actionListener="#{altaEventoWeb.altaEvento()}" update="messages"
+								process="@form" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
 			</h:form>
-		</div>
+		</section>
 
 	</ui:define>
 </ui:composition>
