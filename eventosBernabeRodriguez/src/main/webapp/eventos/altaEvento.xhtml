@@ -58,14 +58,14 @@
 					<p:outputLabel for="@next" value="Fecha de inicio" />
 					<p:datePicker id="fechaInicio" value="#{altaEventoWeb.fechaInicio}"
 						showTime="true" readonlyInput="true"
-						maxdate="#{altaEventoWeb.fechaFin}">
+						maxdate="#{altaEventoWeb.fechaFin}" hideOnDateTimeSelect="true">
 						<p:ajax event="dateSelect" update="fechaFin" />
 					</p:datePicker>
 
 					<p:outputLabel for="@next" value="Fecha de fin" />
 					<p:datePicker id="fechaFin" value="#{altaEventoWeb.fechaFin}"
 						showTime="true" readonlyInput="true"
-						mindate="#{altaEventoWeb.fechaInicio}">
+						mindate="#{altaEventoWeb.fechaInicio}" hideOnDateTimeSelect="true">
 						<p:ajax event="dateSelect" update="fechaInicio" />
 					</p:datePicker>
 

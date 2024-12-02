@@ -50,21 +50,25 @@
 					style="padding-left: 8rem; display: flex; flex-direction: row; margin-top: 50px; align-items: center; gap: 30px;">
 					<div>
 						<p:outputLabel value="Fecha de inicio:"
-							style="padding-right: 10px; font-weight: bold;" />
-						<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaInicio}"
-							locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-							hideOnDateTimeSelect="true" showTime="true" />
+							style="padding-right: 10px;" />
+						<p:datePicker id="fechaInicio"
+							value="#{filtrarEspacioFisicoWeb.fechaInicio}" showTime="true"
+							readonlyInput="true" maxdate="#{filtrarEspacioFisicoWeb.fechaFin}"
+							hideOnDateTimeSelect="true">
+							<p:ajax event="dateSelect" update="fechaFin" />
+						</p:datePicker>
 					</div>
 					<div>
-						<p:outputLabel value="Fecha de fin:"
-							style="padding-right: 10px; font-weight: bold;" />
-						<p:datePicker value="#{filtrarEspacioFisicoWeb.fechaFin}"
-							locale="es" monthNavigator="true" pattern="dd-MM-yyyy HH:mm"
-							hideOnDateTimeSelect="true" showTime="true" />
+						<p:outputLabel value="Fecha de fin:" style="padding-right: 10px;" />
+						<p:datePicker id="fechaFin"
+							value="#{filtrarEspacioFisicoWeb.fechaFin}" showTime="true"
+							readonlyInput="true" mindate="#{filtrarEspacioFisicoWeb.fechaInicio}"
+							hideOnDateTimeSelect="true">
+							<p:ajax event="dateSelect" update="fechaInicio" />
+						</p:datePicker>
 					</div>
 					<div>
-						<p:outputLabel value="Capacidad:"
-							style="padding-right: 10px; font-weight: bold;" />
+						<p:outputLabel value="Capacidad:" style="padding-right: 10px;" />
 						<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
 							converter="javax.faces.Integer" />
 					</div>
