@@ -31,16 +31,12 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 
 	public FiltrarEspacioFisicoWeb() {
 		ServicioEspacios = new ServicioEspacios();
-		
-		//Inicialización inicial
-//		capacidad = 100;
-//        fechaInicio = LocalDateTime.of(2024, 12, 31, 0, 0, 0, 0);
-//        fechaFin = LocalDateTime.of(2024, 12, 31, 0, 0, 0);
 	}
 
 	public void load() {
 		try {
 			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Búsqueda", "Espacios físicos libres"));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		}

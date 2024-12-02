@@ -50,6 +50,7 @@ public class AltaEventoWeb implements Serializable {
 		try {
 			String resultado = servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin,
 					numPlazas, espacioFisicoID);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alta", "Evento"));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		}

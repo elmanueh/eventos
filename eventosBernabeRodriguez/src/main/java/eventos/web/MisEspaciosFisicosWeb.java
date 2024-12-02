@@ -47,8 +47,12 @@ public class MisEspaciosFisicosWeb implements Serializable {
 			try {
 				if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.ACTIVO.toString())) {
 					ServicioEspacios.bajaEspacioFisico(espacioSeleccionado.getId());
-				} else if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name()))
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cambio de estado", EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name()));
+				} else if (espacioSeleccionado.getEstado().equals(EspacioFisicoEstado.CERRADO_TEMPORALMENTE.name())) {
 					ServicioEspacios.activarEspacioFisico(espacioSeleccionado.getId());
+					facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cambio de estado", EspacioFisicoEstado.ACTIVO.toString()));
+				}
+				
 			} catch (RepositorioException | EntidadNoEncontrada e) {
 				e.printStackTrace();
 				facesContext.addMessage(null,

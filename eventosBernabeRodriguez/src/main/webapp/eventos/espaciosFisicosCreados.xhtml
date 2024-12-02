@@ -51,10 +51,10 @@
 
 				<p:confirmDialog widgetVar="cambiarEstadoDialog" showEffect="fade"
 					width="330" message="¿Deseas cambiar el estado?"
-					header="Confirmar cambio" severity="warn">
+					header="Confirmar cambio" severity="info">
 					<p:commandButton value="Yes" icon="pi pi-check"
 						actionListener="#{misEspaciosFisicosWeb.cambiarEstado()}"
-						update="tablaEspaciosFisicos" process="@form"
+						update="tablaEspaciosFisicos messages" process="@form"
 						oncomplete="PF('cambiarEstadoDialog').hide()" />
 					<p:commandButton value="No" type="button"
 						styleClass="ui-button-danger" icon="pi pi-times"
