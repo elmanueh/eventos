@@ -11,13 +11,13 @@
     </ui:define>
 
 	<ui:define name="opciones">
-		<p:button value="#{text.crearEvento}"
+		<p:button styleClass="ui-button-raised ui-button-flat" value="#{text.crearEvento}"
 			outcome="/eventos/altaEvento.xhtml" />
 	</ui:define>
 
 	<ui:define name="content">
-		<div>
-			<h:form id="form">
+		<section class="flex justify-content-center" style="margin-bottom: 20em;">
+			<h:form id="form" class="w-10">
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
@@ -79,6 +79,6 @@
 				</div>
 
 			</h:form>
-		</div>
+		</section>
 	</ui:define>
 </ui:composition>

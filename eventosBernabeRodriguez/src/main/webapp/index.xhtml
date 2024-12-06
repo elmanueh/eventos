@@ -13,20 +13,20 @@
 </h:head>
 
 <h:body class="m-0 ">
-	<section class="flex flex-column align-items-center">
+	<section class="flex flex-column align-items-center mt-8">
 		<p:growl id="messages" showDetail="true" />
 
 		<h1 class="text-8xl">#{text.bienvenido}</h1>
-		<h2 class="text-6xl mt-6">#{text.seleccionarRol}</h2>
+		<h2 class="text-5xl mt-1">#{text.seleccionarRol}</h2>
 		<div class="flex w-2 justify-content-center">
 			<h:form id="form" class="w-full">
 				<div class="flex justify-content-evenly">
 					<p:commandButton value="#{text.propietario}"
-						styleClass="ui-button-raised py-2 font-bold"
+						styleClass="ui-button-outlined py-2 font-bold"
 						action="#{inicioWeb.cambiarAPropietario}" process="@form"
 						update="messages" />
 					<p:commandButton value="#{text.organizador}"
-						styleClass="ui-button-raised font-bold"
+						styleClass="ui-button-outlined font-bold"
 						action="#{inicioWeb.cambiarAOrganizador}" process="@form" />
 				</div>
 

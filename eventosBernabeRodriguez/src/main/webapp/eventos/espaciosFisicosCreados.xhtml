@@ -10,32 +10,32 @@
     </ui:define>
 
 	<ui:define name="content">
-		<div>
+		<section class="flex justify-content-center" style="height: 20em;">
 			<f:metadata>
 				<f:viewParam name="nombre"
 					value="#{misEspaciosFisicosWeb.propietario}" />
 				<f:viewAction action="#{misEspaciosFisicosWeb.load()}" />
 			</f:metadata>
 
-			<h:form id="form">
+			<h:form id="form" class="w-10">
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
-					value="#{misEspaciosFisicosWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}">
+					value="#{misEspaciosFisicosWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}" >
 					
 					<p:column headerText="#{text.nombre}">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
-					<p:column headerText="#{text.capacidad}">
+					<p:column headerText="#{text.capacidad}" class="w-1">
 						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
 					</p:column>
 					<p:column headerText="#{text.direccion}">
 						<h:outputText value="#{espacioFisicoDTO.direccion}" />
 					</p:column>
-					<p:column headerText="#{text.estado}">
+					<p:column headerText="#{text.estado}" class="w-2">
 						<h:outputText value="#{misEspaciosFisicosWeb.getEstadoTexto(espacioFisicoDTO.estado)}" />
 					</p:column>
-					<p:column>
+					<p:column class="w-1">
 						<p:commandButton icon="pi pi-pencil"
 							styleClass="ui-button-success" process="@this"
 							oncomplete="PF('cambiarEstadoDialog').show()">
@@ -46,7 +46,7 @@
 				</p:dataTable>
 
 				<p:confirmDialog widgetVar="cambiarEstadoDialog" showEffect="fade"
-					width="330" message="#{text.confirmarCambioP}"
+					width="350" responsive="true" message="#{text.confirmarCambioP}"
 					header="#{text.confirmarCambio}" severity="info">
 					<p:commandButton value="#{text.si}" icon="pi pi-check"
 						actionListener="#{misEspaciosFisicosWeb.cambiarEstado()}"
@@ -58,7 +58,7 @@
 				</p:confirmDialog>
 
 			</h:form>
-		</div>
+		</section>
 	</ui:define>
 </ui:composition>
 

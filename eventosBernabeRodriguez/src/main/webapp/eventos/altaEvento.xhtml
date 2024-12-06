@@ -12,6 +12,7 @@
 
 	<ui:define name="opciones">
 		<p:button value="#{text.filtrarEspacios}"
+		<p:button styleClass="ui-button-raised ui-button-flat" value="#{text.filtrarEspacios}"
 			outcome="/eventos/espaciosFisicosFiltrados.xhtml" />
 	</ui:define>
 
@@ -22,6 +23,7 @@
 
 		<section class="flex justify-content-center">
 			<h:form class="w-4 text-right ">
+		<section class="flex justify-content-center mb-8">
 				<p:growl id="messages" showDetail="true" />
 				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
