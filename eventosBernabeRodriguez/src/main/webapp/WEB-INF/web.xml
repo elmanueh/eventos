@@ -5,7 +5,7 @@
 	version="4.0">
 	<display-name>eventos</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
@@ -24,7 +24,7 @@
 	<!-- THEME PRIMEFACES -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>arya</param-value>
+		<param-value>mytheme</param-value>
 	</context-param>
 
 </web-app>
