@@ -11,7 +11,6 @@
     </ui:define>
 
 	<ui:define name="opciones">
-		<p:button value="#{text.filtrarEspacios}"
 		<p:button styleClass="ui-button-raised ui-button-flat" value="#{text.filtrarEspacios}"
 			outcome="/eventos/espaciosFisicosFiltrados.xhtml" />
 	</ui:define>
@@ -21,9 +20,8 @@
 			<f:viewAction action="#{altaEventoWeb.load()}" />
 		</f:metadata>
 
-		<section class="flex justify-content-center">
-			<h:form class="w-4 text-right ">
 		<section class="flex justify-content-center mb-8">
+			<h:form class="w-4 text-right ">
 				<p:growl id="messages" showDetail="true" />
 				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
@@ -39,8 +37,9 @@
 					<p:inputText value="#{altaEventoWeb.organizador}" />
 
 					<p:outputLabel for="@next" value="#{text.numeroPlazas}" />
-					<p:spinner value="#{altaEventoWeb.numPlazas}" min="1"
-						converter="javax.faces.Integer" />
+					<p:spinner value="#{altaEventoWeb.numPlazas}" min="1" converter="javax.faces.Integer" >
+                        <p:ajax event="change" update="select-ef" />
+                    </p:spinner>
 
 					<p:outputLabel for="@next" value="#{text.categoria}" />
 					<p:selectOneMenu id="categoria" value="#{altaEventoWeb.categoria}"
@@ -57,19 +56,23 @@
 					<p:datePicker id="fechaInicio" value="#{altaEventoWeb.fechaInicio}"
 						showTime="true" readonlyInput="true"
 						maxdate="#{altaEventoWeb.fechaFin}" hideOnDateTimeSelect="true">
-						<p:ajax event="dateSelect" update="fechaFin" />
+						<p:ajax event="dateSelect" update="fechaFin select-ef" />
 					</p:datePicker>
 
 					<p:outputLabel for="@next" value="#{text.fechaFin}" />
 					<p:datePicker id="fechaFin" value="#{altaEventoWeb.fechaFin}"
 						showTime="true" readonlyInput="true"
 						mindate="#{altaEventoWeb.fechaInicio}" hideOnDateTimeSelect="true">
-						<p:ajax event="dateSelect" update="fechaInicio" />
+						<p:ajax event="dateSelect" update="fechaInicio select-ef" />
 					</p:datePicker>
 
 					<p:outputLabel for="@next" value="#{text.espacioFisico}" />
-					<p:inputText value="#{altaEventoWeb.espacioFisicoID}" />
-					<p:row>
+                    <p:selectOneMenu id="select-ef" value="#{altaEventoWeb.espacioFisicoID}" dynamic="true">
+                        <f:selectItem itemLabel="Seleccionar..." itemValue="" />
+                        <f:selectItems value="#{altaEventoWeb.espaciosFisicos}" var="item" itemLabel="#{item.nombre}" itemValue="#{item.id}" />
+                    </p:selectOneMenu>
+                    
+                    <p:row>
 						<p:column styleClass="ui-grid-col-12">
 							<p:commandButton class="font-bold" value="#{text.crearEvento}"
 								styleClass="ui-button-raised ui-button-secondary w-4"

@@ -10,7 +10,7 @@
     </ui:define>
 
 	<ui:define name="content">
-		<section class="flex justify-content-center" style="height: 20em;">
+		<section class="flex justify-content-center mb-8">
 			<f:metadata>
 				<f:viewParam name="nombre"
 					value="#{misEspaciosFisicosWeb.propietario}" />
@@ -23,16 +23,16 @@
 				<p:dataTable id="tablaEspaciosFisicos" var="espacioFisicoDTO"
 					value="#{misEspaciosFisicosWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}" >
 					
-					<p:column headerText="#{text.nombre}">
+					<p:column headerText="#{text.nombre}" sortBy="#{espacioFisicoDTO.nombre}">
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
-					<p:column headerText="#{text.capacidad}" class="w-1">
+					<p:column headerText="#{text.capacidad}" class="w-1" sortBy="#{espacioFisicoDTO.capacidad}">
 						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
 					</p:column>
-					<p:column headerText="#{text.direccion}">
+					<p:column headerText="#{text.direccion}" sortBy="#{espacioFisicoDTO.direccion}">
 						<h:outputText value="#{espacioFisicoDTO.direccion}" />
 					</p:column>
-					<p:column headerText="#{text.estado}" class="w-2">
+					<p:column headerText="#{text.estado}" class="w-2" sortBy="#{espacioFisicoDTO.estado}">
 						<h:outputText value="#{misEspaciosFisicosWeb.getEstadoTexto(espacioFisicoDTO.estado)}" />
 					</p:column>
 					<p:column class="w-1">

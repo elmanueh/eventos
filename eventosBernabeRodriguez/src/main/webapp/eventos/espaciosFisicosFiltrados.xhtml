@@ -16,67 +16,71 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<section class="flex justify-content-center" style="margin-bottom: 20em;">
+		<section class="flex justify-content-center mb-8">
 			<h:form id="form" class="w-10">
 				<p:growl id="messages" showDetail="true" />
 
-				<p:dataTable id="espaciosFisicos" var="espacioFisicoDTO"
-					value="#{filtrarEspacioFisicoWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}">
+				<div class="my-6 pl-5 flex">
+					<div class="flex align-items-center gap-8">
+                        <div>
+                            <p:outputLabel value="#{text.fechaInicio}"
+                                style="padding-right: 10px;" />
+                            <p:datePicker id="fechaInicio"
+                                value="#{filtrarEspacioFisicoWeb.fechaInicio}" showTime="true"
+                                readonlyInput="true" maxdate="#{filtrarEspacioFisicoWeb.fechaFin}"
+                                hideOnDateTimeSelect="true">
+                                <p:ajax event="dateSelect" update="fechaFin" />
+                            </p:datePicker>
+                        </div>
+                        <div>
+                            <p:outputLabel value="#{text.fechaFin}" style="padding-right: 10px;" />
+                            <p:datePicker id="fechaFin"
+                                value="#{filtrarEspacioFisicoWeb.fechaFin}" showTime="true"
+                                readonlyInput="true" mindate="#{filtrarEspacioFisicoWeb.fechaInicio}"
+                                hideOnDateTimeSelect="true">
+                                <p:ajax event="dateSelect" update="fechaInicio" />
+                            </p:datePicker>
+                        </div>
+                        <div>
+                            <p:outputLabel value="#{text.capacidad}" style="padding-right: 10px;" />
+                            <p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
+                                converter="javax.faces.Integer" />
+                        </div>
+                    </div>
+                        <div style="margin-left: auto;">
+                            <p:commandButton value="#{text.buscarEspacios}"
+                                action="#{filtrarEspacioFisicoWeb.load()}"
+                                update="espaciosFisicos messages" process="@form"
+                                styleClass="submit-button" />
+                        </div>
+				</div>
 
-					<p:column headerText="Id">
-						<h:outputText value="#{espacioFisicoDTO.id}" />
-					</p:column>
-					<p:column headerText="#{text.nombre}">
+                <p:dataTable id="espaciosFisicos" var="espacioFisicoDTO" widgetVar="tabla-ef"
+					value="#{filtrarEspacioFisicoWeb.espaciosFisicos}" emptyMessage="#{text.noEncontrados}" paginator="true" rows="7" paginatorPosition="bottom">
+
+                    <f:facet name="header">
+                        <div class="flex justify-content-end">
+                            <p:inputText id="globalFilter" onkeyup="PF('tabla-ef').filter()" style="width:300px"
+                                placeholder="#{text.textoFiltro}" />
+                        </div>
+                    </f:facet>
+
+					<p:column headerText="#{text.nombre}" sortBy="#{espacioFisicoDTO.nombre}"  filterMatchMode="contains" >
 						<h:outputText value="#{espacioFisicoDTO.nombre}" />
 					</p:column>
-					<p:column headerText="#{text.capacidad}">
+					<p:column headerText="#{text.capacidad}" sortBy="#{espacioFisicoDTO.capacidad}" filterMatchMode="contains" class="w-1" >
 						<h:outputText value="#{espacioFisicoDTO.capacidad}" />
 					</p:column>
-					<p:column headerText="#{text.direccion}">
+					<p:column headerText="#{text.direccion}" sortBy="#{espacioFisicoDTO.direccion}" filterMatchMode="contains" >
 						<h:outputText value="#{espacioFisicoDTO.direccion}" />
 					</p:column>
-					<p:column headerText="#{text.descripcion}">
+					<p:column headerText="#{text.descripcion}" sortBy="#{espacioFisicoDTO.descripcion}" filterMatchMode="contains" >
 						<h:outputText value="#{espacioFisicoDTO.descripcion}" />
 					</p:column>
-					<p:column headerText="#{text.propietario}">
+					<p:column headerText="#{text.propietario}" class="w-1" sortBy="#{espacioFisicoDTO.propietario}" filterMatchMode="contains" >
 						<h:outputText value="#{espacioFisicoDTO.propietario}" />
 					</p:column>
 				</p:dataTable>
-
-				<div
-					style="padding-left: 8rem; display: flex; flex-direction: row; margin-top: 50px; align-items: center; gap: 30px;">
-					<div>
-						<p:outputLabel value="#{text.fechaInicio}"
-							style="padding-right: 10px;" />
-						<p:datePicker id="fechaInicio"
-							value="#{filtrarEspacioFisicoWeb.fechaInicio}" showTime="true"
-							readonlyInput="true" maxdate="#{filtrarEspacioFisicoWeb.fechaFin}"
-							hideOnDateTimeSelect="true">
-							<p:ajax event="dateSelect" update="fechaFin" />
-						</p:datePicker>
-					</div>
-					<div>
-						<p:outputLabel value="#{text.fechaFin}" style="padding-right: 10px;" />
-						<p:datePicker id="fechaFin"
-							value="#{filtrarEspacioFisicoWeb.fechaFin}" showTime="true"
-							readonlyInput="true" mindate="#{filtrarEspacioFisicoWeb.fechaInicio}"
-							hideOnDateTimeSelect="true">
-							<p:ajax event="dateSelect" update="fechaInicio" />
-						</p:datePicker>
-					</div>
-					<div>
-						<p:outputLabel value="#{text.capacidad}" style="padding-right: 10px;" />
-						<p:spinner value="#{filtrarEspacioFisicoWeb.capacidad}" min="1"
-							converter="javax.faces.Integer" />
-					</div>
-					<div style="margin-left: auto; padding-right: 8rem;">
-						<p:commandButton value="#{text.buscarEspacios}"
-							action="#{filtrarEspacioFisicoWeb.load()}"
-							update="espaciosFisicos messages" process="@form"
-							styleClass="submit-button" />
-
-					</div>
-				</div>
 
 			</h:form>
 		</section>

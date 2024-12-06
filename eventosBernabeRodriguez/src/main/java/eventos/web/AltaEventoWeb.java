@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -15,8 +14,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import eventos.modelo.EspacioFisico;
 import eventos.modelo.EventoCategoria;
+import eventos.servicio.IServicioEspacios;
 import eventos.servicio.IServicioEventos;
+import eventos.servicio.ServicioEspacios;
 import eventos.servicio.ServicioEventos;
 
 @SuppressWarnings("serial")
@@ -33,16 +35,19 @@ public class AltaEventoWeb implements Serializable {
 	private String espacioFisicoID;
 
 	private IServicioEventos servicioEventos;
+    private IServicioEspacios servicioEspacios;
 
 	private List<String> categorias = new ArrayList<>();
+    private List<EspacioFisico> espaciosFisicos = new ArrayList<>();
 
-	@Inject
+    @Inject
 	protected FacesContext facesContext;
 
 	private ResourceBundle bundle;
 
 	public AltaEventoWeb() {
 		servicioEventos = new ServicioEventos();
+        servicioEspacios = new ServicioEspacios();
 	}
 
 	@PostConstruct
@@ -55,16 +60,23 @@ public class AltaEventoWeb implements Serializable {
 	}
 
 	public void altaEvento() {
-		// comprobación de campos
-
 		try {
-			String resultado = servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin,
-					numPlazas, espacioFisicoID);
+			servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin, numPlazas, espacioFisicoID);
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("alta"), bundle.getString("evento")));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}
 	}
+
+    public List<EspacioFisico> getEspaciosFisicos() {
+        if (fechaInicio == null || fechaFin == null || numPlazas <= 0) return new ArrayList<>();
+
+        return servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas);
+    }
+
+    public void setEspaciosFisicos(List<EspacioFisico> espaciosFisicos) {
+        this.espaciosFisicos = espaciosFisicos;
+    }
 
 	public String getEstadoTexto(String estado) {
 		return bundle.getString(estado);
