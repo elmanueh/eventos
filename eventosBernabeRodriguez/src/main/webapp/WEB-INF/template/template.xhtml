@@ -8,7 +8,7 @@
 	<meta charset="utf-8" />
 	<title><ui:insert name="title" /></title>
 	<link rel="icon" type="image/png"
-		href="https://cdn-icons-png.freepik.com/256/8026/8026333.png?semt=ais_hybrid" />
+		href="https://cdn-icons-png.freepik.com/256/8026/8026333.png" />
 	<h:outputStylesheet library="webjars"
 		name="primeflex/3.3.1/primeflex.min.css" />
 </h:head>
@@ -20,7 +20,7 @@
 			<f:facet name="start">
 				<div class="flex">
 					<img class="mr-6"
-						src="https://cdn-icons-png.freepik.com/256/8026/8026333.png?semt=ais_hybrid"
+						src="https://cdn-icons-png.freepik.com/256/8026/8026333.png"
 						alt="Logo de la aplicación" width="50px" />
 					<ui:insert name="opciones" />
 				</div>
@@ -32,7 +32,7 @@
 						#{text.mensaje} <span class="font-bold">#{param.nombre}</span>
 					</p>
 					<p:button value="#{text.cerrarSesion}" icon="pi pi-fw pi-sign-out"
-						styleClass="ui-button-outlined ui-button-info"
+						styleClass="ui-button-outlined"
 						outcome="/index.xhtml" />
 				</div>
 			</f:facet>
