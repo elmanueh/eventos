@@ -14,7 +14,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import eventos.modelo.EspacioFisico;
+import eventos.dto.EspacioFisicoDTO;
 import eventos.modelo.EventoCategoria;
 import eventos.servicio.IServicioEspacios;
 import eventos.servicio.IServicioEventos;
@@ -38,7 +38,7 @@ public class AltaEventoWeb implements Serializable {
     private IServicioEspacios servicioEspacios;
 
 	private List<String> categorias = new ArrayList<>();
-    private List<EspacioFisico> espaciosFisicos = new ArrayList<>();
+    private List<EspacioFisicoDTO> espaciosFisicos = new ArrayList<>();
 
     @Inject
 	protected FacesContext facesContext;
@@ -68,13 +68,13 @@ public class AltaEventoWeb implements Serializable {
 		}
 	}
 
-    public List<EspacioFisico> getEspaciosFisicos() {
+    public List<EspacioFisicoDTO> getEspaciosFisicos() {
         if (fechaInicio == null || fechaFin == null || numPlazas <= 0) return new ArrayList<>();
 
         return servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas);
     }
 
-    public void setEspaciosFisicos(List<EspacioFisico> espaciosFisicos) {
+    public void setEspaciosFisicos(List<EspacioFisicoDTO> espaciosFisicos) {
         this.espaciosFisicos = espaciosFisicos;
     }
 

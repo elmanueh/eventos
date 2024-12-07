@@ -44,7 +44,7 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 
 	public void load() {
 		try {
-			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres2(fechaInicio, fechaFin, capacidad);
+			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, capacidad);
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("busqueda"), bundle.getString("EspaciosFisicosLibres")));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-import eventos.modelo.EspacioFisico;
+import eventos.dto.EspacioFisicoDTO;
 import eventos.modelo.EventoCategoria;
 import eventos.modelo.PuntoInteres;
 
@@ -247,24 +247,24 @@ public class Programa {
 			
 			// Buscar espacios fisicos disponibles
 			System.out.println("Los espacios físicos disponibles para el 24 de Feberero de 2025 de 9-21 son:");
-			List<EspacioFisico> espacios24Febrero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 2, 24, 9, 0),
+			List<EspacioFisicoDTO> espacios24Febrero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 2, 24, 9, 0),
 					LocalDateTime.of(2024, 2, 24, 21, 0), 100);
 			if (espacios24Febrero2025.isEmpty())
 				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (24-2-2025)");
 			else {
-				for (EspacioFisico e : espacios24Febrero2025) {
+				for (EspacioFisicoDTO e : espacios24Febrero2025) {
 					System.out.println(e);
 				}
 			}
 			System.out.println();
 
 			System.out.println("Los espacios físicos disponibles para el 2 de Enero de 2025 son:");
-			List<EspacioFisico> espacios2Enero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 1, 2, 9, 0),
+			List<EspacioFisicoDTO> espacios2Enero2025 = servicioEspacios.buscarEspaciosFisicosLibres(LocalDateTime.of(2025, 1, 2, 9, 0),
 					LocalDateTime.of(2025, 1, 2, 23, 0), 1000);
 			if (espacios2Enero2025.isEmpty())
 				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (2-1-2025)");
 			else {
-				for (EspacioFisico e : espacios2Enero2025) {
+				for (EspacioFisicoDTO e : espacios2Enero2025) {
 					System.out.println(e);
 				}
 			}
@@ -284,7 +284,7 @@ public class Programa {
 			if (espacios2Enero2025.isEmpty())
 				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (2-1-2025)");
 			else {
-				for (EspacioFisico e : espacios2Enero2025) {
+				for (EspacioFisicoDTO e : espacios2Enero2025) {
 					System.out.println(e);
 				}
 			}
@@ -306,7 +306,7 @@ public class Programa {
 			if (espacios2Enero2025.isEmpty())
 				System.out.println("NO HAY ESPACIOS FISICOS PARA LA FECHA INDICADA (2-1-2025)");
 			else {
-				for (EspacioFisico e : espacios2Enero2025) {
+				for (EspacioFisicoDTO e : espacios2Enero2025) {
 					System.out.println(e);
 				}
 			}

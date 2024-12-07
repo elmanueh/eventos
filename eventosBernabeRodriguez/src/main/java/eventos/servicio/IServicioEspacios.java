@@ -8,7 +8,6 @@ import eventos.modelo.PuntoInteres;
 import eventos.repositorio.EntidadNoEncontrada;
 import eventos.repositorio.RepositorioException;
 import eventos.dto.EspacioFisicoDTO;
-import eventos.modelo.EspacioFisico;
 
 public interface IServicioEspacios {
 
@@ -23,10 +22,8 @@ public interface IServicioEspacios {
 	void bajaEspacioFisico(String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
 
 	void activarEspacioFisico(String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
-
-	List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
 	
-	List<EspacioFisicoDTO> buscarEspaciosFisicosLibres2(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
+	List<EspacioFisicoDTO> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
 
 	List<EspacioFisicoDTO> obtenerMisEspaciosFisicos(String propietario);
 }

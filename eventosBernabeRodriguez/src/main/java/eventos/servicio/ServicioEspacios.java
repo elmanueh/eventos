@@ -139,20 +139,7 @@ public class ServicioEspacios implements IServicioEspacios {
 	}
 
 	@Override
-	public List<EspacioFisico> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
-
-		if (fechaInicio == null)
-			throw new IllegalArgumentException("La fecha de inicio no puede ser nula.");
-		if (fechaFin == null)
-			throw new IllegalArgumentException("La fecha de fin no puede ser nula.");
-		if (capacidad <= 0)
-			throw new IllegalArgumentException("La capacidad debe ser mayor que 0.");
-
-		return repositorioEspacioFisico.getEspaciosFisicoLibres(fechaInicio, fechaFin, capacidad);
-	}
-
-	@Override
-	public List<EspacioFisicoDTO> buscarEspaciosFisicosLibres2(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
+	public List<EspacioFisicoDTO> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad) {
 
 		if (fechaInicio == null)
 			throw new IllegalArgumentException("La fecha de inicio no puede ser nula.");
