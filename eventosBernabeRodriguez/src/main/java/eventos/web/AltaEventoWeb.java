@@ -38,7 +38,6 @@ public class AltaEventoWeb implements Serializable {
     private IServicioEspacios servicioEspacios;
 
 	private List<String> categorias = new ArrayList<>();
-    private List<EspacioFisicoDTO> espaciosFisicos = new ArrayList<>();
 
     @Inject
 	protected FacesContext facesContext;
@@ -72,10 +71,6 @@ public class AltaEventoWeb implements Serializable {
         if (fechaInicio == null || fechaFin == null || numPlazas <= 0) return new ArrayList<>();
 
         return servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas);
-    }
-
-    public void setEspaciosFisicos(List<EspacioFisicoDTO> espaciosFisicos) {
-        this.espaciosFisicos = espaciosFisicos;
     }
 
 	public String getEstadoTexto(String estado) {
