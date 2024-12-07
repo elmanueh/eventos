@@ -14,17 +14,17 @@ import javax.inject.Named;
 @SuppressWarnings("serial")
 @Named
 @SessionScoped
-public class InicioWeb implements Serializable{
+public class InicioWeb implements Serializable {
 	private String nombre;
-	
+
 	@Inject
 	protected FacesContext facesContext;
-	
+
 	private ResourceBundle bundle;
 
 	@PostConstruct
 	public void initBundle() {
-	    bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
+		bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
 	}
 
 	public String getNombre() {
@@ -34,34 +34,30 @@ public class InicioWeb implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public void cambiarAOrganizador() {
 		if (nombre != null && !nombre.isEmpty()) {
 			try {
-			    facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
+				facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
 			} catch (IOException e) {
-			    facesContext.addMessage(null,
-			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
-			    e.printStackTrace();
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
+				e.printStackTrace();
 			}
-		}
-		else
+		} else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), bundle.getString("nombreVacio")));
 
 	}
-	
+
 	public void cambiarAPropietario() {
 		if (nombre != null && !nombre.isEmpty()) {
 			try {
-			    facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml?nombre="+ nombre);
+				facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml?nombre=" + nombre);
 			} catch (IOException e) {
-			    facesContext.addMessage(null,
-			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
-			    e.printStackTrace();
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
+				e.printStackTrace();
 			}
-		}
-		else
+		} else
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), bundle.getString("nombreVacio")));
 	}
-	
+
 }

@@ -70,8 +70,8 @@ public class ServicioEventos implements IServicioEventos {
 	}
 
 	@Override
-	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico)
-			throws RepositorioException, EntidadNoEncontrada {
+	public void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas,
+			String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada {
 
 		if (idEvento == null || idEvento.isEmpty())
 			throw new IllegalArgumentException("El id del evento no puede ser nulo o vacío.");
@@ -79,7 +79,7 @@ public class ServicioEventos implements IServicioEventos {
 			throw new IllegalArgumentException("La descripción del evento no puede ser vacía.");
 		if (numPlazas == 0 && numPlazas < -1)
 			throw new IllegalArgumentException("El número de plazas del evento debe ser mayor que 0.");
-		if (idEspacioFisico!= null && idEspacioFisico.isEmpty())
+		if (idEspacioFisico != null && idEspacioFisico.isEmpty())
 			throw new IllegalArgumentException("El id del espacio físico no puede ser vacío.");
 
 		try {
@@ -106,10 +106,10 @@ public class ServicioEventos implements IServicioEventos {
 
 	@Override
 	public void cancelarEvento(String idEvento) throws RepositorioException, EntidadNoEncontrada {
-		
+
 		if (idEvento == null || idEvento.isEmpty())
-            throw new IllegalArgumentException("El id del evento no puede ser nulo o vacio.");
-		
+			throw new IllegalArgumentException("El id del evento no puede ser nulo o vacio.");
+
 		try {
 			Evento evento = repositorioEvento.getById(idEvento);
 			evento.setCancelado();
@@ -123,12 +123,12 @@ public class ServicioEventos implements IServicioEventos {
 
 	@Override
 	public String eventosDelMes(int mes, int año) {
-		
+
 		if (mes < 1 || mes > 12)
 			throw new IllegalArgumentException("El mes debe estar comprendido entre 1 y 12.");
 		if (año < 0)
 			throw new IllegalArgumentException("El año no puede ser negativo.");
-		
+
 		List<Evento> eventos = repositorioEvento.getEventosDelMes(mes, año);
 		String resumenEventos = eventos.stream().map(Evento::toString).collect(Collectors.joining(""));
 		return resumenEventos;

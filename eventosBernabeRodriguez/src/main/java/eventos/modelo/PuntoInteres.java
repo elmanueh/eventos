@@ -33,8 +33,6 @@ public class PuntoInteres {
 		this.distancia = distancia;
 		this.url = url;
 	}
-	
-	
 
 	public String getId() {
 		return id;

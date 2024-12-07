@@ -22,7 +22,7 @@ public interface IServicioEspacios {
 	void bajaEspacioFisico(String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
 
 	void activarEspacioFisico(String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
-	
+
 	List<EspacioFisicoDTO> buscarEspaciosFisicosLibres(LocalDateTime fechaInicio, LocalDateTime fechaFin, int capacidad);
 
 	List<EspacioFisicoDTO> obtenerMisEspaciosFisicos(String propietario);

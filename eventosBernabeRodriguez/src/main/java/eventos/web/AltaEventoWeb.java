@@ -35,18 +35,18 @@ public class AltaEventoWeb implements Serializable {
 	private String espacioFisicoID;
 
 	private IServicioEventos servicioEventos;
-    private IServicioEspacios servicioEspacios;
+	private IServicioEspacios servicioEspacios;
 
 	private List<String> categorias = new ArrayList<>();
 
-    @Inject
+	@Inject
 	protected FacesContext facesContext;
 
 	private ResourceBundle bundle;
 
 	public AltaEventoWeb() {
 		servicioEventos = new ServicioEventos();
-        servicioEspacios = new ServicioEspacios();
+		servicioEspacios = new ServicioEspacios();
 	}
 
 	@PostConstruct
@@ -60,18 +60,20 @@ public class AltaEventoWeb implements Serializable {
 
 	public void altaEvento() {
 		try {
-			servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin, numPlazas, espacioFisicoID);
+			servicioEventos.altaEvento(nombre, descripcion, organizador, EventoCategoria.valueOf(categoria), fechaInicio, fechaFin, numPlazas,
+					espacioFisicoID);
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("alta"), bundle.getString("evento")));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}
 	}
 
-    public List<EspacioFisicoDTO> getEspaciosFisicos() {
-        if (fechaInicio == null || fechaFin == null || numPlazas <= 0) return new ArrayList<>();
+	public List<EspacioFisicoDTO> getEspaciosFisicos() {
+		if (fechaInicio == null || fechaFin == null || numPlazas <= 0)
+			return new ArrayList<>();
 
-        return servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas);
-    }
+		return servicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, numPlazas);
+	}
 
 	public String getEstadoTexto(String estado) {
 		return bundle.getString(estado);
@@ -102,9 +104,8 @@ public class AltaEventoWeb implements Serializable {
 	}
 
 	public List<String> getCategorias() {
-		return categorias.stream()
-                .map(categoria -> bundle.containsKey(categoria) ? bundle.getString(categoria) : categoria)
-                .collect(Collectors.toList());
+		return categorias.stream().map(categoria -> bundle.containsKey(categoria) ? bundle.getString(categoria) : categoria)
+				.collect(Collectors.toList());
 	}
 
 	public void setCategorias(List<String> categorias) {

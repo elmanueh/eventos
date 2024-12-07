@@ -30,22 +30,23 @@ public class FiltrarEspacioFisicoWeb implements Serializable {
 
 	@Inject
 	protected FacesContext facesContext;
-	
+
 	private ResourceBundle bundle;
 
 	public FiltrarEspacioFisicoWeb() {
 		ServicioEspacios = new ServicioEspacios();
 	}
-	
+
 	@PostConstruct
 	public void initBundle() {
-	    bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
+		bundle = ResourceBundle.getBundle("i18n.text", facesContext.getViewRoot().getLocale());
 	}
 
 	public void load() {
 		try {
 			espaciosFisicos = ServicioEspacios.buscarEspaciosFisicosLibres(fechaInicio, fechaFin, capacidad);
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("busqueda"), bundle.getString("EspaciosFisicosLibres")));
+			facesContext.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("busqueda"), bundle.getString("EspaciosFisicosLibres")));
 		} catch (Exception e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 		}

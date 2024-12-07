@@ -12,20 +12,17 @@ public class GeoNamesAPI {
 		String urlString = "http://api.geonames.org/findNearbyWikipedia?username=elmanueh&lang=ES&lat=" + lat + "&lng=" + longi;
 
 		try {
-            // Crear el cliente HttpClient
-            HttpClient client = HttpClient.newHttpClient();
+			// Crear el cliente HttpClient
+			HttpClient client = HttpClient.newHttpClient();
 
-            // Crear la solicitud HttpRequest
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(urlString))
-                .GET()
-                .build();
+			// Crear la solicitud HttpRequest
+			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlString)).GET().build();
 
-            // Enviar la solicitud y obtener la respuesta
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			// Enviar la solicitud y obtener la respuesta
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Retornar el cuerpo de la respuesta
-            return response.body();
+			// Retornar el cuerpo de la respuesta
+			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

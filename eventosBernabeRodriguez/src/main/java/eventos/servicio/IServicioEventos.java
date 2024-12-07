@@ -11,8 +11,8 @@ public interface IServicioEventos {
 	String altaEvento(String nombre, String descripcion, String organizador, EventoCategoria categoria, LocalDateTime fechaInicio,
 			LocalDateTime fechaFin, int numPlazas, String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
 
-	void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas, String idEspacioFisico)
-			throws RepositorioException, EntidadNoEncontrada;
+	void modificarEvento(String idEvento, String descripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin, int numPlazas,
+			String idEspacioFisico) throws RepositorioException, EntidadNoEncontrada;
 
 	void cancelarEvento(String idEvento) throws RepositorioException, EntidadNoEncontrada;
 

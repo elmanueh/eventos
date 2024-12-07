@@ -156,11 +156,8 @@ public class ServicioEspacios implements IServicioEspacios {
 			return Collections.emptyList();
 		}
 
-		return espaciosFisicoLibres
-				.stream().map(
-						espacio -> new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(),
-								espacio.getDireccion(), espacio.getDescripcion(), espacio.getEstado()))
-				.collect(Collectors.toList());
+		return espaciosFisicoLibres.stream().map(espacio -> new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(),
+				espacio.getCapacidad(), espacio.getDireccion(), espacio.getDescripcion(), espacio.getEstado())).collect(Collectors.toList());
 	}
 
 	@Override
