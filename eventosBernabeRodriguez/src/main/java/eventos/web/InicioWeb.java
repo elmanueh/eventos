@@ -5,15 +5,15 @@ import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @SuppressWarnings("serial")
 @Named
-@ViewScoped
+@SessionScoped
 public class InicioWeb implements Serializable{
 	private String nombre;
 	
@@ -36,13 +36,18 @@ public class InicioWeb implements Serializable{
 	}
 	
 	public void cambiarAOrganizador() {
-		try {
-		    facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
-		} catch (IOException e) {
-		    facesContext.addMessage(null,
-		                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
-		    e.printStackTrace();
+		if (nombre != null && !nombre.isEmpty()) {
+			try {
+			    facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
+			} catch (IOException e) {
+			    facesContext.addMessage(null,
+			                    new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
+			    e.printStackTrace();
+			}
 		}
+		else
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), bundle.getString("nombreVacio")));
+
 	}
 	
 	public void cambiarAPropietario() {
