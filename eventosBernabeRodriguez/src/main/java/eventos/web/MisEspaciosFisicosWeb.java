@@ -65,7 +65,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 				}
 
 			} catch (RepositorioException | EntidadNoEncontrada e) {
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), bundle.getString("ocupacionActiva")));
 			}
 			load();
 		}
