@@ -33,6 +33,7 @@ public class InicioWeb implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+        MisEspaciosFisicosWeb.setPropietario(nombre);
 	}
 
 	public void cambiarAOrganizador() {
@@ -51,7 +52,7 @@ public class InicioWeb implements Serializable {
 	public void cambiarAPropietario() {
 		if (nombre != null && !nombre.isEmpty()) {
 			try {
-				facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml?nombre=" + nombre);
+				facesContext.getExternalContext().redirect("eventos/espaciosFisicosCreados.xhtml");
 			} catch (IOException e) {
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 				e.printStackTrace();

@@ -118,7 +118,9 @@ public class ServicioEspacios implements IServicioEspacios {
 			} catch (EntidadNoEncontrada e) {
 				throw new EntidadNoEncontrada("Error al encontrar el espacio físico con id " + idEspacioFisico + ".");
 			}
-		}
+		} else {
+            throw new RepositorioException("No se puede dar de baja un espacio físico con ocupaciones activas.");
+        }
 	}
 
 	@Override

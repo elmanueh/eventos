@@ -25,7 +25,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 	private List<EspacioFisicoDTO> espaciosFisicos;
 
 	private EspacioFisicoDTO espacioSeleccionado;
-	private String propietario;
+	private static String propietario;
 
 	private IServicioEspacios ServicioEspacios;
 
@@ -65,7 +65,6 @@ public class MisEspaciosFisicosWeb implements Serializable {
 				}
 
 			} catch (RepositorioException | EntidadNoEncontrada e) {
-				e.printStackTrace();
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 			}
 			load();
@@ -96,7 +95,7 @@ public class MisEspaciosFisicosWeb implements Serializable {
 		return propietario;
 	}
 
-	public void setPropietario(String propietario) {
-		this.propietario = propietario;
+	public static void setPropietario(String propietario) {
+		MisEspaciosFisicosWeb.propietario = propietario;
 	}
 }
