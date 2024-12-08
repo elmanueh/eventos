@@ -39,7 +39,7 @@ public class InicioWeb implements Serializable {
 		if (nombre != null && !nombre.isEmpty()) {
 			try {
 				AltaEventoWeb.setOrganizador(nombre);
-				facesContext.getExternalContext().redirect("eventos/altaEvento.xhtml");
+				facesContext.getExternalContext().redirect("eventos/espaciosFisicosFiltrados.xhtml");
 			} catch (IOException e) {
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("error"), e.getMessage()));
 			}
