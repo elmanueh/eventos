@@ -34,7 +34,7 @@
 					<p:inputTextarea rows="2" value="#{altaEventoWeb.descripcion}" />
 
 					<p:outputLabel for="@next" value="#{text.organizador}" />
-					<p:inputText value="#{altaEventoWeb.organizador}" />
+					<p:inputText value="#{altaEventoWeb.organizador}" readonly="true"/>
 
 					<p:outputLabel for="@next" value="#{text.numeroPlazas}" />
 					<p:spinner value="#{altaEventoWeb.numPlazas}" min="1" converter="javax.faces.Integer" >

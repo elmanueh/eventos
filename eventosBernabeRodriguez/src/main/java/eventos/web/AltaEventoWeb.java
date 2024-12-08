@@ -27,7 +27,7 @@ import eventos.servicio.ServicioEventos;
 public class AltaEventoWeb implements Serializable {
 	private String nombre;
 	private String descripcion;
-	private String organizador;
+	private static String organizador;
 	private int numPlazas;
 	private String categoria;
 	private LocalDateTime fechaInicio;
@@ -132,8 +132,8 @@ public class AltaEventoWeb implements Serializable {
 		return organizador;
 	}
 
-	public void setOrganizador(String organizador) {
-		this.organizador = organizador;
+	public static void setOrganizador(String organizador) {
+		AltaEventoWeb.organizador = organizador;
 	}
 
 	public int getNumPlazas() {
